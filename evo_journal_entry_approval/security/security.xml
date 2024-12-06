@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="group_evo_journal_approval" model="res.groups">
+        <field name="name">Approve Journal Entries</field>
+    </record>
+</odoo>

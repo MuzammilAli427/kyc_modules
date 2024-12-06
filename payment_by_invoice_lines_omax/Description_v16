@@ -1,0 +1,23 @@
+----------------------------------------------------------------------------------------
+CHANGES DURING MIGRATION IN V_16
+----------------------------------------------------------------------------------------
+
+-> line 42  change line.display_type == 'False' to line.display_type == 'product' in wizard/account_payment_register.py
+
+-> line 46  change line.display_type == 'False' to line.display_type == 'product' in wizard/account_payment_register.py
+
+-> line 96 add a batch_result on parameter of  _create_payment_vals_from_wizard method in wizard/account_payment_register.py.
+
+-> line 98 add a batch_result on parameter of super in wizard/account_payment_register.py .
+
+-> line 16  change line.display_type == 'False' to line.display_type == 'product' in models/account_move.py.
+
+-> line 23  change line.display_type == 'False' to line.display_type == 'product' in models/account_move.py.
+
+-> line 25  change line.display_type == 'False' to line.display_type == 'product' in report/report.xml.
+
+-> line 27  change line.display_type == 'False' to line.display_type == 'product' in report/report.xml.
+
+-> line 59 and line 126  change "not line.display_type" to "line.display_type == 'product'" in report/report.xml.
+
+-> line 86 and line 153  change "text-right" to "text-end" in report/report.xml.

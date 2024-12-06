@@ -1,0 +1,37 @@
+<odoo>
+    <record id="account_loan_wizard" model="ir.ui.view">
+        <field name="name">account.loan.wizard</field>
+        <field name="model">account.loan.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="EOD Report">
+                <group>
+                    <group>
+                   <field name="new_create_date"/>
+                   </group>
+                </group>
+                
+                
+                <footer>
+                    <button class="oe_highlight" name="get_report" string="Get Report" type="object"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_account_loan_wizard" name="Loan Report" res_model="account.loan.wizard" target="new" view_mode="form"/>
+
+
+   
+     <record id="account_loan_report" model="ir.actions.report">
+            <field name="name">EOD Report</field>
+            <field name="report_type">xlsx</field>
+            <field name="model">account.loan</field>
+            <field name="report_name">smart_loan_system.account_loan_reports</field>
+            <field name="report_file">smart_loan_system.account_loan_reports</field>
+        </record>
+
+ <menuitem  action="action_account_loan_wizard" id="action_account_loan_report_tree" parent="account_config" name="EOD Report" sequence="5" />
+
+</odoo>

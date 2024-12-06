@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="special_account_view" model="ir.ui.view">
+            <field name="name">loan.settings.view.form</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Loans" string="Loans"
+                         data-key="ae_loan_management">
+                        <h2>Bad Debt Accounts for Loans</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label for="write_off_account_id" string="Write-Off Account"/>
+                                    <div class="text-muted">
+                                        Account used to write-off the unpaid amount from the invoices, which need to
+                                        be cancelled when loan was Cancelled / Closed.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="write_off_account_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>Delinquent Period for Loans</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label for="max_delinquent_period" string="Max Delinquent Period"/>
+                                    <div class="text-muted">
+                                        Maximum Period Loan Can Be Delinquent.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="max_delinquent_period"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>Loans Accounts and Products</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Principal Product" for="principal_prod_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as principal amount of the loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="principal_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Interest Product" for="interest_prod_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as the interest amount of the loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="interest_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Life Insurance" for="principal_prod_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as life insurance of the loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="bonaire_principal_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Fire Insurance" for="interest_prod_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as the fire insurance of the loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="bonaire_interest_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Processing Fee Product" for="processing_fee_prod_id"/>
+                                    <div class="text-muted">
+
+                                    </div>Product used to invoice as processing fee from the loans.
+                                    <div class="text-muted">
+                                        <field name="processing_fee_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Penalty Product" for="processing_fee_prod_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as penalty fee from the loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="penalty_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Restructuring Product" for="restructuring_prod_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as restructuring of loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="restructuring_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="OB Tax Product" for="ob_tax_prod_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as OB Tax of Restructuring of loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="ob_tax_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Account Receivable" for="acc_rec_id"/>
+                                    <div class="text-muted">
+                                        Account Receivable used in loan invoices.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="acc_rec_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Loan Income Account" for="income_acc_id"/>
+                                    <div class="text-muted">
+                                        Income Account used in loan invoice items.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="income_acc_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Loan Journal" for="loan_jou_id"/>
+                                    <div class="text-muted">
+                                        Journal used in loan invoice.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="loan_jou_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Disbursement Account" for="disbursement_acc_id"/>
+                                    <div class="text-muted">
+                                        Disbursement Account used in loan amount entry.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="disbursement_acc_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Difference Account" for="difference_acc_id"/>
+                                    <div class="text-muted">
+                                        Difference Account used in loan amount entry.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="difference_acc_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Fee and Commission Account" for="fee_commission_acc_id"/>
+                                    <div class="text-muted">
+                                        Fee and Commission Account used in loan amount entry.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="fee_commission_acc_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Loan Suspense Account" for="loan_suspense_acc_id"/>
+                                    <div class="text-muted">
+                                        Loan Suspense Account used in loan amount entry.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="loan_suspense_acc_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Early Payment Product" for="early_payment_prod_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as early payment fee from the loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="early_payment_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Early Partial Payment Product" for="early_partial_payment_prod_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as early partial payment fee from the loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="early_partial_payment_prod_id"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label string="Ground Lease Product" for="ground_lease_product_id"/>
+                                    <div class="text-muted">
+                                        Product used to invoice as ground lease amount from the loans.
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="ground_lease_product_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_loan_configuration" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'ae_loan_management'}</field>
+        </record>
+
+        <menuitem id="account_config"
+                  name="Configurations"
+                  parent="loan_management_menu"
+                  sequence="6"
+        />
+
+        <menuitem id="account_setting"
+                  name="Settings"
+                  parent="account_config"
+                  sequence="1"
+                  action="action_loan_configuration"
+        />
+
+    </data>
+</odoo>

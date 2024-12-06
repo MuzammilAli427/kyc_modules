@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_label_data_form" model="ir.ui.view">
+		<field name="name">label.data</field>
+		<field name="model">label.data</field>
+		<field name="arch" type="xml">
+			<tree editable="top">
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+	<record id="action_label_data_form" model="ir.actions.act_window">
+		<field name="name">Label Data</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">label.data</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	<menuitem id="menu_label_data_form" name="Label Data" parent="account.menu_finance_configuration" action="action_label_data_form"/>
+
+
+	
+
+   <record id="account_journal_dashboard_kanban_view_js" model="ir.ui.view">
+        <field name="name">account.journal.dashboard.kanban.js</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//t[@t-name='JournalTop']//div[hasclass('o_primary')]" position="after">
+                <button  type="object" name="action_get_account_moves" class="btn btn-danger" groups="!bit_accounting_dashboard.group_accounting_dashboard">
+               <span>CAD Journal</span>
+             </button>
+            </xpath>
+        </field>
+    </record>
+            
+        
+</odoo>

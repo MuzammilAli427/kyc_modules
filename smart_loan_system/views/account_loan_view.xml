@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree view for loan -->
+    <record id="account_loan_tree" model="ir.ui.view">
+        <field name="name">account.loan.tree</field>
+        <field name="model">account.loan</field>
+        <field name="arch" type="xml">
+            <tree string="Loans">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+                <field name="total_principal_balance"/>
+                <field name="is_leasing"/>
+                <field name="insurance_sale_price"/>
+                <field name="tax_sale_price"/>
+                <field name="state"/>
+                <field name="amount_due"/>
+                <field name="days_past_due"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for loan -->
+    <record id="account_loan_form" model="ir.ui.view">
+        <field name="name">account.loan.form</field>
+        <field name="model">account.loan</field>
+        <field name="arch" type="xml">
+            <form string="Loan">
+                <header>
+                    <field name="is_compute_items" invisible="1"/>
+                    <button name="extra_payment_loan"
+                            attrs="{'invisible': [('state', '!=', 'posted')]}"
+                            type="object" string="Extra Payment" class="oe_highlight"/>
+                    <button name="due_date_selection" type="object" string="Postpone Installments"
+                            class="oe_highlight o_invoice_send" attrs="{'invisible': [('state', '!=', 'posted')]}"
+                            groups="smart_loan_system.group_loan_manager"/>
+                    <button name="restructure_loan" type="object"
+                            string="Restructure" class="oe_highlight" attrs="{'invisible': [('state','!=','posted')]}"/>
+                    <button name="reject_restructured_loan" type="object"
+                            attrs="{'invisible': ['|',  '|', ('is_restructure_loan', '=', False), ('state', '!=', 'draft'), ('laf_state', 'not in', ('pre_draft', 'review_edit', 'cam_approve'))]}"
+                            class="oe_highlight"
+                            string="Reject Restructured Loan"/>
+
+                    <button name="fetch_restructured_loan" type="object"
+                            attrs="{'invisible': ['|', '|', ('is_restructure_loan', '=', False), ('only_cao_edit', '=', False), ('state', '!=', 'draft')]}"
+                            class="oe_highlight"
+                            string="Fetch"/>
+                    <button name="cancel_loan" type="object" confirm="Cancelling the loan is irreversible action.
+                          Once you confirm that, All Open and Draft invoice will be cancelled and Partial Invoices
+                           will be paid with Write-off account! " attrs="{'invisible': [('state', '!=', 'posted')]}"
+                            string="WRITTE-OFF Loan"
+                            groups="smart_loan_system.group_loan_manager"/>
+                    <button name="close_loan" type="object"
+                            string="CLOSE Loan" attrs="{'invisible': [('state', '!=', 'posted')]}"
+                            groups="smart_loan_system.group_loan_manager" confirm="Closing the loan is irreversible action.
+                            Once you confirm that, All Open and Draft invoice will be cancelled!"/>
+                    <button name="compute_lines" type="object"
+                            string="Compute items" attrs="{'invisible': [('is_compute_items','!=',False)]}"/>
+                    <button name="reset_loan_calculations" type="object"
+                            attrs="{'invisible': [('only_cao_edit', '=', False)]}"
+                            string="Reset"/>
+                    <button name="reset_loan_accruals" type="object" attrs="{'invisible': [('is_accrual','!=',True)]}"
+                            string="Reset Loan Accruals"/>
+
+                    <button name="account_officer_confirm_loan" type="object"
+                            groups="smart_loan_system.group_loan_account_officer"
+                            string="Confirm"
+                            attrs="{'invisible': ['|', ('laf_state','!=','pre_draft'), ('type', '=', 'loan')]}"/>
+
+
+                    <button name="retail_manager_approve_loan" type="object"
+                            string="Approve"
+                            attrs="{'invisible': ['|', '|' , ('type', '=', 'loan'), ('laf_state','!=','retail_manager'), ('reject_allow', '=', False)]}"/>
+
+                    <button name="cross_manager_approve_loan" type="object"
+                            string="Approve"
+                            attrs="{'invisible': ['|', '|', ('type', '=', 'loan'), ('laf_state','!=','cross_manager'), ('reject_allow', '=', False)]}"/>
+
+                    <button name="bod_approve_loan" type="object" groups="smart_loan_system.group_loan_bod"
+                            string="Approve 1"
+                            attrs="{'invisible': ['|', '|', ('type', '=', 'loan'),  ('laf_state','!=','bod'), ('is_bod_approve', '=', True)]}"/>
+
+                    <button name="sb_approve_loan" type="object" groups="smart_loan_system.group_loan_sb"
+                            string="Approve"
+                            attrs="{'invisible': ['|', ('type', '=', 'loan'), ('laf_state','!=','sb_approve')]}"/>
+
+                    <button name="create_commitment_loan" type="object"
+                            string="Approve" groups="smart_loan_system.group_loan_cam"
+                            attrs="{'invisible': ['|', ('type', '=', 'loan'), ('laf_state','!=','commitment_pa_letter')]}"/>
+
+                    <button name="cao_approve_loan" type="object" groups="smart_loan_system.group_loan_cao"
+                            string="Approve"
+                            attrs="{'invisible': ['|', ('type', '=', 'loan'), ('laf_state','!=','review_edit')]}"/>
+
+                    <button name="validate_loan" type="object"
+                            string="Validate" groups="smart_loan_system.group_loan_cam"
+                            attrs="{'invisible': ['|', '|', ('type', '=', 'loan'), ('laf_state','!=','cam_approve'), ('is_laf_posted', '=', True)]}"/>
+
+                    <button name="reject_loan" type="object"
+                            attrs="{'invisible': ['|', ('reject_allow', '=', False), ('is_laf_posted', '=', True)]}"
+                            string="Reject"/>
+
+                    <button name="loan_delinquent" type="object"
+                            string="Loan Delinquent"/>
+
+
+                    <button name="approve1_loan" type="object"
+                            string="Approve 2"
+                            attrs="{'invisible': ['|', '|', ('type', '=', 'loan'), ('laf_state','!=','bod'), ('is_bod_approve', '=', False)]}"
+                            groups="smart_loan_system.group_loan_second_bod"/>
+
+                    <button name="post_loan" type="object" string="Validate"
+                            confirm="Do you really want to validate the loan? After that no  changes to the accounts or
+                             amounts are allowed! Define Insurance and Tax if land countract loan!"
+                            attrs="{'invisible': ['|', ('type', '=', 'laf'), ('state','!=','draft')]}"/>
+
+
+                    <field name="state" widget="statusbar" attrs="{'invisible': [('type','=','laf')]}"/>
+                    <field name="laf_state" widget="statusbar" attrs="{'invisible': [('type','=','loan')]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_disbursement_entries"
+                                class="oe_stat_button"
+                                icon="fa-bars"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="outstanding_bal" widget="statinfo" string="Outstanding Balanace"/>
+                        </button>
+                        <button name="view_account_invoices"
+                                class="oe_stat_button"
+                                icon="fa-file-text"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                        <button name="view_insurance_balance"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': ['|', ('state', '=', 'draft'),('is_leasing', '=', False)]}"
+                                type="object">
+                            <field name="insurance_balance" widget="statinfo" string="Insurance Paid"/>
+                        </button>
+                        <button name="view_tax_balance"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': ['|', ('state', '=', 'draft'), ('is_leasing', '=', False)]}"
+                                type="object">
+                            <field name="tax_balance" widget="statinfo" string="Tax Paid"/>
+                        </button>
+                        <button name="view_principal_balance"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <!--                            <field name="currency_id" invisible="1"/>-->
+                            <field name="total_principal_balance" widget="statinfo" string="Principal Paid"/>
+                        </button>
+                        <button name="view_interest_balance"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="total_interest_balance" widget="statinfo" string="Interest Paid"/>
+                        </button>
+
+                        <button name="view_principal_migration"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="total_principal_migration" widget="statinfo" string="Principal Migration"/>
+                        </button>
+
+                        <button name="view_paid_penalties"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="total_paid_penalties" widget="statinfo" string="Penalties Paid"/>
+                        </button>
+
+                        <button name="view_paid_ground_lease"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': ['|', ('state', '=', 'draft'), ('is_ground_lease', '=', False)]}"
+                                type="object">
+                            <field name="total_paid_ground_lease" widget="statinfo" string="Paid Ground Lease"/>
+                        </button>
+
+                        <button name="view_collaterals"
+                                class="oe_stat_button"
+                                icon="fa-home"
+                                attrs="{'invisible': [('is_collaterals', '=', False)]}"
+                                type="object">
+                            <field name="total_collaterals" widget="statinfo" string="Collaterals"/>
+                        </button>
+                        <button name="view_documents"
+                                class="oe_stat_button"
+                                icon="fa-archive"
+                                type="object">
+                            <field name="total_documents" widget="statinfo" string="Documents"/>
+                        </button>
+                        <button name="view_restructuring_invoices"
+                                class="oe_stat_button"
+                                icon="fa-file-text"
+                                invisible="1"
+                                attrs="{'invisible': [('is_restructure_loan', '=', False)]}"
+                                type="object">
+                            <field name="restructuring_invoice_count" widget="statinfo"
+                                   string="Restructuring Invoices" invisible="1"/>
+                        </button>
+
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_automatic_transfer_entries"
+                                class="oe_stat_button"
+                                icon="fa-file-text"
+                                attrs="{'invisible': [('automatic_transfer_entries_count', '&lt;', 1)]}"
+                                type="object">
+                            <field name="automatic_transfer_entries_count" widget="statinfo"
+                                   string="Automatic Transfer Entries"/>
+                        </button>
+                        <button name="view_loan_transactions"
+                                class="oe_stat_button"
+                                icon="fa-bars"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="transaction_balance" widget="statinfo" string="Transactions"/>
+                        </button>
+
+
+                        <button name="view_payments"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="total_payments" widget="statinfo" string="Payments"/>
+                        </button>
+
+                        <button name="view_unpaid_principal"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="total_unpaid_principal" widget="statinfo" string="Unpaid Principal"/>
+                        </button>
+
+                        <button name="view_unpaid_interest"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="total_unpaid_interest" widget="statinfo" string="Unpaid Interest"/>
+                        </button>
+
+                        <button name="view_unpaid_life_insurance"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="total_unpaid_life_insurance" widget="statinfo" string="Unpaid Life Insurance"/>
+                        </button>
+
+                        <button name="view_unpaid_fire_insurance"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="total_unpaid_fire_insurance" widget="statinfo" string="Unpaid Fire Insurance"/>
+                        </button>
+
+                        <button name="view_unpaid_ground_lease"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': ['|', ('state', '=', 'draft'), ('is_ground_lease', '=', False)]}"
+                                type="object">
+                            <field name="total_unpaid_ground_lease" widget="statinfo" string="Unpaid Ground Lease"/>
+                        </button>
+
+                        <button name="view_penalties"
+                                class="oe_stat_button"
+                                icon="fa-usd"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                type="object">
+                            <field name="total_penalties" widget="statinfo" string="Unpaid Penalties"/>
+                        </button>
+                        <button name="view_reverse_entries"
+                                class="oe_stat_button"
+                                icon="fa-file-text"
+                                attrs="{'invisible': [('state', '!=', 'cancelled')]}"
+                                type="object">
+                            <field name="reverse_entries_count" widget="statinfo" string="Reverse Entries"/>
+                        </button>
+
+                    </div>
+                    <field name="type" widget="radio" options="{'horizontal': true}"
+                           attrs="{'readonly':['|', ('state','!=','draft'), ('laf_state', '!=', 'pre_draft')]}"/>
+                    <h1>
+                        <label class="oe_edit_only" for="name" string="Loan Name/ID"/>
+                        <field name="name" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="is_bod_approve" invisible="1" readonly="1"/>
+                            <field name="is_laf_posted" invisible="1" readonly="1"/>
+                            <field name="reject_allow" invisible="1" readonly="1"/>
+                            <field name="is_cao_edit" invisible="1" readonly="1"/>
+                            <field name="bod_to_commitment" invisible="1" readonly="1"/>
+                            <field name="first_bod_rejection" invisible="1" readonly="1"/>
+                            <field name="only_cao_edit" invisible="1" readonly="1"/>
+                            <field name="only_cam_edit" invisible="1" readonly="1"/>
+                            <field name="cam_date_edit" invisible="1" readonly="1"/>
+                            <field name="is_collateral_group" invisible="1" readonly="1"/>
+                            <field name="account_officer_approver" invisible="1" readonly="1"/>
+                            <field name="compute_partners" invisible="1" widget="many2many_tags"/>
+                            <field name="partner_id" domain="[('id', 'in', compute_partners)]"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"
+                                   required="1"/>
+                            <field name="kyc_customer_number"/>
+                            <field name="kyc_type" readonly="1"/>
+                            <field name="restructured_loan_id" readonly="1"/>
+                            <field name="old_loan_name"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="user_id"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="company_id" invisible="1"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="country_id"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="country_name"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"
+                                   invisible="1"/>
+                            <field name="loan_amount"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="is_leasing"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                             <field name="is_collaterals"/>
+
+
+                            <field name="is_penalty"
+                                   attrs="{'readonly':[('only_cao_edit', '=', False)]}"/>
+                            <field name="is_ground_lease"
+                                   attrs="{'readonly':[('only_cao_edit', '=', False)]}"/>
+                            <field name="is_straight_through"
+                                   attrs="{'readonly':[('only_cao_edit', '=', False)]}"/>
+                            <field name="is_accrual" invisible="0"/>
+                            <field name="write_off_invoice"/>
+                            <field name="is_restructure_loan"/>
+                            <field name="restructure_type" invisible="1"/>
+                            <field name="restructure_closing_amount" invisible="1"/>
+                            <field name="restructuring_write_off_amount" invisible="1"/>
+                            <field name="restructure_fee" invisible="1"/>
+                            <field name="restructure_tax_amount" invisible="1"/>
+                            <field name="pay_by_customer" invisible="1"/>
+                            <field name="loan_type"
+                                   attrs="{'readonly':[('only_cao_edit', '=', False)]}"/>
+                            <field name="down_payment"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="rate"
+                                   attrs="{'readonly':[('only_cao_edit', '=', False)]}"/>
+                            <field name="interest_type"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"
+                                   required="1"
+                                   invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="currency_id"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="product_id"
+                                   attrs="{'required': [('is_leasing', '=', True)], 'readonly':[('only_cao_edit', '=', False)]}"/>
+                            <field name="rate_period"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="round_on_end"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="review_edit_text" invisible="1"/>
+                            <field name="monthly_interest_accrue" invisible="1"/>
+                            <field name="yearly_interest_accrue" invisible="1"/>
+                            <field name="loan_migration_group"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="report_type"/>
+                            <field name="is_restructure_cancelled"/>
+                            <field name="redirect_url" invisible="1"/>
+                            <field name="tz_datetime" invisible="1"/>
+                            <field name="is_select" invisible="1"/>
+                            <field name="restructure_id" invisible="1"/>
+                            <field name="loan_collateral_ids" invisible="1" widget="many2many_tags"/>
+                            <field name="approver_ids" invisible="1" widget="many2many_tags"/>
+                            <field name="is_accrual_created"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="start_date" required="1"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="first_payment_due" required="1"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="expected_end_date"
+                                   attrs="{'readonly':[('only_cao_edit', '=', False)]}"/>
+                            <field name="close_date"
+                                   attrs="{'invisible':['|',('state', '=', 'draft'),('state', '=', 'posted')], 'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+
+                            <field name="period_or_monthly" invisible="1" readonly="1"/>
+                            <field name="periods" attrs="{'readonly':[('only_cao_edit', '=', False)]}"/>
+                            <field name="method_period"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                            <field name="payment_day" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="total_invoice_amount" readonly="1"/>
+                            <field name="total_insurance_amount" readonly="1"/>
+                            <field name="total_fire_insurance_amount" readonly="1"/>
+                            <!--                            <field name="is_insurance_required" readonly="0" invisible="1"/>-->
+                            <field name="processing_fee_inv_id" readonly="1"
+                                   attrs="{'invisible':[('state','=','draft')]}"/>
+                            <field name="is_down_payment"
+                                   attrs="{'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"
+                                   invisible="1"/>
+                            <field name="line_inv_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="amount_due"/>
+                            <field name="days_past_due"/>
+                            <!--                            <field name="is_installment" invisible="1" readonly="1"/>-->
+                            <field name="monthly_payment"
+                                   attrs="{'readonly':[('only_cao_edit', '=', False)], 'invisible': [('loan_type','!=','amortizing_loan')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Installments" id="items">
+                            <field name="line_ids"/>
+                        </page>
+                        <page string="Collaterals" id="loan_collaterals"
+                              attrs="{'invisible': [('is_collaterals', '=', False)], 'readonly': [('is_collateral_group', '!=', True)]}">
+                            <!--                            <group>-->
+                            <field name="loan_collateral_ids" domain="[('customer_id', '=', partner_id)]" attrs="{'readonly': [('is_collateral_group', '!=', True)]}">
+                                <tree>
+                                    <field name="customer_id"/>
+                                    <field name="collateral_type"/>
+                                    <field name="any_info"/>
+                                    <field name="loan_id"/>
+                                    <field name="insurance_type"/>
+                                    <field name="guarantee_type"/>
+                                    <field name="type_deed"/>
+                                    <field name="receivable_type"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                            <!--                            </group>-->
+                        </page>
+
+
+                        <page string="Ground Lease" id="ground_lease"
+                              attrs="{'invisible': [('is_ground_lease', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="ground_lease_product_id"
+                                           attrs="{'required': [('is_ground_lease', '=', True)], 'readonly':[('only_cao_edit', '=', False)]}"/>
+                                    <field name="ground_lease_amount"
+                                           attrs="{'required': [('is_ground_lease', '=', True)], 'readonly':[('only_cao_edit', '=', False)]}"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Insurance" id="extra_fess" attrs="{'invisible': [('is_leasing', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="insurance_product_id" invisible="1"/>
+                                    <field name="insurance_sale_price" invisible="1"/>
+                                    <field name="tax_product_id" invisible="1"/>
+                                    <field name="tax_sale_price" invisible="1"/>
+
+                                    <field name="bonaire_principal_prod_id"
+                                           attrs="{'required': [('is_leasing', '=', True)], 'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                                    <field name="bonaire_principal_amount"
+                                           attrs="{'required': [('is_leasing', '=', True)], 'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                                    <field name="bonaire_interest_prod_id"
+                                           attrs="{'required': [('is_leasing', '=', True)], 'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                                    <field name="bonaire_interest_amount"
+                                           attrs="{'required': [('is_leasing', '=', True)], 'readonly':['|', ('state','!=','draft'), ('only_cao_edit', '=', False)]}"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Installment's Changes" id="loan_changes">
+                            <field name="loan_payment_change_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="due_date_selection"/>
+                                    <field name="data_added"/>
+                                    <field name="reason"/>
+                                    <field name="old_inv_date"/>
+                                    <field name="new_inv_date"/>
+                                    <field name="loan_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Straight Through" id="straight_through"
+                              attrs="{'invisible': [('is_straight_through', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="payment_journal_id"
+                                           attrs="{'required': [('is_straight_through', '=', True)]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Restructured Loan History">
+                            <field name="restructuring_ids" readonly="1">
+                                <tree editable="false">
+                                    <field name="company_currency_id" invisible="1"/>
+                                    <field name="loan_id" invisible="0"/>
+                                    <field name="restructured_id" invisible="0"/>
+                                    <field name="date"/>
+                                    <field name="restructure_type"/>
+                                    <field name="outstanding_principal_amount"/>
+                                    <field name="remaining_principal_amount"/>
+                                    <field name="remaining_interest_amount"/>
+                                    <field name="remaining_life_insurance_amount"/>
+                                    <field name="remaining_fire_insurance_amount"/>
+                                    <field name="remaining_penalties_amount"/>
+                                    <field name="remaining_ground_lease" string="Remaining Long Lease"/>
+                                    <field name="write_off_amount"/>
+                                    <field name="amount"/>
+                                    <field name="balance_amount"/>
+                                    <field name="new_loan_amount"/>
+                                    <field name="difference_amount"/>
+                                    <field name="outstanding_without_writoff"/>
+                                    <field name="new_loan_currency_id"/>
+                                    <field name="pay_by_customer"/>
+                                    <field name="restructure_fee"/>
+                                    <field name="tax_amount"/>
+                                    <field name="currency_id"/>
+                                    <field name="selection_wizard_id"/>
+                                    <field name="state" invisible="0"/>
+                                    <field name="reject_reason" attrs="{'invisible': [('state', '!=', 'rejected')]}"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="company_currency_id" invisible="1"/>
+                                                <field name="loan_id" readonly="False"/>
+                                                <field name="date"/>
+                                                <field name="restructure_type"/>
+                                                <field name="outstanding_principal_amount"/>
+                                                <field name="write_off_amount"
+                                                       attrs="{'invisible':[('restructure_type','!=','with_writeoff')]}"/>
+                                                <field name="outstanding_without_writoff"
+                                                       attrs="{'invisible':[('restructure_type','!=','with_writeoff')]}"/>
+                                                <field name="amount"/>
+                                                <field name="balance_amount"/>
+                                                <field name="pay_by_customer"/>
+                                                <field name="restructure_fee"/>
+                                                <field name="tax_amount"/>
+                                                <field name="currency_id" invisible="0" string="New Loan Currency"/>
+                                            </group>
+                                            <group>
+                                                <field name="remaining_principal_amount"/>
+                                                <field name="remaining_interest_amount"/>
+                                                <field name="remaining_life_insurance_amount"/>
+                                                <field name="remaining_fire_insurance_amount"/>
+                                                <field name="remaining_penalties_amount"/>
+                                                <field name="remaining_ground_lease" string="Remaining Long Lease"/>
+                                                <field name="new_loan_amount"/>
+                                                <field name="difference_amount"/>
+                                                <field name="selection_wizard_id"/>
+                                                <field name="state" invisible="1"/>
+                                            </group>
+
+                                        </group>
+                                        <group>
+                                            <field name="reject_reason"
+                                                   attrs="{'invisible': [('state', '!=', 'rejected')]}"/>
+                                        </group>
+                                        <notebook>
+                                            <page string="Write-Off"
+                                                  attrs="{'invisible':[('restructure_type','!=','with_writeoff')]}">
+                                                <field name="write_off_line_ids"
+                                                       context="{'default_total_write_off': write_off_amount}">
+                                                    <tree editable="bottom" create="0" delete="0">
+                                                        <field name="loan_id" readonly="1"/>
+                                                        <field name="company_currency_id" invisible="1"/>
+                                                        <field name="currency_id" readonly="1"/>
+                                                        <field name="write_off_amount" sum="Total Write-Off"/>
+                                                        <field name="company_currency_amount"
+                                                               string="Write-Off in Company Currency"
+                                                               sum="Total Company Write-Off"/>
+                                                    </tree>
+                                                </field>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+
+                        </page>
+
+                        <page string="Penalty Fee" id="penalty_fess"
+                              attrs="{'invisible': [('is_penalty', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="penalty_product_id"
+                                           attrs="{'required': [('is_penalty', '=', True)], 'readonly':[('only_cao_edit', '=', False)]}"/>
+                                    <field name="penalty_percent"
+                                           attrs="{'required': [('is_penalty', '=', True)], 'readonly':[('only_cao_edit', '=', False)]}"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page name="internal_notes" string="Note">
+                            <field name="comment" placeholder="Note..."/>
+                        </page>
+                        <page name="stage_comment" string="Stage Comments" attrs="{'invisible': [('type', '!=', 'laf')]}">
+                            <field name="stage_comment" placeholder="Stage Comments..."/>
+                        </page>
+
+                        <page name="loan_invoices" string="Loan Invoices" invisible="1">
+                            <field name="loan_inv_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="sequence_number"/>
+                                    <field name="date_invoice"/>
+                                    <field name="move_id"/>
+                                    <field name="loan_id"/>
+                                    <field name="month"/>
+                                    <field name="year"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"
+                           widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--Search view for loan-->
+    <record id="account_loan_view_search" model="ir.ui.view">
+        <field name="name">account.loan.search</field>
+        <field name="model">account.loan</field>
+        <field name="arch" type="xml">
+            <search string="Search Loan For">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="state"/>
+                <field name="rate"/>
+                <field name="start_date" filter_domain="[('start_date','=',self)]"/>
+                <field name="first_payment_due" filter_domain="[('first_payment_due','=',self)]"/>
+                <field name="expected_end_date" filter_domain="[('expected_end_date','=',self)]"/>
+                <field name="loan_amount"/>
+                <field name="product_id"/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Posted" name="posted" domain="[('state','=','posted')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state','=','cancelled')]"/>
+                <filter string="Close" name="draft" domain="[('state','=','closed')]"/>
+                <group expand="1" string="Group By">
+                    <filter name="partner_id" context="{'group_by' : 'partner_id'}" string="Customer"/>
+                    <filter name="state" context="{'group_by' : 'state'}" string="Status"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree view for loan line -->
+    <record id="account_loan_line_tree" model="ir.ui.view">
+        <field name="name">account.loan.line.tree</field>
+        <field name="model">account.loan.line</field>
+        <field name="arch" type="xml">
+            <tree string="Loan items" create="0" delete="0">
+                <field name="sequence" string="Seq"/>
+                <field name="date" string="Due Date"/>
+                <field name="pending_principal_amount" string="Pending Principal"/>
+                <field name="is_extra_payment" string="Extra Payment" invisible="0"/>
+                <field name="payment_amount" sum="Total payments" string="Loan Payment"/>
+                <field name="principal_amount" sum="Total principal" string="Principal"/>
+                <field name="interests_amount" sum="Total interests" string="Interests"/>
+
+                <field name="interest_accrue" sum="Total interests" string="Interests Accrue" optional="hide"/>
+                <field name="penalty_accrue" sum="Total interests" string="Penalty Accrue" optional="hide"/>
+                <field name="all_lines_has_invoice" invisible="1"/>
+                <field name="total_invoice_amount" attrs="{'invisible': [('all_lines_has_invoice', '=', False)]}"
+                       sum="Total Amount"/>
+                <field name="total_amount_due" attrs="{'invisible': [('all_lines_has_invoice', '=', False)]}"
+                       sum="Amount Due"/>
+                <field name="paid_on"/>
+                <field name="has_invoices" invisible="1"/>
+                <field name="emi" invisible="1"/>
+                <field name="is_down_payment" invisible="1"/>
+                <field name="is_last_payment" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+
+                <button name="view_account_values"
+                        type="object" icon="fa-eye"
+                        attrs="{'invisible': [('has_invoices', '=', False)]}"/>
+                <button name="view_process_values"
+                        type="object" icon="fa-cogs"
+                        attrs="{'invisible': [('has_invoices', '=', True)]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for loan line -->
+    <record id="account_loan_line_form" model="ir.ui.view">
+        <field name="name">account.loan.line.form</field>
+        <field name="model">account.loan.line</field>
+        <field name="arch" type="xml">
+            <form delete="0">
+                <group>
+                    <field name="sequence"/>
+                    <field name="date"/>
+                </group>
+                <group>
+                    <group>
+                        <field name="pending_principal_amount"/>
+                        <field name="payment_amount"/>
+                        <field name="principal_amount"/>
+                        <field name="interests_amount"/>
+                        <field name="is_extra_payment" invisible="0" readonly="0" string="Extra Payment"/>
+                        <field name="final_pending_principal_amount"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree view to display insurance and tax invoice line from Insurance and Tax widget of loan -->
+    <record id="loan_view_invoice_line_tree" model="ir.ui.view">
+        <field name="name">account.move.line.tree</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <tree string="Invoice Line">
+                <field name="move_id"/>
+                <field name="name"/>
+                <field name="account_id" groups="account.group_account_user"/>
+                <field name="quantity"/>
+                <!--                <field name="uom_id" groups="product.group_uom"/>-->
+                <field name="price_unit"/>
+                <field name="unpaid_amount"/>
+                <field name="paid_amount"/>
+                <field name="residual_amount_paid"/>
+                <field name="price_unit"/>
+                <field name="discount" groups="sale.group_discount_per_so_line"/>
+                <field name="currency_id" invisible="1"/>
+                <!--                <field name="invoice_status"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action to display insurance and tax invoice line from Insurance and Tax widget of loan -->
+    <record model="ir.actions.act_window" id="loan_invoice_line_action">
+        <field name="name">Account Invoice Line</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="loan_view_invoice_line_tree"/>
+        <!--        <field name="view_type">form</field>-->
+    </record>
+
+    <!-- Tree view for Loan Payments History -->
+    <record id="loan_payment_history_tree_view" model="ir.ui.view">
+        <field name="name">loan.payment.history.tree.view</field>
+        <field name="model">account.payment.history</field>
+        <field name="arch" type="xml">
+            <tree string="Payments">
+                <field name="loan_id"/>
+                <field name="partner_id"/>
+                <field name="payment_method"/>
+                <field name="journal_id"/>
+                <field name="description"/>
+                <field name="payment_date"/>
+                <field name="payment_ids" widget="many2many_tags"/>
+                <field name="invoice_ids" widget="many2many_tags"/>
+                <field name="amount" sum="Total Payment"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for Loan Payments History -->
+    <record id="loan_payment_history_form_view" model="ir.ui.view">
+        <field name="name">loan.payment.history.form.view</field>
+        <field name="model">account.payment.history</field>
+        <field name="arch" type="xml">
+            <form string="Payments">
+                <group>
+                    <field name="loan_id"/>
+                    <field name="partner_id"/>
+                    <field name="payment_method"/>
+                    <field name="journal_id"/>
+                    <field name="description"/>
+                    <field name="payment_date"/>
+                    <field name="payment_ids" widget="many2many_tags"/>
+                    <field name="invoice_ids" widget="many2many_tags"/>
+                    <field name="amount"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Loan Payments History -->
+    <record model="ir.actions.act_window" id="view_payments">
+        <field name="name">Payments</field>
+        <field name="res_model">account.payment.history</field>
+        <field name="view_mode">tree</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_id" ref="loan_payment_history_tree_view"/>
+        <field name="domain">[('loan_id', '=', active_id), ('state', '=', 'running')]</field>
+    </record>
+
+    <!-- Tree view for loan Transaction History -->
+    <record id="transaction_history_for_loan" model="ir.ui.view">
+        <field name="name">transaction.history.for.loan</field>
+        <field name="model">loan.transaction.history</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="reference"/>
+                <field name="move_id" invisible="1"/>
+                <field name="payment_ids" invisible="1"/>
+                <field name="description"/>
+                <field name="debit" sum="Debit"/>
+                <field name="credit" sum="Credit"/>
+                <field name="balance"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action for loan Transaction History -->
+    <record id="action_loan_transaction" model="ir.actions.act_window">
+        <field name="name">Transactions</field>
+        <field name="res_model">loan.transaction.history</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="transaction_history_for_loan"/>
+    </record>
+
+    <!-- Server action to send multiple recovery email-->
+    <record id="ir_actions_server_send_loan_detail_email" model="ir.actions.server">
+        <field name="name">Loan: Send Loan Detail Email</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_account_loan"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+            action = records.action_loan_detail_send()
+        </field>
+        <field name="binding_model_id" ref="smart_loan_system.model_account_loan"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="account_loan_action">
+        <field name="name">Customer Loans</field>
+        <field name="res_model">account.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="account_loan_tree"/>
+        <field name="domain"></field>
+        <!--        <field name="context">{'default_type': 'loan'}</field>-->
+        <!--        <field name="view_type">form</field>-->
+        <field name="search_view_id" ref="account_loan_view_search"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="account_laf_action">
+        <field name="name">Customer LAF</field>
+        <field name="res_model">account.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="account_loan_tree"/>
+        <field name="domain">[('type', '=', 'laf')]</field>
+        <!--        <field name="context">{'default_type': 'laf'}</field>-->
+        <!--        <field name="view_type">form</field>-->
+        <field name="search_view_id" ref="account_loan_view_search"/>
+    </record>
+
+
+    <menuitem id="account_loan_parent_menu"
+              parent="loan_management_menu" sequence="2"
+              name="Customer Loans"
+              action="account_loan_action"/>
+
+    <menuitem id="account_loan_menu"
+              parent="account_loan_parent_menu" sequence="1"
+              name="Customer Loans"
+              groups="group_loan_user,group_loan_manager"
+              action="account_loan_action"/>
+
+
+</odoo>

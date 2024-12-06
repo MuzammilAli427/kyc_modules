@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!--for put custome Edit button in Message-->
+    <t t-name="account.CustomPaymentPopOver" t-inherit="account.PaymentPopOver"  t-inherit-mode="extension" owl="1">
+        <xpath expr="//button[1]" position="replace">
+           <button class="btn btn-sm btn-primary js_unreconcile_payment float-left" t-att-partial-id="partial_id" t-att-payment-id="payment_id" t-att-account-payment-id="account_payment_id" t-att-move-id="move_id" style="margin-top:5px; margin-bottom:5px;" groups="account.group_account_invoice">Unreconcile</button>
+        </xpath>
+    </t>
+</templates>

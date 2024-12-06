@@ -1,0 +1,95 @@
+<odoo>
+    <record model="ir.module.category" id="module_category_loans">
+        <field name="name">Loans App</field>
+        <field name="description">Loans App Access Rights</field>
+        <field name="sequence">3</field>
+    </record>
+     <record id="group_loan_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="kyc_readonly_group" model="res.groups">
+        <field name="name">KYC Readonly</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_user'))]"/>
+    </record>
+    <record id="kyc_create_write_group" model="res.groups">
+        <field name="name">KYC Create And Write</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_user'))]"/>
+    </record>
+    <record id="group_accounting_search_allow" model="res.groups">
+        <field name="name">Allow Accounting Search</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_journal_search_allow" model="res.groups">
+        <field name="name">Allow Search</field>
+        <field name="category_id" ref="module_category_loans"/>
+    </record>
+
+    <record id="kyc_approver_group" model="res.groups">
+        <field name="name">KYC Approver</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('kyc_readonly_group'))]"/>
+    </record>
+    <record id="group_loan_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_user'))]"/>
+    </record>
+    <record id="group_loan_account_officer" model="res.groups">
+        <field name="name">Account Officer</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_loan_retail_manager" model="res.groups">
+        <field name="name">Retail Manager</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_account_officer'))]"/>
+    </record>
+    <record id="group_loan_corp_manager" model="res.groups">
+        <field name="name">Corporate Manager</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_account_officer'))]"/>
+    </record>
+    <!--     <record id="group_loan_cross_manager" model="res.groups"> -->
+    <!--         <field name="name">Cross Manager</field> -->
+    <!--         <field name="category_id" ref="module_category_loans"/> -->
+    <!--         <field name="implied_ids" eval="[(4, ref('group_loan_account_officer'))]"/> -->
+    <!--     </record> -->
+    <record id="group_loan_bod" model="res.groups">
+        <field name="name">BOD 1</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_account_officer'))]"/>
+    </record>
+    <record id="group_loan_second_bod" model="res.groups">
+        <field name="name">BOD 2</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_account_officer'))]"/>
+    </record>
+    <record id="group_loan_sb" model="res.groups">
+        <field name="name">SB</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_account_officer'))]"/>
+    </record>
+    <record id="group_loan_cao" model="res.groups">
+        <field name="name">CAO</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_account_officer'))]"/>
+    </record>
+    <record id="group_loan_cam" model="res.groups">
+        <field name="name">CAM</field>
+        <field name="category_id" ref="module_category_loans"/>
+        <field name="implied_ids" eval="[(4, ref('group_loan_account_officer'))]"/>
+    </record>
+    <record id="base.user_root" model="res.users">
+        <field name="groups_id"
+               eval="[(4, ref('smart_loan_system.group_loan_user')), (4, ref('smart_loan_system.group_loan_manager'))]"/>
+    </record>
+    <record id="group_cad" model="res.groups">
+        <field name="name">CAD</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="evo_approval_view_account_payment_form" model="ir.ui.view">
+        <field name="name">evo.approval.view.account.payment.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_bank_id']" position="after">
+                <field name="approval_hide" invisible="1"/>
+                <field name="approved_by"/>
+                <field name="approved_date"/>
+                <field name="waiting_state" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_post']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('state', '!=', 'draft'),('approval_hide','=',True)]}
+                </attribute>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <style>
+                    .bg-orange {
+                    background: #F2A503 !important;
+                    }
+                </style>
+            </xpath>
+            <xpath expr="//sheet/div[@name='button_box']" position="after">
+                <widget name="web_ribbon" bg_color="bg-orange"
+                        title="Waiting for Approval"
+                        attrs="{'invisible': [('waiting_state', '!=', 'waiting_for_approval')]}"/>
+                <widget name="web_ribbon" bg_color="bg-success" title="Posted"
+                        attrs="{'invisible': [('state', '!=', 'posted')]}"/>
+                <widget name="web_ribbon" bg_color="bg-danger"
+                        title="Cancel"
+                        attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

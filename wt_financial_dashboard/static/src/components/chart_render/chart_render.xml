@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="warlock_financial_dashboard_financial_dashboard.wt_chart_component" owl="1">
+        <div class="d-flex wt_row">
+        <div class="btn-group px-3 py-1 wt_flex_direction  flex-shrink-1 new_class">
+            <span class="btn-1 my-4 fa fa-bar-chart  fs-2 cursor-pointer wt_color" t-att-class="{'wt_active_type': state.chartType === 'bar'}"  data-tooltip="Bar Chart" t-on-click="()=>getGraphType(state,'bar')"/>
+            <span class="btn-1 my-4 fa fa-line-chart  fs-2 cursor-pointer wt_color" t-att-class="{'wt_active_type': state.chartType === 'line'}" data-tooltip="Line Chart" t-on-click="()=>getGraphType(state,'line')"/>
+            <span class="btn-1 my-4 fa fa-pie-chart  fs-2 cursor-pointer wt_color" t-att-class="{'wt_active_type': state.chartType === 'pie'}" data-tooltip="Pie Chart" t-on-click="()=>getGraphType(state,'pie')"/>
+            <span class="btn-1 my-4 fa fa-doughnut-chart  fs-2 cursor-pointer wt_color" t-att-class="{'wt_active_type': state.chartType === 'doughnut'}" data-tooltip="Doughnut Chart" t-on-click="()=>getGraphType(state,'doughnut')"><i class="fas fa-dot-circle fs-2"></i></span>
+            <span class="btn-1 my-4 fa fa-doughnut-chart  fs-2 cursor-pointer wt_color" t-att-class="{'wt_active_type': state.chartType === 'radar'}" data-tooltip="Radar Chart"  t-on-click="()=>getGraphType(state,'radar')"><i class="fas fa-rainbow fs-2"></i></span>
+            <span class="btn-1 my-4 fa fa-doughnut-chart  fs-2 cursor-pointer wt_color"  t-att-class="{'wt_active_type': state.chartType === 'polarArea'}" data-tooltip="PolarArea Chart" t-on-click="()=>getGraphType(state,'polarArea')"><i class="fas fa-solar-panel fs-2"></i></span>
+        </div>
+        <div class="container wt_harshiv_Chart">
+        <canvas t-ref="wt_chart"/>
+    </div>
+    </div>   
+    </t>
+</templates>

@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+    <t t-name="loan_dashboard.tile_chart_template" owl="1">
+            <div class="mt-2 row">
+            <div class="col-sm">
+             <h3 class="text-center"
+                 style="margin: 10px 10px; padding: 20px; background-color: #668bcd; color: white;font-size: 18px;">Loan Portfolio Dashboard</h3>
+                <div class="container-fluid" style="margin-right: 10px; margin-left: 10px;">
+            <div class="row name_value_wrapper">
+                <div class="col">
+                    <div class="row tile">
+                        <div class="col-sm-6 tile_name text-center">
+                            <p class="text_style">
+                            Total Portfolio Amount
+                            </p>
+                        </div>
+                        <div class="col-sm-6 tile_value">
+                            <p class="text_style">
+                                <t t-out="this.get_amount('total_portfolio_amount')"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row tile">
+                        <div class="col-sm-6 tile_name text-center">
+                            <p class="text_style">
+                                Total Portfolio # of Loans
+
+                            </p>
+                        </div>
+                        <div class="col-sm-6 tile_value">
+                            <p class="text_style">
+                             <t t-out="state.data.total_portfolio_number_of_loans"/>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+<!--                <div class="col-sm-2"></div>-->
+            </div>
+
+                    <div class="row name_value_wrapper">
+                <div class="col">
+                    <div class="row tile">
+                        <div class="col-sm-6 tile_name text-center">
+                            <p class="text_style">
+                            Bon Portfolio Amount
+                            </p>
+                        </div>
+                        <div class="col-sm-6 tile_value">
+                            <p class="text_style">
+                            <t t-out="this.get_amount('bon_portfolio_amount')"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                        <div class="col">
+                    <div class="row tile">
+                        <div class="col-sm-6 tile_name text-center">
+                            <p class="text_style">
+                            Bon Portfolio # of Loans
+
+                            </p>
+                        </div>
+                        <div class="col-sm-6 tile_value">
+                            <p class="text_style">
+                           <t t-out="state.data.bon_portfolio_number_of_loans"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                        <div class="col">
+                    <div class="row tile">
+                        <div class="col-sm-6 tile_name text-center">
+                            <p class="text_style">
+                            Cur Portfolio Amount
+
+                            </p>
+                        </div>
+                        <div class="col-sm-6 tile_value">
+                            <p class="text_style">
+                             <t t-out="this.get_amount('cur_portfolio_amount')"/>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                        <div class="col">
+                    <div class="row tile">
+                        <div class="col-sm-6 tile_name text-center">
+                            <p class="text_style">
+                            Cur Portfolio # of Loans
+
+                            </p>
+                        </div>
+                        <div class="col-sm-6 tile_value">
+                            <p class="text_style">
+                               <t t-out="state.data.cur_portfolio_number_of_loans"/>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                        <div class="col"></div>
+<!--                        <div class="col"></div>-->
+            </div>
+                    <div class="row name_value_wrapper ">
+                <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Retail Portfolio
+                                    Amount
+                                </p>
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                    <t t-out="this.get_amount('retail_portfolio_amount')"/>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Retail Portfolio
+                                # of Loans
+                                </p>
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                               <t t-out="state.data.retail_number_of_loans"/>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Corp Portfolio
+                                    Amount
+                                </p>
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                <t t-out="this.get_amount('cur_portfolio_amount')"/>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Corp Portfolio #
+                                    of Loans
+                                </p>
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                               <t t-out="state.data.cur_portfolio_number_of_loans"/>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                        <div class="col"></div>
+<!--                        <div class="col"></div>-->
+            </div>
+                    <div class="row name_value_wrapper sssf ">
+                <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Restructured Loans
+                                </p>
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                    <t t-out="this.get_amount('restructured_loan_amount')"/>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    # of Restructured
+                                </p>
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                               <t t-out="state.data.restructured_loan_number_of_loans"/>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Write-Off Loans
+                                </p>
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                <t t-out="this.get_amount('write_off_amount')"/>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    # of Write-Off Loans
+                                </p>
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                              <t t-out="state.data.write_off_number_of_loans"/>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                        <div class="col"></div>
+<!--                        <div class="col"></div>-->
+            </div>
+                    <div class="row name_value_wrapper ">
+                <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Satisfactory
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                     <t t-out="this.get_amount('satisfactory_amount')"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Substandard
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                   <t t-out="this.get_amount('substandard_amount')"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Special Mention
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                     <t t-out="this.get_amount('special_mention_amount')"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Doubtful
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                     <t t-out="this.get_amount('doubtful_amount')"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Loss
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                    <t t-out="this.get_amount('loss_amount')"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+<!--                        <div class="col"></div>-->
+            </div>
+                    <div class="row name_value_wrapper ">
+                <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Satisfactory #
+        of Loans
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                     <t t-out="state.data.satisfactory_number_of_loans"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Substandard #
+                                    of Loans
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                    <t t-out="state.data.substandard_number_of_loans"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Special Mention # of Loans
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                     <t t-out="state.data.special_mention_number_of_loans"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Doubtful # of Loans
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                    <t t-out="state.data.doubtful_number_of_loans"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+                        <div class="col">
+                           <div class="row tile">
+                            <div class="col-sm-6 tile_name text-center">
+                                <p class="text_style">
+                                    Loss # of Loans
+                                </p>
+
+                            </div>
+                               <div class="col-sm-6 tile_value">
+                                <p class="text_style">
+                                     <t t-out="state.data.loss_number_of_loans"/>
+                                </p>
+
+                            </div>
+                        </div>
+                </div>
+<!--                        <div class="col"></div>-->
+            </div>
+<!--                    <div class="row name_value_wrapper ">-->
+<!--                <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    Car Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    #NA-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    Converted CA Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                   #NA-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    Mortgage Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    #NA-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    Restructured Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    <t t-out="this.get_amount('restructured_loan_amount')"/>-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    Term Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    #NA-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    Write-Off Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    <t t-out="this.get_amount('write_off_amount')"/>-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--                    <div class="row name_value_wrapper ">-->
+<!--                <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    # of Car Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    #NA-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    # of Converted CA Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    #NA-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    # of Mortgage Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    #NA-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    # of Restructured-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    <t t-out="state.data.restructured_loan_number_of_loans"/>-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                           <div class="row tile">-->
+<!--                            <div class="col-sm-6 tile_name text-center">-->
+<!--                                <p class="text_style">-->
+<!--                                    # of Term Loans-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                               <div class="col-sm-6 tile_value">-->
+<!--                                <p class="text_style">-->
+<!--                                    #NA-->
+<!--                                </p>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--                        <div class="col-sm-2">-->
+<!--                    <div class="row tile">-->
+<!--                        <div class="col-sm-6 tile_name text-center">-->
+<!--                            <p class="text_style">-->
+<!--                                # of Write-Off Loans-->
+<!--                            </p>-->
+
+<!--                        </div>-->
+<!--                        <div class="col-sm-6 tile_value">-->
+<!--                            <p class="text_style">-->
+<!--                                 <t t-out="state.data.write_off_number_of_loans"/>-->
+
+<!--                            </p>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+        </div>
+            </div>
+        </div>
+    </t>
+</template>

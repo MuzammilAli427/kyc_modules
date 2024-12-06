@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stage_comment_wizard_view_form" model="ir.ui.view">
+            <field name="name">stage.comment.wizards.view.form</field>
+            <field name="model">laf.stage.comment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="loan_id" invisible="0" readonly="1"/>
+                            <field name="reason" invisible="0"/>
+                        </group>
+                    </sheet>
+
+                    <footer>
+                        <button name="approve_laf_stage" type="object" class="btn btn-primary" string="Approve"/>
+                        <button special="cancel" string="Cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="stage_comment_wizard_action" model="ir.actions.act_window">
+            <field name="name">Laf Stage Comment Wizard</field>
+            <field name="res_model">laf.stage.comment</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

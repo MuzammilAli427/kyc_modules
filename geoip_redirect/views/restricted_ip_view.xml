@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <record id="restricted_ip_tree_view" model="ir.ui.view">
+        <field name="name">restricted.ip.tree</field>
+        <field name="model">restricted.ip</field>
+        <field name="field_parent" eval="False"/>
+        <field name="arch" type="xml">
+            <tree string="Restricted IP" editable="bottom">
+                <field name="website_id"/>
+                <field name="restrict_by"/>
+                <field name="country_id" attrs="{'readonly': [('restrict_by','!=', 'country')], 'required': [('restrict_by','==', 'country')]}"/>
+                <field name="ip_address" attrs="{'readonly': [('restrict_by','!=', 'ip')], 'required': [('restrict_by','==', 'ip')]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_restricted_ip" model="ir.actions.act_window">
+        <field name="name">Restricted IP</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">restricted.ip</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">tree</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add restricted IP Address(s).
+          </p>
+        </field>
+    </record>
+</odoo>

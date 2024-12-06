@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="warlock_financial_dashboard_financial_dashboard.wt_dashboard" owl="1">
+        <div class="wt_dashboard_component overflow-auto vh-100">
+            <div class="d-flex">
+                <div class="sidebar bg-white" id="wt_side_nav" t-att-class="{'active': state.toggleOpen}">
+                  <div class="headar-box px-3 pt-3 pb-4 d-flex justify-content-between">
+                    <h1 class="fs-4"><span class="border px-2 me-3 text-light" style="font-size: 36px;background:#5a76c9;border-radius: 10px;">Dashboard</span></h1>
+                    <button class="btn d-block close-btn px-1 py-0 text-dark"  t-on-click="toggleSidebar"><i class="fas fa-stream text-muted"></i></button>
+                    </div>
+                    <ul class="list-unstyled px-2 py-4" t-att-class="{'wt_active': state.isSidebarActive}">
+                        <li class="my-2" t-att-class="{'wt_active': state.activeItem === 'item1'}" t-on-click="() => setActiveItem('item1',state)"><a href="#" class="text-decoration-none my-4"><i class="fas fa-home mx-2 my-2"></i>Partner Ledger</a></li>
+                        <li class="my-2" t-att-class="{'wt_active': state.activeItem === 'item2'}" t-on-click="() => setActiveItem('item2',state)"><a href="#" class="text-decoration-none my-2"><i class="fas fa-chart-line mx-2 my-2"></i>Profit And Loss</a></li>
+                        <li class="my-2" t-att-class="{'wt_active': state.activeItem === 'item3'}" t-on-click="() => setActiveItem('item3',state)"><a href="#" class="text-decoration-none my-2"><i class="far fa-money-check mx-2 my-2"></i>Balance Sheet</a></li>
+                        <li class="my-2" t-att-class="{'wt_active': state.activeItem === 'item4'}" t-on-click="() => setActiveItem('item4',state)"><a href="#" class="text-decoration-none my-3"><i class="far fa-file mx-2 my-2"></i>Executive Summary</a></li>
+                        <li class="my-2" t-att-class="{'wt_active': state.activeItem === 'item5'}" t-on-click="() => setActiveItem('item5',state)"><a href="#" class="text-decoration-none my-2"><i class="fas fa-tachometer-alt mx-2 my-2"></i>Tax Report</a></li>
+                        <li class="my-2" t-att-class="{'wt_active': state.activeItem === 'item6'}" t-on-click="() => setActiveItem('item6',state)"><a href="#" class="text-decoration-none my-2"><i class="fas fa-funnel-dollar mx-2 my-2"></i>Cash Flow</a></li>
+                        <li class="my-2" t-att-class="{'wt_active': state.activeItem === 'item7'}" t-on-click="() => setActiveItem('item7',state)"><a href="#" class="text-decoration-none my-2"><i class="fas fa-hand-holding-usd mx-3 my-2"></i>Expenses</a></li>
+                        <li class="my-2" t-att-class="{'wt_active': state.activeItem === 'item8'}" t-on-click="() => setActiveItem('item8',state)"><a href="#" class="text-decoration-none my-2"><i class="fas fa-money-bill-wave-alt mx-2 my-2"></i>Revenues</a></li>
+                    </ul>
+                </div>
+                <div class="content">
+                     <div class="row m-3">
+                            <div class="row">
+                                <div class="col m-0 p-0">
+                                    <div class="shadow-sm border m-2 p-4 bg-white">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <button class="btn  open-btn" t-on-click="toggleSidebar"><i class="fas fa-stream text-muted" style="font-size:20px;"></i></button>
+                                            <Chartfiter wtDropdownFilter="state.wtDropdown"  dropdownLabel="state.wtDropdown.dropDownLabel" dropDownAccountLabel="state.wtDropdown.dropDownAccountLabel"  onClick.bind="getDropdown"/>
+                                            <t t-if="state.wtDropdown.customDate">
+                                                <button class="o-no-caret btn dropdown-toggle wt_color" data-bs-auto-close="outside" aria-expanded="true"
+                                                data-bs-toggle="dropdown">
+                                                <span class="fa fa-calendar fs-2 mx-1" title="Dates" role="img" aria-label="Dates"/>
+                                                <span class="fs-2 wt_block">Custom Date</span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <div class="o_account_report_search o_foldable_menu">
+                                                    <li><label class="custom-date mx-1" for="exrev_start_date">From:</label></li> 
+                                                    <li> <input type="date" class="form-control" name="exrev_start_date"  style="border-radius: 26px;"/></li> 
+                                                    <li><label class="custom-date my-2 mx-1" for="exrev_end_date">To:</label></li> 
+                                                    <li><input type="date" name="exrev_end_date" class="form-control" style="border-radius: 26px;"/></li> 
+                                                    <li><button class="o-no-caret btn wt_active_type border mt-4" t-on-click="CustomRevExp">
+                                                         <span class="mx-2 fs-2">APPLY</span>
+                                                     </button>
+                                                 </li>
+                                                </div>
+                                             </ul>
+                                        </t>
+                                            <div t-att-class="{'d-none': state.activeItem === 'item7' or state.activeItem === 'item8'}">
+                                                <select class="form-select" t-model="state.period" t-on-change="wtOnChangePeriod">
+                                                    <option value="0">Select Period</option>
+                                                    <option value="7">Last 7 Days</option>
+                                                    <option value="30">Last 30 Days</option>
+                                                    <option value="90">Last 90 Days</option>
+                                                    <option value="365">Last 365 Days</option>
+                                                    <option value="1095">Last 3 Years</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row wt_col_special">
+                                <KpiCard onClick.bind="viewInvoice" name="'Invoices'" value="state.invoice.value" percentage="state.invoice.percentage" wtToatal="state.invoice.invoiceTotal"/>
+                                <KpiCard onClick.bind="viewCreditNotes" name="'Credit Notes'" value="state.wtCredit.CreditCount" percentage="state.wtCredit.CreditPercent" wtToatal="state.wtCredit.totalCredit"/>
+                                <KpiCard onClick.bind="viewBills" name="'Bills'" value="state.wtbill.billCount" percentage="state.wtbill.BillPerCent" perName="'Since Last Period'" wtToatal="state.wtbill.billTotal"/>
+                                <KpiCard onClick.bind="viewDebitNotes" name="'Debit Notes'" value="state.wtDebit.DebitCount" percentage="state.wtDebit.DebitPercent" wtToatal="state.wtDebit.totalDebit"/>
+                                <KpiCard onClick.bind="viewPayement" name="'Payments'" value="state.paidInvoice.value" percentage="state.paidInvoice.percentage" wtToatal="state.paidInvoice.PaymentTotal"/>
+                            </div>
+                            <div class="row wt_graph_special">
+                                <div class="col-lg-8 m-0 p-0 pb-5">
+                                    <div class="shadow-sm border m-2 p-4 bg-white">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <h3 class="wt_color fw-bold"><t t-esc="state.chartLabel"/></h3>
+                                            <div>
+                                                <select class="form-select " t-att-class="{'d-none': state.dSelect}" t-model="state.accountChild" t-on-change="fetchChildData">
+                                                    <t t-if="state.reportAction != 'account_reports.action_account_report_exec_summary'">
+                                                        <option value="">Select Option</option>
+                                                    </t>
+                                                    <t t-foreach="state.selectOption" t-as="select"  t-key="select.id">
+                                                        <option t-att-value="select.id" t-esc="select.name"/>
+                                                </t>
+                                                </select>
+                                                </div>
+                                        </div>
+                                        <ChartRender  title="'Monthly Invoice'" chartLabel="state.chartLabel" monthlyData="state.monthlyData" label="state.chartLabel" viewAction="state.reportAction" dSelect="state.dSelect" selectList="state.selectOption" compData="state.accountConfig" dateConfig="state.expenseConfig" expenseLabel="state.expenseLabels"/>
+                                    </div> 
+                                </div>
+                                <div class="col-lg-4 m-0 p-0 pb-5" t-att-class="{'d-none': !state.activeTable}">
+                                    <div class="shadow-sm border m-2 p-4 bg-white">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <h3 class="wt_color fw-bold" t-att-class="{'d-none': state.activeItem === 'item7' or state.activeItem === 'item8'}"><t t-esc="state.chartLabel"/></h3>
+                                            <t t-if="state.activeItem === 'item7' or state.activeItem === 'item8'">
+                                            <h3 class="wt_color cursor-pointer fw-bold" t-on-click="resetTable"><t t-esc="state.chartLabel"/></h3>
+                                        </t>
+                                        </div>
+                                        <DashBoardTable  tableBody="state.table_config" WtmenuItem="state.activeItem" wtModel="state.modelState" monthlyData="state.monthlyData" tLabel="state.tableLabel" groupState="state.wtDropdown.groupState" getDate="state.wtDropdown.groupDate" fields="state.fields" tHeadLabel="state.tableHead" childState="state.tableChildData" 
+                                        revenueDate="state.wtDropdown.groupDate1" revenueState="state.wtDropdown.groupStateRevenue" tlabel="state.chartLabel" dateDomain="state.dateDomain"/>
+                                    </div>
+                                </div>
+                            </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

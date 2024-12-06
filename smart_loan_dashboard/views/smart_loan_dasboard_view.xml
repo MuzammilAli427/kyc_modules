@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_smart_loan_dashboard_menu_view" model="ir.actions.client">
+            <field name="name">Smart Loan Dashboard</field>
+            <field name="tag">smart_loan_dashboard</field>
+        </record>
+    </data>
+    <menuitem id="smart_loan_main_menu_dashboard" name="Smart Loan Dashboard" parent="wt_financial_dashboard.wt_main_menu_dashboars"
+        action="action_smart_loan_dashboard_menu_view"/>
+</odoo>

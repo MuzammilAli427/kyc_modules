@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="smart_loan_system.DocumentsViews.Buttons" t-inherit="documents.DocumentsViews.Buttons"
+       t-inherit-mode="extension">
+        <xpath expr="//button[contains(@t-attf-class, 'o_documents_kanban_upload')]" position="replace">
+            <t t-set="current_folder" t-value="env.searchModel.getSelectedFolder().display_name"/>
+            <t t-if="current_folder != 'Others' &amp;&amp; current_folder != 'Other' &amp;&amp; current_folder != 'Company Documentations' &amp;&amp; current_folder != 'Loan Documents' &amp;&amp; current_folder != 'Collaterals'">
+            <t>
+                <button type="button"
+                        t-attf-class="btn btn-primary o_documents_kanban_upload upload_button_check {{additionalClasses}}"
+                        t-on-click.stop.prevent="() => this.uploadFileInputRef.el.click()">
+                    Upload
+                </button>
+            </t>
+            </t>
+            <t t-if="current_folder == 'Others' || current_folder == 'Other' || current_folder == 'Company Documentations' || current_folder == 'Loan Documents' || current_folder == 'Collaterals'">
+                <button type="button" t-attf-class="btn btn-primary o_documents_kanban_upload_2 {{additionalClasses}}"
+                        t-att-disabled="disabled"
+                        t-on-click.stop.prevent="onClickOpenWizardsDocs">
+                    Upload
+                </button>
+            </t>
+        </xpath>
+        <xpath expr="//button[contains(@t-attf-class, 'o_documents_kanban_upload')]" position="after">
+<!--            <t t-if="records[0].data.res_model != 'account.loan'">-->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                Are you sure you want to replace the existing file ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                <button type="button"
+                                        class="btn btn-primary o_documents_kanban_upload"
+                                        t-att-disabled="disabled"
+                                        t-on-click.stop.prevent="() => this.uploadFileInputRef.el.click()"
+                                        data-bs-dismiss="modal">Yes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--            </t>-->
+        </xpath>      
+        <xpath expr="//button[contains(@t-attf-class, 'o_documents_kanban_spreadsheet')]" position="replace">
+            <button type="button"
+                    t-if="props.context.active_model !== 'kyc.retail' &amp;&amp; props.context.active_model !== 'kyc.groups' &amp;&amp; props.context.active_model !== 'kyc.corporate'&amp;&amp; props.context.active_model !== 'loan.collateral' &amp;&amp; props.context.active_model !== 'account.loan'"
+                    t-attf-class="btn btn-secondary o_documents_kanban_spreadsheet {{additionalClasses}}"
+                    t-att-disabled="disabled"
+                    t-on-click.stop.prevent="onClickCreateSpreadsheet">
+                Create Spreadsheet
+            </button>
+        </xpath>
+        <xpath expr="//button[contains(@t-attf-class, 'o_documents_kanban_request')]" position="replace">
+            <button type="button"
+                    t-if="props.context.active_model !== 'kyc.retail' &amp;&amp; props.context.active_model !== 'kyc.groups' &amp;&amp; props.context.active_model !== 'kyc.corporate'&amp;&amp; props.context.active_model !== 'loan.collateral' &amp;&amp; props.context.active_model !== 'account.loan'"
+                    t-attf-class="btn btn-secondary o_documents_kanban_request {{additionalClasses}}"
+                    t-att-disabled="disabled"
+                    t-on-click.stop.prevent="onClickDocumentsRequest">
+                Request
+            </button>
+        </xpath>
+        <xpath expr="//button[contains(@t-attf-class, 'o_documents_kanban_url')]" position="replace">
+            <button type="button" t-attf-class="btn btn-secondary o_documents_kanban_url {{additionalClasses}}"
+                    t-att-disabled="disabled"
+                    t-if="props.context.active_model !== 'kyc.retail' &amp;&amp; props.context.active_model !== 'kyc.groups' &amp;&amp; props.context.active_model !== 'kyc.corporate'&amp;&amp; props.context.active_model !== 'loan.collateral' &amp;&amp; props.context.active_model !== 'account.loan'"
+                    t-on-click.stop.prevent="onClickDocumentsAddUrl">
+                Add a Link
+            </button>
+        </xpath>
+        <xpath expr="//button[contains(@t-attf-class, 'o_documents_kanban_share_domain')]" position="replace">
+            <button type="button"
+                    t-if="props.context.active_model !== 'kyc.retail' &amp;&amp; props.context.active_model !== 'kyc.groups' &amp;&amp; props.context.active_model !== 'kyc.corporate'&amp;&amp; props.context.active_model !== 'loan.collateral' &amp;&amp; props.context.active_model !== 'account.loan'"
+                    t-attf-class="btn btn-secondary o_documents_kanban_share_domain {{additionalClasses}}"
+                    title="Share this domain" t-att-disabled="disabled" groups="documents.group_documents_user"
+                    t-on-click.stop.prevent="onClickShareDomain">
+                Share
+            </button>
+        </xpath>
+    </t>
+    <t t-name="smart_loan_system.DocumentsInspector.documentsInfo"
+       t-inherit="documents.DocumentsInspector.documentsInfo"
+       t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_inspector_fields')]//table//tbody//t" position="after">
+            <t t-if="records[0].data.res_model == 'kyc.retail' || records[0].data.res_model == 'kyc.corporate'">
+                <t t-call="documents.DocumentsInspector.field">
+                    <t t-set="field">kyc_date</t>
+                </t>
+                <t t-call="documents.DocumentsInspector.field">
+                    <t t-set="field">action_by_date</t>
+                </t>
+            </t>
+
+        </xpath>
+    </t>
+
+    <t t-name="smart_loan_system.SearchPanel.Category" t-inherit="documents.SearchPanel.Category"
+       t-inherit-mode="extension" owl="1">
+        <xpath expr="//li[contains(@class, 'o_search_panel_category_value')]" position="attributes">
+            <attribute name="t-att-datas-id">value.id</attribute>
+            <attribute name="t-if">DisableFolders(value.display_name)</attribute>
+        </xpath>
+    </t>
+
+</templates>

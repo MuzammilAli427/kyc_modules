@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree view for Restructure loan -->
+    <record id="account_loan_pay_amount_tree_view" model="ir.ui.view">
+        <field name="name">account.loan.pay.amount.tree</field>
+        <field name="model">account.loan.pay.amount</field>
+        <field name="arch" type="xml">
+            <tree string="Extra Payment Tree">
+                <field name="loan_id"/>
+                <field name="date"/>
+                <field name="extra_payment"/>
+                <field name="cancel_loan"/>
+                <field name="amount"/>
+                <field name="journal_id" invisible="1"/>
+                <field name="currency_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_loan_pay_amount_form_view" model="ir.ui.view">
+        <field name="name">Extra Payment</field>
+        <field name="model">account.loan.pay.amount</field>
+        <field name="arch" type="xml">
+            <form string="Pay amount">
+                <header>
+                    <button name="submit_for_approval" type="object" class="btn btn-primary"
+                            string="Submit For Approval" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+
+                    <button name="run" string="Pay" context="{'paid_amount_from_loan': True}"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'submit_approval')]}"
+                            groups="smart_loan_system.group_loan_manager"/>
+
+                    <button name="cancel_extra_payment" string="Cancel" type="object"/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="edit_allow" invisible="1"/>
+                            <field name="loan_id" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="date" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="extra_payment" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="cancel_loan" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+
+                            <field name="amount" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="is_early_partial_fee" attrs="{'invisible': [('extra_payment','!=','pay_3')], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="early_partial_repayment_fee" attrs="{'invisible': [('is_early_partial_fee','!=',True)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="tax_amount" attrs="{'invisible': [('is_early_partial_fee','!=',True), ('extra_payment', '=', 'pay_3')], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="total_amount" attrs="{'invisible': [('is_early_partial_fee','!=',True)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="journal_id" required="False" invisible="1" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="currency_id" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="cancel_type" attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="interest_count" attrs="{'invisible': [('cancel_type','=','percentile')], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="residual_amount"
+                                   attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="outstanding_principal_amount"
+                                   attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="early_payment_fee"
+                                   attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="remaining_principal_amount"
+                                   attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="remaining_interest_amount"
+                                   attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="remaining_life_insurance_amount"
+                                   attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="remaining_fire_insurance_amount"
+                                   attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="remaining_penalties_amount"
+                                   attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                            <field name="remaining_ground_lease"
+                                   attrs="{'invisible': [('cancel_loan','=',False)], 'readonly':[('edit_allow', '=', False)]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="loan_pay_amount_action" model="ir.actions.act_window">
+        <field name="name">Extra Payment</field>
+        <field name="res_model">account.loan.pay.amount</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{'default_loan_id': False}</field>
+    </record>
+
+
+    <menuitem id="extra_payment_menu"
+              name="Extra Payment Loan"
+              parent="account_config"
+              sequence="3"
+              action="loan_pay_amount_action"
+    />
+
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+    <t t-name="loan_dashboard.line_chart_template" owl="1">
+         <div class="col-sm-12" style="margin-top:70px;">
+             <h1 class="text-center">
+                 <t t-out="getName(props.type)"/>
+             </h1>
+            <div t-ref="line_chart_ref" id="line_chart_mount_div_id" style="width: 100%;height:100%;"></div>
+         </div>
+    </t>
+</template>

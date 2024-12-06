@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="documents.folder" id="document_folder_id_ext">
+            <field name="name">ID</field>
+        </record>
+
+        <record model="documents.folder" id="document_folder_driving_license">
+            <field name="name">Driving License</field>
+        </record>
+
+        <record model="documents.folder" id="document_folder_passport">
+            <field name="name">Passport</field>
+        </record>
+
+        <record model="documents.folder" id="document_folder_others">
+            <field name="name">Others</field>
+        </record>
+
+        <record model="documents.folder" id="document_folder_kvk">
+            <field name="name">KvK</field>
+        </record>
+
+        <record model="documents.folder" id="document_folder_artical_incorp">
+            <field name="name">Articles of incorporation</field>
+        </record>
+
+        <record model="documents.folder" id="document_folder_share_reg">
+            <field name="name">Shareholder register</field>
+        </record>
+
+        <record model="documents.folder" id="document_folder_company_doc">
+            <field name="name">Company Documentations</field>
+        </record>
+
+        <record model="documents.folder" id="document_folder_collaterals">
+            <field name="name">Collaterals</field>
+        </record>
+        <!--        Collaterals Sub Folders-->
+
+        <record model="documents.folder" id="col_mortgage">
+            <field name="name">Mortgage</field>
+            <field name="parent_folder_id" ref="document_folder_collaterals"/>
+        </record>
+
+        <!--        Mortgage Sub Folders-->
+
+        <record model="documents.folder" id="col_mortgage_deed">
+            <field name="name">Mortgage Deed</field>
+            <field name="parent_folder_id" ref="col_mortgage"/>
+        </record>
+
+        <record model="documents.folder" id="col_appraisal_report">
+            <field name="name">Appraisal Report</field>
+            <field name="parent_folder_id" ref="col_mortgage"/>
+        </record>
+
+        <record model="documents.folder" id="col_kadaster_registration">
+            <field name="name">Kadaster Registration</field>
+            <field name="parent_folder_id" ref="col_mortgage"/>
+        </record>
+
+        <record model="documents.folder" id="col_power_of_attorney">
+            <field name="name">Power of attorney</field>
+            <field name="parent_folder_id" ref="col_mortgage"/>
+        </record>
+
+        <record model="documents.folder" id="col_mor_other">
+            <field name="name">Other</field>
+            <field name="parent_folder_id" ref="col_mortgage"/>
+        </record>
+
+
+        <record model="documents.folder" id="col_vehicle">
+            <field name="name">Vehicle</field>
+            <field name="parent_folder_id" ref="document_folder_collaterals"/>
+        </record>
+
+        <!--        Vehicle Sub Folders-->
+
+        <record model="documents.folder" id="col_fot">
+            <field name="name">FOT</field>
+            <field name="parent_folder_id" ref="col_vehicle"/>
+        </record>
+
+        <record model="documents.folder" id="col_inspection_certificate">
+            <field name="name">Inspection certificate of car</field>
+            <field name="parent_folder_id" ref="col_vehicle"/>
+        </record>
+
+        <record model="documents.folder" id="col_Veh_other">
+            <field name="name">Other</field>
+            <field name="parent_folder_id" ref="col_vehicle"/>
+        </record>
+
+
+        <record model="documents.folder" id="col_insurance">
+            <field name="name">Insurance</field>
+            <field name="parent_folder_id" ref="document_folder_collaterals"/>
+        </record>
+
+        <!--        Insurance Sub Folders-->
+
+
+        <record model="documents.folder" id="car_insurance">
+            <field name="name">Car</field>
+            <field name="parent_folder_id" ref="col_insurance"/>
+        </record>
+
+        <record model="documents.folder" id="life_insurance">
+            <field name="name">Life</field>
+            <field name="parent_folder_id" ref="col_insurance"/>
+        </record>
+
+        <record model="documents.folder" id="fire_insurance">
+            <field name="name">Fire</field>
+            <field name="parent_folder_id" ref="col_insurance"/>
+        </record>
+
+        <record model="documents.folder" id="accident_insurance">
+            <field name="name">Personal Accident</field>
+            <field name="parent_folder_id" ref="col_insurance"/>
+        </record>
+
+        <record model="documents.folder" id="inventory_insurance">
+            <field name="name">Inventory / Fixed Assets</field>
+            <field name="parent_folder_id" ref="col_insurance"/>
+        </record>
+
+        <record model="documents.folder" id="liability_insurance">
+            <field name="name">Liability</field>
+            <field name="parent_folder_id" ref="col_insurance"/>
+        </record>
+
+        <record model="documents.folder" id="car_construction_insurance">
+            <field name="name">CAR (construction all risk)</field>
+            <field name="parent_folder_id" ref="col_insurance"/>
+        </record>
+
+        <record model="documents.folder" id="other_insurance">
+            <field name="name">Other</field>
+            <field name="parent_folder_id" ref="col_insurance"/>
+        </record>
+
+        <record model="documents.folder" id="col_guarantee">
+            <field name="name">Guarantee</field>
+            <field name="parent_folder_id" ref="document_folder_collaterals"/>
+        </record>
+
+        <!--        Guarantee Sub Folders-->
+
+        <record model="documents.folder" id="corporate_guarantee">
+            <field name="name">Corporate Guarantee</field>
+            <field name="parent_folder_id" ref="col_guarantee"/>
+        </record>
+
+        <record model="documents.folder" id="personal_guarantee">
+            <field name="name">Personal Guarantee</field>
+            <field name="parent_folder_id" ref="col_guarantee"/>
+        </record>
+
+        <record model="documents.folder" id="cross_corporate_guarantee">
+            <field name="name">Cross Corporate Guarantee</field>
+            <field name="parent_folder_id" ref="col_guarantee"/>
+        </record>
+
+        <record model="documents.folder" id="net_worth_statement_guarantee">
+            <field name="name">Net Worth Statement</field>
+            <field name="parent_folder_id" ref="col_guarantee"/>
+        </record>
+
+        <record model="documents.folder" id="other_guarantee">
+            <field name="name">Other</field>
+            <field name="parent_folder_id" ref="col_guarantee"/>
+        </record>
+
+        <record model="documents.folder" id="col_cash">
+            <field name="name">Cash</field>
+            <field name="parent_folder_id" ref="document_folder_collaterals"/>
+        </record>
+
+        <!--        Cash Sub Folders-->
+
+        <record model="documents.folder" id="pledge_agreement_td_cash">
+            <field name="name">Pledge Agreement TD</field>
+            <field name="parent_folder_id" ref="col_cash"/>
+        </record>
+
+        <record model="documents.folder" id="pledge_agreement_savings_cash">
+            <field name="name">Pledge Agreement Savings</field>
+            <field name="parent_folder_id" ref="col_cash"/>
+        </record>
+
+        <record model="documents.folder" id="other_cash">
+            <field name="name">Other</field>
+            <field name="parent_folder_id" ref="col_cash"/>
+        </record>
+
+        <record model="documents.folder" id="col_receivables">
+            <field name="name">Receivables</field>
+            <field name="parent_folder_id" ref="document_folder_collaterals"/>
+        </record>
+
+<!--        Receivables Sub Folders-->
+
+        <record model="documents.folder" id="assignment_receivables_deeds">
+            <field name="name">Assignment Receivables Deed</field>
+            <field name="parent_folder_id" ref="col_receivables"/>
+        </record>
+
+        <record model="documents.folder" id="account_receivables_aging">
+            <field name="name">Account Receivables Listing By Aging Report</field>
+            <field name="parent_folder_id" ref="col_receivables"/>
+        </record>
+
+        <record model="documents.folder" id="other_receivables">
+            <field name="name">Other</field>
+            <field name="parent_folder_id" ref="col_receivables"/>
+        </record>
+
+        <record model="documents.folder" id="col_general">
+            <field name="name">General</field>
+            <field name="parent_folder_id" ref="document_folder_collaterals"/>
+        </record>
+
+<!--        General Sub Folders-->
+
+        <record model="documents.folder" id="income_assignment_general">
+            <field name="name">Income Assignment</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="specific_general">
+            <field name="name">Specific General Assignment</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="general_assignment_general">
+            <field name="name">General Assignment</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="salary_assignment_general">
+            <field name="name">Salary Assignment</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="lease_income_assignment_general">
+            <field name="name">Lease Income Assignment</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="income_assets_general">
+            <field name="name">Inventory/Fixed Assets</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="feo_inventory_general">
+            <field name="name">FEO Inventory Assignment Deed</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="inventory_listing_general">
+            <field name="name">Inventory Listing</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="salary_statement_general">
+            <field name="name">Salary Statement</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="pension_statement_general">
+            <field name="name">Pension Statement</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="pension_withholding_general">
+            <field name="name">Pension Withholding Letter</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="salary_withholding_general">
+            <field name="name">Salary Withholding Letter</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="insurance_payment_general">
+            <field name="name">Insurance Payment Receipt</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="other_general">
+            <field name="name">Other</field>
+            <field name="parent_folder_id" ref="col_general"/>
+        </record>
+
+        <record model="documents.folder" id="col_loan_subordination">
+            <field name="name">Loan Subordination</field>
+            <field name="parent_folder_id" ref="document_folder_collaterals"/>
+        </record>
+
+<!--        Loan Subordination Sub Folders-->
+
+        <record model="documents.folder" id="loan_subordination_deed">
+            <field name="name">Loan Subordination Deed</field>
+            <field name="parent_folder_id" ref="col_loan_subordination"/>
+        </record>
+
+         <record model="documents.folder" id="loan_subordination_other">
+            <field name="name">Other</field>
+            <field name="parent_folder_id" ref="col_loan_subordination"/>
+        </record>
+
+        <record model="documents.folder" id="col_pledge_shares">
+            <field name="name">Pledge of Shares</field>
+            <field name="parent_folder_id" ref="document_folder_collaterals"/>
+        </record>
+
+<!--        Pledge of Shares Sub Folders-->
+
+        <record model="documents.folder" id="pledge_shares_deeds">
+            <field name="name">Pledge of Shares Deeds</field>
+            <field name="parent_folder_id" ref="col_pledge_shares"/>
+        </record>
+
+         <record model="documents.folder" id="pledge_shares_shareholders">
+            <field name="name">Shareholder Register</field>
+            <field name="parent_folder_id" ref="col_pledge_shares"/>
+        </record>
+
+         <record model="documents.folder" id="pledge_shares_curacao">
+            <field name="name">Excerpt of Curacao Chamber</field>
+            <field name="parent_folder_id" ref="col_pledge_shares"/>
+        </record>
+
+         <record model="documents.folder" id="pledge_shares_other">
+            <field name="name">Other</field>
+            <field name="parent_folder_id" ref="col_pledge_shares"/>
+        </record>
+
+
+        <record model="documents.folder" id="documents_loan">
+            <field name="name">Loan Documents</field>
+        </record>
+        <!--        Loan Documents Sub Folders-->
+        <record model="documents.folder" id="ld_salary_statement">
+            <field name="name">Salary Statement</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_pension_statement">
+            <field name="name">Pension Statement</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_pension_withholding_letter">
+            <field name="name">Pension Withholding Letter</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_salary_withholding_letter">
+            <field name="name">Salary Withholding Letter</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_insurance_payment_receipt">
+            <field name="name">Insurance Payment receipt</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+
+        <record model="documents.folder" id="ld_business_proposal">
+            <field name="name">Business Proposal</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_balance_sheet">
+            <field name="name">Balance Sheet</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_income_statement">
+            <field name="name">Income Statement</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_cash_flow_statement">
+            <field name="name">Cash Flow Statement</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_recent_audited_financials">
+            <field name="name">Recent Audited Financials</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_corporate_tax_returns">
+            <field name="name">Corporate Tax Returns</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_bank_statements">
+            <field name="name">Bank Statements</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_debt_schedule">
+            <field name="name">Debt Schedule</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_appraisal_reports">
+            <field name="name">Appraisal Reports</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_mortgage_deeds">
+            <field name="name">Mortgage Deeds</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_inventory_lists">
+            <field name="name">Inventory Lists</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_association_articles">
+            <field name="name">Articles of Association/Bylaws</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_operating_agreements">
+            <field name="name">Operating Agreements</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_shareholder_agreements">
+            <field name="name">Shareholder Agreements</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_business_licenses">
+            <field name="name">Business Licenses</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_interim_financial_statements">
+            <field name="name">Interim Financial Statements</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_personal_financial_statements">
+            <field name="name">Personal Financial Statements</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_kyc_socuments">
+            <field name="name">KYC Documents</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_proof_of_address">
+            <field name="name">Proof of Address</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_lease_contrast">
+            <field name="name">Leases and Contracts</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_recent_asset_valuations">
+            <field name="name">Recent Asset Valuations</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_insurance_policies">
+            <field name="name">Insurance Policies</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_restructuring_agreements">
+            <field name="name">Restructuring Agreement</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_environmental_reports">
+            <field name="name">Environmental Reports</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_license_permits">
+            <field name="name">Industry Licenses/Permits</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_memo">
+            <field name="name">Memo</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+
+        <record model="documents.folder" id="ld_executive_summary">
+            <field name="name">Executive Summary</field>
+            <field name="parent_folder_id" ref="documents_loan"/>
+        </record>
+    </data>
+</odoo>

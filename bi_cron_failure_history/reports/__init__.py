@@ -1,0 +1,1 @@
+from . import cron_failed_report

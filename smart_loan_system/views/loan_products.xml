@@ -1,0 +1,79 @@
+<odoo>
+    <record id="loan_products_form_view" model="ir.ui.view">
+        <field name="name">LoanProductsForm</field>
+        <field name="model">loan.products</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <br/>
+                    <notebook>
+                        <page string="General Information">
+                            <group>
+                                <group>
+                                    <field name="code" string="Code"/>
+                                    <field name="currency_id"/>
+                                    <field name="country_id"/>
+                                    <field name="interest_min"/>
+                                    <field name="interest_max"/>
+                                    <field name="amount_minimum"/>
+                                    <field name="amount_maximum"/>
+                                    <field name="list_price"/>
+                                </group>
+                                <group>
+                                    <field name="no_of_installments_min"/>
+                                    <field name="no_of_installments_max"/>
+                                    <field name="grace_period_min"/>
+                                    <field name="grace_period_max"/>
+                                    <field name="penalties_rate"/>
+                                    <field name="entry_fee"/>
+                                    <field name="partial_repayment_fee"/>
+                                    <field name="total_repayment_fee"/>
+                                </group>
+                            </group>
+                            <group string="Internal Notes"/>
+                            <field name="comments" nolabel="1" placeholder="This note is only for internal purposes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="loan_products_tree_view" model="ir.ui.view">
+        <field name="name">LoanProductsTree</field>
+        <field name="model">loan.products</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='loan_products_action' model='ir.actions.act_window'>
+        <field name="name">Loan Products</field>
+        <field name="res_model">loan.products</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Loan" id="loan_menu" parent="loan_management_menu"/>
+    <menuitem name="Loan Products" id="loan_products_menu" parent="loan_menu" action="loan_products_action"
+              sequence="3"/>
+
+    <delete model="ir.ui.menu" id="loan_menu"></delete>
+    <delete model="ir.ui.menu" id="loan_products_menu"></delete>
+
+    <menuitem name="Products" id="menu_loan_product" parent="loan_management_menu" action="loan_products_action"
+              sequence="3"/>
+
+
+</odoo>

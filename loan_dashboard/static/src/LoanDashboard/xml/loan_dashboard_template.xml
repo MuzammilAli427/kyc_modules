@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+    <t t-name="loan_dashboard.loan_dashboard_template" owl="1">
+        <div class="o_action">
+            <div class="o_content">
+                <div class="mt-2 row">
+            <div class="col-sm">
+                <div class="row">
+                    <TileChartView dataToRender="this.state.tileData"/>
+                </div>
+                <div class="row mt-4">
+                    <div class="row pie_row ">
+                        <div class="col-sm-3">
+                             <PieChartView type="'amount_share_by_division'" dataToRender="this.state.pieData"/>
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <PieChartView type="'amount_share_by_jurisdiction'" dataToRender="state.pieData"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <PieChartView type="'amount_share_by_loan_classification'" dataToRender="state.pieData"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <PieChartView type="'amount_share_by_loan_product'" dataToRender="state.pieData"/>
+                        </div>
+                    </div>
+
+                    <div class="row pie_row" >
+                        <div class="col-sm-3">
+                            <PieChartView type="'quantity_share_by_division'" dataToRender="state.pieData"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <PieChartView type="'quantity_share_by_jurisdiction'" dataToRender="state.pieData"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <PieChartView type="'quantity_share_by_loan_classification'" dataToRender="state.pieData"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <PieChartView type="'quantity_share_by_loan_product'" dataToRender="state.pieData"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                     <div class="row line_row">
+                        <LineChartView type="'amount_per_loan_classification_per_ao'" dataToRender="state.lineData"/>
+                    </div>
+                    <div class="row line_row">
+                        <LineChartView type="'quantities_per_loan_classification_per_ao'" dataToRender="state.lineData"/>
+                    </div>
+
+                     <div class="row line_row">
+                        <LineChartView type="'amount_per_jurisdiction_per_loan_classification'" dataToRender="state.lineData"/>
+                    </div>
+                    <div class="row line_row">
+                        <LineChartView type="'quantities_per_jurisdiction_per_loan_classification'" dataToRender="state.lineData"/>
+                    </div>
+
+                     <div class="row line_row">
+                        <LineChartView type="'amounts_per_division_per_loan_classification'" dataToRender="state.lineData"/>
+                    </div>
+                    <div class="row line_row">
+                        <LineChartView type="'quantities_per_division_per_loan_classification'" dataToRender="state.lineData"/>
+                    </div>
+
+                     <div class="row line_row">
+                        <LineChartView type="'restructured_loans_amounts_per_loan_classification_since'" dataToRender="state.lineData"/>
+                    </div>
+                    <div class="row line_row">
+                        <LineChartView type="'cumulative_restructured_loans_per_loan_classification_per_ao_since'" dataToRender="state.lineData"/>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
+
+    </t>
+</template>

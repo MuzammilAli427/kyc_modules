@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Tree view for Restructure loan -->
+    <record id="move_due_date_of_loan_wizard_tree" model="ir.ui.view">
+        <field name="name">move.due.date.of.loan.wizard</field>
+        <field name="model">move.due.date</field>
+        <field name="arch" type="xml">
+            <tree string="Postponed Installments Tree">
+                <field name="loan_id"/>
+                <field name="due_date_selection"/>
+                <field name="days_to_add"/>
+                <field name="loan_principal"/>
+                <field name="loan_interest"/>
+                <field name="months_to_add"/>
+                <field name="reason"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="move_due_date_of_loan_wizard" model="ir.ui.view">
+        <field name="name">Change Installment Dates</field>
+        <field name="model">move.due.date</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="submit_for_approval" type="object" class="btn btn-primary"
+                            string="Submit For Approval" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="postpone_invoices" string="Postpone"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'submit_approval')]}"
+                            groups="smart_loan_system.group_loan_manager"/>
+                    <button name="cancel_postpone_installment" string="Cancel" type="object"/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <group>
+
+                    <group colspan="4">
+                        <field name="edit_allow" invisible="1"/>
+                        <field name="loan_id" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                        <field name="due_date_selection" required="1" widget="radio" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                        <field name="move_invoices_since"
+                               attrs="{'invisible': [('due_date_selection','=','reset')], 'required': [('due_date_selection','!=','reset')], 'readonly':[('edit_allow', '=', False)]}"/>
+                        <field name="days_to_add" attrs="{'invisible': ['|', ('due_date_selection','=','by_month'),
+                            ('due_date_selection','=','reset')], 'readonly':[('edit_allow', '=', False)]}"/>
+                    </group>
+                    <group colspan="1" attrs="{'invisible': ['|', ('due_date_selection','=','by_days'),
+                            ('due_date_selection','=','reset')], 'readonly':[('edit_allow', '=', False)]}">
+                        <span>
+                            <b>Items to be Pushed</b>
+                        </span>
+                    </group>
+                    <group colspan="3" attrs="{'invisible': ['|', ('due_date_selection','=','by_days'),
+                            ('due_date_selection','=','reset')], 'readonly':[('edit_allow', '=', False)]}">
+                        <field name="property_tax" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                        <field name="property_ins" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                        <field name="loan_principal" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                        <field name="loan_interest" attrs="{'readonly':[('edit_allow', '=', False)]}"/>
+                    </group>
+                    <group colspan="4">
+                        <field name="months_to_add" attrs="{'invisible': ['|', ('due_date_selection','=','by_days'),
+                                ('due_date_selection','=','reset')], 'readonly':[('edit_allow', '=', False)]}"/>
+                        <field name="reason" attrs="{'required': ['|', ('due_date_selection','=','by_days'),
+                                ('due_date_selection','=','by_month')],
+                                'invisible': [('due_date_selection','=', 'reset')], 'readonly':[('edit_allow', '=', False)]}"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="move_due_date_of_loan_wizard_action" model="ir.actions.act_window">
+        <field name="name">Postpone Installments</field>
+        <field name="res_model">move.due.date</field>
+        <field name="view_mode">tree,form</field>
+        <!--        <field name="target">new</field>-->
+    </record>
+
+    <menuitem id="postpone_installments_menu"
+              name="Postpone Installments"
+              parent="account_config"
+              sequence="4"
+              action="move_due_date_of_loan_wizard_action"
+    />
+
+</odoo>

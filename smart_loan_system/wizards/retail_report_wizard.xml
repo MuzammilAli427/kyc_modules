@@ -1,0 +1,459 @@
+<odoo>
+    <record id="report_loan_wizard_1" model="ir.ui.view">
+        <field name="name">retail.report.one</field>
+        <field name="model">retail.report.one</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Retail Report 1">
+                <group>
+                    <group>
+                   <field name="date_from"/>
+                   <field name="date_to"/>
+                   <field name="partner_id"/>
+                   </group>
+                </group>
+                <footer>
+                    <button class="oe_highlight" name="get_report" string="Get Report" type="object"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+     <record id="retail_report_pdf_action_1" model="ir.actions.report">
+            <field name="name">Retail Report 1 Action</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="model">retail.report.one</field>
+            <field name="report_name">smart_loan_system.retail_report_template_1</field>
+            <field name="report_file">smart_loan_system.retail_report_template_1</field>
+     </record>
+
+     <record id='retail_report_form_action_1' model='ir.actions.act_window'>
+        <field name="name">Retail Report 1</field>
+        <field name="res_model">retail.report.one</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'report_trigger':1}</field>
+    </record>
+
+    <record id="retail_report_pdf_action_2" model="ir.actions.report">
+            <field name="name">Retail Report 2 Action</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="model">retail.report.one</field>
+            <field name="report_name">smart_loan_system.retail_report_template_2</field>
+            <field name="report_file">smart_loan_system.retail_report_template_2</field>
+     </record>
+
+     <record id='retail_report_form_action_2' model='ir.actions.act_window'>
+        <field name="name">Retail Report 2</field>
+        <field name="res_model">retail.report.one</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'report_trigger':2}</field>
+    </record>
+
+    <record id="retail_report_pdf_action_3" model="ir.actions.report">
+            <field name="name">Retail Report 3 Action</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="model">retail.report.one</field>
+            <field name="report_name">smart_loan_system.retail_report_template_3</field>
+            <field name="report_file">smart_loan_system.retail_report_template_3</field>
+     </record>
+
+     <record id='retail_report_form_action_3' model='ir.actions.act_window'>
+        <field name="name">Retail Report 3</field>
+        <field name="res_model">retail.report.one</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'report_trigger':3}</field>
+    </record>
+
+<!--    <record id="retail_report_pdf_action_4" model="ir.actions.report">-->
+<!--            <field name="name">Retail Report 4 Action</field>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="model">retail.report.one</field>-->
+<!--            <field name="report_name">smart_loan_system.retail_report_template_1</field>-->
+<!--            <field name="report_file">smart_loan_system.retail_report_template_1</field>-->
+<!--     </record>-->
+
+<!--     <record id='retail_report_form_action_4' model='ir.actions.act_window'>-->
+<!--        <field name="name">Retail Report 4</field>-->
+<!--        <field name="res_model">retail.report.one</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--        <field name="context">{'report_trigger':4}</field>-->
+<!--    </record>-->
+
+
+    <!--    menuitem -->
+  <menuitem name="Report 1" id="retail_report_1_submenu_id" parent="retail_reports_menu" action="smart_loan_system.retail_report_form_action_1"/>
+  <menuitem name="Report 2" id="retail_report_2_submenu_id" parent="retail_reports_menu" action="smart_loan_system.retail_report_form_action_2"/>
+  <menuitem name="Report 3" id="retail_report_3_submenu_id" parent="retail_reports_menu" action="smart_loan_system.retail_report_form_action_3"/>
+<!--  <menuitem name="Report 4" id="retail_report_4_submenu_id" parent="retail_reports_menu" action="smart_loan_system.retail_report_form_action_4"/>-->
+
+  <template id="retail_report_template_1">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            #retail_performance_table {
+                              width: 100%;
+                            }
+
+                            #retail_performance_table td, #retail_performance_table th {
+                              padding: 8px;
+                              font-weight: bold;
+                            }
+                            #retail_performance_table th {
+                              padding-top: 2px;
+                              padding-bottom: 2px;
+                              text-align: left;
+                            }
+                            .footer_points{
+                                margin-top:10px; font-size:18px;
+                            }
+                        </style>
+                        <p style="color:#385ef5; font-size:30px; font-weight: 100;">Retail Performance</p>
+                        <p style="margin-top:25px; font-weight: bold;">November - April 2023</p>
+                        <table id="retail_performance_table">
+                          <tr>
+                            <th>Highlights Period <t t-out="o.date_from.strftime('%B')"/> 2022 - <t t-out="o.date_to.strftime('%B')"/> 2023</th>
+                          </tr>
+                          <tr>
+                            <td>Total Collected Nov-April (Cur and Bon)</td>
+                            <td>NAf.</td>
+                            <td>0.00</td>
+                          </tr>
+                          <tr>
+                            <td>Total settlement/Pay-offs Nov-April (Cur&amp;Bon)</td>
+                            <td>NAf.</td>
+                            <td>0.00</td>
+                          </tr>
+                          <tr>
+                            <td>Total Collected/Pay-offs Nov-April (Cur&amp;Bon)</td>
+                            <td>NAf.</td>
+                            <td>0.00</td>
+                          </tr>
+                          <tr>
+                            <td>Total Restructured &amp; Refinanced Nov-April (Cur&amp;Bon)</td>
+                            <td>NAf.</td>
+                            <td>0.00</td>
+                          </tr>
+                          <tr>
+                            <td>Total Collected/settlements/Pay-offs/Restructured Nov-April</td>
+                            <td>NAf.</td>
+                            <td>0.00</td>
+                          </tr>
+                        </table>
+
+                        <p class="footer_points">Amounts are performance based and rounded to nearest 1,000</p>
+                        <p class="footer_points">Report is compiled manually by Soraidia</p>
+                        <p class="footer_points">collected amount is the actual total amount collected incl. interest, penalties etc</p>
+                        <p class="footer_points">Settlement amount is the amount received from client and relationship (loan) is terminated by client</p>
+                        <p class="footer_points">Restructuring amounts come from Loan module and indicate the Loan amount that has been restructured</p>
+                        <p class="footer_points">Report Source: Loan Module</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+  <template id="retail_report_template_2">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+
+                        .table_header_footer_bg > td, .main_table_top{
+                            background-color: #87cfeb;
+                            padding-top:30px;
+                            padding-bottom: 30px;
+                            text-align:center
+                            }
+                            .main_table_top{
+                             width: 100%;
+                             height: 90px;
+                             text-align:initial !important;
+                            }
+
+                            .main_table_top_text{
+                            font-size:28px;
+                            font-weight: 800;
+                            text-align:initial !important;
+                            }
+                        .table_head{
+                             padding-top:30px;
+                            padding-bottom: 30px;
+                            }
+                        .table_footer{
+                               padding-top:20px;
+                                padding-bottom: 20px;
+                            }
+
+                        .table_row_data_lines > td{
+                             padding-top:20px;
+                             padding-bottom: 20px;
+                             text-align:center
+                            }
+                             .table_row_data_lines > td:first-child{
+                               text-align: left !important;
+                               padding-left: 2px;
+                            }
+
+                        </style>
+                        <p style="color:#385ef5; font-size:30px; font-weight: 100;">Retail Progress Upto</p>
+                        <table style="width: 100%;" id="table_retail_report_2">
+                            <tbody>
+                            <tr  class="main_table_top">
+                            <td colspan="8" class="table_header_footer_bg">
+                                <span>
+                                  <img width="80px" height="30px;" t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                 alt="Logo"/>
+                                 </span>
+                               <span  class="main_table_top_text"> Retail Progress Up to <t t-out="o.date_to.strftime('%B')"/> <t t-out="o.date_to.year"/> </span>
+                                <div style="font-weight:800; padding-top:15px;">
+                                    <t t-out="o.date_to.year"/>
+                                </div>
+                            </td>
+
+                            </tr>
+                            <tr>
+                            <td colspan="8" class="table_header_footer_bg">
+
+                            </td>
+                            </tr>
+                            <tr class="table_header_footer_bg">
+                                <td>Account Manager</td>
+                                <td>Amount Collected (NAf)</td>
+                                <td>Amount Settlements (NAF)</td>
+                                <td>Amount Pay-Offs (NAf)</td>
+                                <td>Amount Restructured (NAf)</td>
+                                <td>Total (NAf)</td>
+                                <td>Target (NAf)</td>
+                                <td>Progress</td>
+                            </tr>
+
+                            <tr class="table_row_data_lines">
+                                <td>GADDIAL BOELBAAI</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                            </tr>
+                            <tr class="table_row_data_lines">
+                                <td>SEDWIN FELICA</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                            </tr>
+                               <tr class="table_row_data_lines">
+                                <td>SUZZAIN ELLENSBURG</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+
+                            </tr>
+                            <tr class="table_row_data_lines">
+                                <td>YUWATTE EUNG BONAIRE</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+
+                            </tr>
+
+
+                            <tr class="table_header_footer_bg">
+                            <td>Total</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            </tr>
+                            <tr>
+                            <td colspan="8" class="table_header_footer_bg">
+                                <p>
+                                    *Yvette Yung Total including Bonaire is NAf. 0.00 and her progress is 74%. The overall progress is 95%
+                                </p>
+                            </td>
+                            </tr>
+                            </tbody>
+                            </table>
+                        <p class="footer_points">All amounts are Loan and Loan portfolio related</p>
+                        <p class="footer_points">Report Source: Loan Module</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+  <template id="retail_report_template_3">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+
+                        .table_header_footer_bg > td, .main_table_top{
+                            background-color: #87cfeb;
+                            padding-top:30px;
+                            padding-bottom: 30px;
+                            text-align:center
+                            }
+                            .main_table_top{
+                             width: 100%;
+                             height: 90px;
+                             text-align:initial !important;
+                            }
+
+                            .main_table_top_text{
+                            font-size:28px;
+                            font-weight: 800;
+                            text-align:initial !important;
+                            }
+                        .table_head{
+                             padding-top:30px;
+                            padding-bottom: 30px;
+                            }
+                        .table_footer{
+                               padding-top:20px;
+                                padding-bottom: 20px;
+                            }
+
+                        .table_row_data_lines > td{
+                             padding-top:20px;
+                             padding-bottom: 20px;
+                             text-align:center
+                            }
+                             .table_row_data_lines > td:first-child{
+                               text-align: left !important;
+                               padding-left: 2px;
+                            }
+
+                        </style>
+                        <p style="color:#385ef5; font-size:30px; font-weight: 100;">Retail Collections for the Month</p>
+                        <table style="width: 100%;" id="table_retail_report_2">
+                            <tbody>
+                            <tr  class="main_table_top">
+                            <td colspan="10" class="table_header_footer_bg">
+                                <span>
+                                  <img width="80px" height="30px;" t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                 alt="Logo"/>
+                                 </span>
+                               <span  class="main_table_top_text"> Retail Collections for April </span>
+                                <div style="font-weight:800; padding-top:15px;">
+                                    <t t-out="o.date_to.year"/>
+                                </div>
+                            </td>
+
+                            </tr>
+                            <tr>
+                            <td colspan="10" class="table_header_footer_bg">
+
+                            </td>
+                            </tr>
+                            <tr class="table_header_footer_bg">
+                                <td>Account Manager</td>
+                                <td>Amount Collected (NAf)</td>
+                                <td>Amount Settlements (NAf)</td>
+                                <td>Amount Paid off Performing Loans Amount (NAf)</td>
+                                <td>Amount Restructured (NAf)</td>
+                                <td>Total (NAf)</td>
+                                <td>Restructuring Fee (NAf)</td>
+                                <td>Write Off Amount (NAf)</td>
+                                <td>WIP Restructure (NAf)</td>
+                                <td>WIP Settlement Deals (NAf)</td>
+                            </tr>
+
+                            <tr class="table_row_data_lines">
+                                <td>GADDIAL BOELBAAI</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                            </tr>
+                            <tr class="table_row_data_lines">
+                                <td>SEDWIN FELICA</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                            </tr>
+                             <tr class="table_row_data_lines">
+                                <td>SUZZAIN ELLENSBURG</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                            </tr>
+                            <tr class="table_row_data_lines">
+                                <td>YUWATTE EUNG BONAIRE</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                            </tr>
+
+                            <tr class="table_header_footer_bg">
+                                <td>Total</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                            </tr>
+
+                            </tbody>
+                            </table>
+                        <p class="footer_points">All amounts are Loan and Loan portfolio related</p>
+                        <p class="footer_points">Report Source: Loan Module</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,271 @@
+<odoo>
+    <record id="loan_collateral_form_view" model="ir.ui.view">
+        <field name="name">Loan.Collateral.Form</field>
+        <field name="model">loan.collateral</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                name="attachment_tree_view_collateral"
+                                type="object" icon="fa-files-o">
+                            <field string="Attachments" name="doc_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <label for="customer_id"/>
+                    <h1>
+                        <field name="compute_partners" invisible="1"/>
+                        <field name="customer_id" domain="[('id', 'in', compute_partners)]"/>
+                    </h1>
+                    <br/>
+                    <notebook>
+                        <page string="General Information" id="collaterals_page">
+                            <group>
+                                <group id="group_1">
+                                    <field name="collateral_type"/>
+                                    <field name="amount" invisible="1"/>
+                                    <field name="deed_amt"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')], 'required': [('collateral_type', '=', 'mortgage')]}"/>
+                                    <field name="type_deed"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')], 'required': [('collateral_type', '=', 'mortgage')]}"/>
+                                    <field name="long_lease_expiration_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')]}"/>
+                                    <field name="appraisal_report_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')], 'required': [('collateral_type', '=', 'mortgage')]}"/>
+                                    <field name="appraised_by"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')], 'required': [('collateral_type', '=', 'mortgage')]}"/>
+                                    <field name="market_value"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')], 'required': [('collateral_type', '=', 'mortgage')]}"/>
+                                    <field name="force_sale_Value"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')], 'required': [('collateral_type', '=', 'mortgage')]}"/>
+                                    <field name="property_address"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')], 'required': [('collateral_type', '=', 'mortgage')]}"/>
+                                    <field name="mortgage_owner"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')], 'required': [('collateral_type', '=', 'mortgage')]}"/>
+                                    <field name="mortgage_ranking_level"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'mortgage')]}"/>
+                                    <field name="any_info"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_2">
+                                    <field name="vehicle_brand"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'vehicle')], 'required': [('collateral_type', '=', 'vehicle')]}"/>
+                                    <field name="vehicle_model"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'vehicle')], 'required': [('collateral_type', '=', 'vehicle')]}"/>
+                                    <field name="vehicle_year"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'vehicle')], 'required': [('collateral_type', '=', 'vehicle')]}"/>
+                                    <field name="vehicle_licence_plt_no"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'vehicle')], 'required': [('collateral_type', '=', 'vehicle')]}"/>
+                                    <field name="vehicle_owner"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'vehicle')], 'required': [('collateral_type', '=', 'vehicle')]}"/>
+                                    <field name="vehicle_chassisnumer"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'vehicle')], 'required': [('collateral_type', '=', 'vehicle')]}"/>
+                                    <field name="vehicle_description" invisible="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_3">
+                                    <field name="insurance_type"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'insurance')], 'required': [('collateral_type', '=', 'insurance')]}"/>
+
+                                    <field name="ins_res1_id"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'insurance'),('insurance_type', '!=', 'life')], 'required': [('collateral_type', '=', 'insurance'),('insurance_type', '=', 'life')]}"
+                                           domain="[('id', 'in', compute_partners)]"/>
+
+                                    <field name="ins_res2_id"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'insurance'),('insurance_type', '!=', 'personal_accident')], 'required': [('collateral_type', '=', 'insurance'),('insurance_type', '=', 'personal_accident')]}"
+                                           domain="[('id', 'in', compute_partners)]"/>
+                                    <field name="ins_res3_id"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'insurance'),('insurance_type', '!=', 'personal_accident')]}"
+                                           domain="[('id', 'in', compute_partners)]"/>
+
+                                    <field name="insurance_address_fire"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'insurance'),('insurance_type', '!=', 'fire')], 'required': [('collateral_type', '=', 'insurance'),('insurance_type', '=', 'fire')]}"/>
+                                    <field name="insurance_amount"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'insurance')], 'required': [('collateral_type', '=', 'insurance')]}"/>
+                                    <field name="insurance_policy_number"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'insurance')], 'required': [('collateral_type', '=', 'insurance')]}"/>
+                                    <field name="insurance_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'insurance')], 'required': [('collateral_type', '=', 'insurance')]}"/>
+                                    <field name="insurance_broker"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'insurance')], 'required': [('collateral_type', '=', 'insurance')]}"/>
+                                    <field name="insurance_company"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'insurance')], 'required': [('collateral_type', '=', 'insurance')]}"/>
+
+                                    <field name="insurance_description" invisible="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_4">
+                                    <field name="guarantee_type"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'guarantee')], 'required': [('collateral_type', '=', 'guarantee')]}"/>
+                                    <field name="guarantee_name"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'guarantee')], 'required': [('collateral_type', '=', 'guarantee')]}"/>
+                                    <field name="id_no"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'guarantee')], 'required': [('collateral_type', '=', 'guarantee')]}"/>
+                                    <field name="guarantee_name2"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'guarantee'),('guarantee_type', '!=', 'personal')]}"/>
+                                    <field name="id_no2"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'guarantee'),('guarantee_type', '!=', 'personal')]}"/>
+                                    <field name="guarantee_amount"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'guarantee')], 'required': [('collateral_type', '=', 'guarantee')]}"/>
+                                    <field name="guarantee_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'guarantee')]}"/>
+                                    <field name="guarantee_description" invisible="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_5">
+                                    <field name="cash_amount"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'cash')], 'required': [('collateral_type', '=', 'cash')]}"/>
+                                    <field name="cash_owner"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'cash')], 'required': [('collateral_type', '=', 'cash')]}"/>
+                                    <field name="cash_bank"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'cash')], 'required': [('collateral_type', '=', 'cash')]}"/>
+                                    <field name="interest_rate"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'cash')], 'required': [('collateral_type', '=', 'cash')]}"/>
+                                    <field name="cash_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'cash')], 'required': [('collateral_type', '=', 'cash')]}"/>
+                                    <field name="cash_description" invisible="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_6">
+                                    <field name="receivable_type"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'receivables')], 'required': [('collateral_type', '=', 'receivables')]}"/>
+                                    <field name="receivable_description" invisible="1"/>
+                                    <field name="receivable_date"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'receivables'),('receivable_type', '!=', 'retail_sales')], 'required': [('collateral_type', '=', 'receivables'), ('receivable_type', '=', 'retail_sales')]}"/>
+                                    <field name="receivable_for_year"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'receivables'),('receivable_type', '!=', 'retail_sales')], '': [('collateral_type', '=', 'receivables')]}"/>
+                                    <field name="receivable_borrower1" domain="[('id', 'in', compute_partners)]"
+                                           options="{'no_create': True}"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'receivables'),('receivable_type', '!=', 'project')], 'required': [('collateral_type', '=', 'receivables'), ('receivable_type', '=', 'project')]}"/>
+                                    <field name="receivable_borrower2" domain="[('id', 'in', compute_partners)]"
+                                           options="{'no_create': True}"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'receivables'),('receivable_type', '!=', 'project')]}"/>
+                                    <field name="receivable_borrower3" domain="[('id', 'in', compute_partners)]"
+                                           options="{'no_create': True}"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'receivables'),('receivable_type', '!=', 'project')]}"/>
+                                    <field name="receivable_borrower4" domain="[('id', 'in', compute_partners)]"
+                                           options="{'no_create': True}"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'receivables'),('receivable_type', '!=', 'project')]}"/>
+                                    <field name="receivable_located_at"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'receivables'),('receivable_type', '!=', 'rent_income_properties')], 'required': [('collateral_type', '=', 'receivables'), ('receivable_type', '=', 'rent_income_properties')]}"/>
+                                    <field name="receivable_date_rip"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'receivables'),('receivable_type', '!=', 'rent_income_properties')]}"/>
+                                    <field name="receivable_mri"
+                                           attrs="{'invisible': ['|',('collateral_type', '!=', 'receivables'),('receivable_type', '!=', 'rent_income_properties')]}"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_7">
+                                    <field name="inventory_by" domain="[('id', 'in', compute_partners)]"
+                                           options="{'no_create': True}"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'inventory')], 'required': [('collateral_type', '=', 'inventory')]}"/>
+                                    <field name="inventory_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'inventory')]}"/>
+                                    <field name="inventory_for_year"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'inventory')]}"/>
+                                    <field name="inventory_market_value"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'inventory')]}"/>
+                                    <field name="inventory_description" invisible="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_8">
+                                    <field name="loan_by" domain="[('id', 'in', compute_partners)]"
+                                           options="{'no_create': True}"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'loans_subordination')], 'required': [('collateral_type', '=', 'loans_subordination')]}"/>
+                                    <field name="loan_payable_to"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'loans_subordination')], 'required': [('collateral_type', '=', 'loans_subordination')]}"/>
+                                    <field name="loan_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'loans_subordination')]}"/>
+                                    <field name="loan_for_year"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'loans_subordination')]}"/>
+                                    <field name="loan_description" invisible="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_9">
+                                    <field name="general_by" domain="[('id', 'in', compute_partners)]"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'general_assignment_of_income')], 'required': [('collateral_type', '=', 'general_assignment_of_income')]}"/>
+                                    <field name="general_employee" invisible="1"/>
+                                    <field name="general_employer"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'general_assignment_of_income')], 'required': [('collateral_type', '=', 'general_assignment_of_income')]}"/>
+                                    <field name="general_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'general_assignment_of_income')]}"/>
+                                    <field name="general_description" invisible="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_10">
+                                    <field name="pledge_by" domain="[('id', 'in', compute_partners)]"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'pledge_on_shares')], 'required': [('collateral_type', '=', 'pledge_on_shares')]}"/>
+
+                                    <field name="pledge_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'pledge_on_shares')]}"/>
+                                    <field name="pledge_description" invisible="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group id="group_11">
+                                    <field name="salary_asg_by" domain="[('id', 'in', compute_partners)]"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'salary_assignment')], 'required': [('collateral_type', '=', 'salary_assignment')]}"/>
+                                    <field name="salary_asg_emp" invisible="1"/>
+                                    <field name="salary_asg_employer"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'salary_assignment')], 'required': [('collateral_type', '=', 'salary_assignment')]}"/>
+                                    <field name="salary_asg_date"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'salary_assignment')]}"/>
+                                    <field name="salary_gross"
+                                           attrs="{'invisible': [('collateral_type', '!=', 'salary_assignment')]}"/>
+                                    <field name="salary_description" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="loan_collateral_tree_view" model="ir.ui.view">
+        <field name="name">Loan.Collateral.Tree</field>
+        <field name="model">loan.collateral</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="customer_id"/>
+                <field name="collateral_type"/>
+                <field name="any_info"/>
+                <field name="loan_id"/>
+                <field name="insurance_type"/>
+                <field name="guarantee_type"/>
+                <field name="type_deed"/>
+                <field name="receivable_type"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='loan_collateral_action' model='ir.actions.act_window'>
+        <field name="name">Collateral Management</field>
+        <field name="res_model">loan.collateral</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Loan" id="loan_menu" parent="loan_management_menu"/>
+    <menuitem name="Collateral" id="loan_collateral_menu" parent="loan_menu" action="loan_collateral_action"
+              sequence="5"/>
+
+    <delete model="ir.ui.menu" id="loan_menu"></delete>
+    <delete model="ir.ui.menu" id="loan_collateral_menu"></delete>
+
+    <menuitem name="Collateral" id="menu-loan_collateral" parent="loan_management_menu" action="loan_collateral_action"
+              sequence="5"/>
+</odoo>

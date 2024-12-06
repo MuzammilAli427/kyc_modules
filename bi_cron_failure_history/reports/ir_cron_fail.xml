@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="report_cron_failed_print" model="ir.actions.report">
+        <field name="name">Cron Failed Report</field>
+        <field name="model">ir.cron</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_cron_failure_history.cron_failed_report</field>
+        <field name="report_file">bi_cron_failure_history.cron_failed_report</field>
+        <field name="attachment">(object.name + '_Cron_Failed_Report.pdf')</field>
+        <field name="binding_model_id" ref="model_ir_cron"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

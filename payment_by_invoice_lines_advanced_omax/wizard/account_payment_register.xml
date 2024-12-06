@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_payment_register_form_add_paid_unpaid" model="ir.ui.view">
+        <field name="name">account.payment.register.form.inherit</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="payment_by_invoice_lines_omax.view_account_payment_register_form_inherit_inv_lines"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/field[@name='inv_line_ids']/tree/field[@name='price_total']" position="after">
+                <field name="paid_amount" readonly="True"/>
+                <field name="unpaid_amount" attrs="{'readonly': ['|',('fully_paid', '=',True),('select','=',False)]}"/>
+                <!-- attrs="{'readonly': [('fully_paid', '=',True)]}"-->
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_bank_rec_widget_form_ext" model="ir.ui.view">
+            <field name="name">bank.rec.widget.form.ext</field>
+            <field name="model">bank.rec.widget</field>
+            <field name="inherit_id" ref="account_accountant.view_bank_rec_widget_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_validate']" position="attributes">
+                    <attribute name="groups">account_reconcile_oca.validate_check_group</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_reset']" position="attributes">
+                    <attribute name="groups">account_reconcile_oca.validate_check_group</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='button_to_check']" position="attributes">
+                    <attribute name="groups">account_reconcile_oca.validate_check_group</attribute>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

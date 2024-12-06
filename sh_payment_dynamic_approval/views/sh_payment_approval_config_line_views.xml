@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_payment_approval_config_line_view_form" model="ir.ui.view">
+        <field name="name">sh.payment.approval.config.line.view.form</field>
+        <field name="model">sh.payment.approval.config.line</field>
+        <field name="arch" type="xml">
+            <form string="Payment approval config line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="approve_by" />
+                            <field name="level" />
+                        </group>
+                    </group>
+                    <field name="user_ids" attrs="{'invisible':[('approve_by', '=', 'group')]}" />
+                    <field name="group_ids" attrs="{'invisible':[('approve_by', '=', 'user')]}" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

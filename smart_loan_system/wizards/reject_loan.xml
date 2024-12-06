@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="reject_loan_wizard_view_form" model="ir.ui.view">
+            <field name="name">reject.loan.wizards.view.form</field>
+            <field name="model">reject.loan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="loan_id" invisible="0" readonly="1"/>
+                            <field name="reason" invisible="0" required="1"/>
+                        </group>
+                    </sheet>
+
+                    <footer>
+                        <button name="reject_loan" type="object" class="btn btn-primary" string="Reject"/>
+                        <button special="cancel" string="Cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="reject_loan_wizard_action" model="ir.actions.act_window">
+            <field name="name">Reject Loan Wizard</field>
+            <field name="res_model">reject.loan</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

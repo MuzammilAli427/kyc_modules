@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Create loan robots from cron job -->
+        <record model="ir.cron" id="run_loan_robots">
+            <field name="name">Loan Robots</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">False</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_ir_cron"/>
+            <field name="state">code</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.run_loan_robots()</field>
+        </record>
+
+        <record model="ir.cron" id="generate_xlsx_auto">
+            <field name="name">Loan Auto Xlsx Generation</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_account_loan"/>
+            <field name="state">code</field>
+            <field name="code">model.action_generate_xlsx_auto()</field>
+        </record>
+
+        <!-- Create invoice from cron job -->
+        <record model="ir.cron" id="loan_invoice_auto">
+            <field name="name">Loan Auto Invoice Generation</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_account_loan"/>
+            <field name="state">code</field>
+            <field name="code">model.create_invoice()</field>
+        </record>
+
+        <!-- Create invoice from cron job -->
+        <record model="ir.cron" id="loan_penalty_auto">
+            <field name="name">Loan Penalty Application</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_account_loan_line"/>
+            <field name="state">code</field>
+            <field name="code">model.apply_penalty()</field>
+        </record>
+
+        <!-- Create group partners from cron job -->
+        <record model="ir.cron" id="kyc_group_partner_creation">
+            <field name="name">Kyc Group Partner Creation</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_kyc_groups"/>
+            <field name="state">code</field>
+            <field name="code">model.kyc_group_partner_creation()</field>
+        </record>
+
+        <!-- Assign Type to Loan from cron job -->
+        <record model="ir.cron" id="assign_type_to_loan">
+            <field name="name">Assign Type To Loan</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_account_loan"/>
+            <field name="state">code</field>
+            <field name="code">model.assign_type_loan()</field>
+        </record>
+
+        <!-- Assign State to Loan Transaction History & Account Payment History from cron job -->
+        <record model="ir.cron" id="assign_state_to_histories">
+            <field name="name">Assign State To Histories</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_account_loan"/>
+            <field name="state">code</field>
+            <field name="code">model.assign_state_to_histories()</field>
+        </record>
+
+
+        <!-- Create loan accruals from cron job -->
+        <record model="ir.cron" id="loan_accrual_creation">
+            <field name="name">Accrual Creation</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_loan_accrual"/>
+            <field name="state">code</field>
+            <field name="code">model.daily_loan_accrual_creation()</field>
+        </record>
+
+        <!-- Create Missing loan accruals from cron job -->
+        <record model="ir.cron" id="missing_loan_accrual_creation">
+            <field name="name">Missing Accrual Creation</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_loan_accrual"/>
+            <field name="state">code</field>
+            <field name="code">model.missing_loan_accrual_creation()</field>
+        </record>
+
+
+        <!-- Updating loan accruals from cron job -->
+        <record model="ir.cron" id="updating_loan_accruals">
+            <field name="name">Updating Loan Accruals</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_loan_accrual"/>
+            <field name="state">code</field>
+            <field name="code">model.updating_loan_accrual()</field>
+            <field name="nextcall"
+                   eval="(DateTime.now().replace(hour=2, minute=2) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+
+        <!-- Create loan accruals from cron job -->
+        <record model="ir.cron" id="round_loan_accruals">
+            <field name="name">Round Loan Accruals</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_loan_accrual"/>
+            <field name="state">code</field>
+            <field name="code">model.round_loan_accrual()</field>
+        </record>
+
+        <!-- Send Email To Officer For Delay in Reconciliation from cron job -->
+        <record model="ir.cron" id="delay_reconciliation_email">
+            <field name="name">Delay Reconciliation Email</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">model.delay_reconciliation_email()</field>
+        </record>
+
+        <!-- Create Automatic Transfer on Reconciliation from cron job -->
+        <record model="ir.cron" id="automatic_transfer_reconciliation">
+            <field name="name">Automatic Transfer On Reconciliation</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">model.automatic_transfer_on_reconciliation()</field>
+        </record>
+
+        <!-- Add Unpaid Amount On Invoice Lines from cron job -->
+        <record model="ir.cron" id="unpaid_amount_invoice_lines">
+            <field name="name">Add Unpaid Amount On Invoice Lines</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_account_move_line"/>
+            <field name="state">code</field>
+            <field name="code">model.unpaid_amount_invoice_lines()</field>
+        </record>
+
+        <!-- Generate loan invoice from server action -->
+        <record id="generate_old_loan_invoices" model="ir.actions.server">
+            <field name="name">Generate Loan Invoices</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_account_loan"/>
+            <field name="binding_model_id" ref="smart_loan_system.model_account_loan"/>
+            <field name="code">action = model.generate_old_loan_invoices()</field>
+        </record>
+
+        <!-- Compute Lines of Loan from server action -->
+        <record id="compute_lines_existing_loans" model="ir.actions.server">
+            <field name="name">Compute Loan Lines</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_account_loan"/>
+            <field name="binding_model_id" ref="smart_loan_system.model_account_loan"/>
+            <field name="code">action = model.compute_lines_existing_loans()</field>
+        </record>
+
+        <!-- Reset Loan Accruals from server action -->
+        <record id="reset_accruals_existing_loans" model="ir.actions.server">
+            <field name="name">Reset Loan Accruals</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_account_loan"/>
+            <field name="binding_model_id" ref="smart_loan_system.model_account_loan"/>
+            <field name="code">action = model.reset_accruals_existing_loans()</field>
+        </record>
+
+        <!-- Interest Letter Report from server action -->
+        <record id="interest_letter_report" model="ir.actions.server">
+            <field name="name">Interest Letter Report</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_account_loan"/>
+            <field name="binding_model_id" ref="smart_loan_system.model_account_loan"/>
+            <field name="code">action = model.send_interest_letter_report()</field>
+        </record>
+
+        <!-- Validate Loan from server action -->
+        <record id="validate_existing_loans" model="ir.actions.server">
+            <field name="name">Validate Loan</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_account_loan"/>
+            <field name="binding_model_id" ref="smart_loan_system.model_account_loan"/>
+            <field name="code">action = model.validate_existing_loans()</field>
+        </record>
+
+        <!-- Reset loan invoices sequence -->
+        <record id="reset_invoice_sequence" model="ir.actions.server">
+            <field name="name">Reset Old Loan invoices sequence</field>
+            <field name="model_id" ref="smart_loan_system.model_account_loan"/>
+            <field name="state">code</field>
+            <field name="code">records.reset_old_loan_invoices_sequence()</field>
+        </record>
+
+
+
+    </data>
+</odoo>

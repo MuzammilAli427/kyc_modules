@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="documents_name_wizard_view_form" model="ir.ui.view">
+            <field name="name">document.wizards.view.form</field>
+            <field name="model">document.wizards</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="document_name_others" string="Document Name"/>
+                            <h1>
+                                <field name="document_name_others" placeholder="e.g. Document Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="partner_id" invisible="1"/>
+                            <field name="folder_id" invisible="1"/>
+                            <field name="res_model" invisible="1"/>
+                            <field name="res_id" invisible="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Attachments">
+                                <field name="docs_attach_ids">
+                                    <tree editable="bottom">
+                                        <field name="is_readonly_docs" invisible="1"/>
+                                        <field name="filename" readonly="1"/>
+                                        <field name="binary_field" required="1" widget="binary" filename="filename" attrs="{'invisible' : [('is_readonly_docs', '=', True)]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <footer>
+                        <button name="doc_delete_without_name" type="object" class="btn btn-primary" string="Upload"/>
+                        <button special="cancel" string="Cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="documents_name_wizard_action" model="ir.actions.act_window">
+            <field name="name">Document Name Wizard</field>
+            <field name="res_model">document.wizards</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

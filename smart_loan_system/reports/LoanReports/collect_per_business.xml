@@ -1,0 +1,112 @@
+<odoo>
+    <record id="collect_per_business_wizard" model="ir.ui.view">
+        <field name="name">collect.per.business</field>
+        <field name="model">collect.per.business</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Collect Per Business">
+
+                    <group>
+                        <group>
+                        <field name="date_from"/>
+                        </group>
+                        <group>
+                        <field name="date_to"/>
+
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                        <field name="per_month"/>
+
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+
+                <footer>
+                    <button class="oe_highlight" name="get_report" string="Get Report" type="object"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id='collect_per_business_action' model='ir.actions.act_window'>
+        <field name="name">Collect Per Business</field>
+        <field name="res_model">collect.per.business</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+
+
+    <menuitem name="Collect Per Business" id="collect_per_business_submenu_id" parent="loan_reports_menu"
+              action="smart_loan_system.collect_per_business_action"/>
+
+    <template id="collect_per_business_template">
+        <t t-call="web.html_container">
+<!--            <t t-foreach="docs" t-as="o">-->
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            #collected_per_business_table {
+                                width: 100%;
+                            }
+
+                            #collected_per_business_table, th, td{
+                                border: 1px solid black;
+                                border-collapse: collapse;
+                            }
+
+                            #collected_per_business_table td, #collected_per_business_table th {
+                                padding: 8px;
+                                font-weight: bold;
+                            }
+                            #collected_per_business_table th {
+                                padding-top: 2px;
+                                padding-bottom: 2px;
+                                text-align: left;
+                            }
+                            .footer_points{
+                                margin-top:10px; font-size:18px;
+                            }
+                        </style>
+                        <p style="color:#385ef5; font-size:30px; font-weight: 600;">Collected Per Business Line</p>
+                        <p>(Priciple)</p>
+                        <table border="1" id="collected_per_business_table">
+                            <tr>
+                                <td>Month</td>
+                                <td>Currency</td>
+                                <td>Corporate</td>
+                                <td>Retail</td>
+                                <td>Cumulative</td>
+                            </tr>
+                            <t t-foreach="data" t-as="dt">
+                                <tr>
+                                    <td><t t-out="dt[0]"/></td>
+                                    <td>NAf.</td>
+                                    <td><t t-out="dt[1]"/></td>
+                                    <td><t t-out="dt[2]"/></td>
+                                    <td><t t-out="dt[3]"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                        <p class="footer_points">The Amounts reported are principal only and do not include interest, insurance, penalties etc</p>
+                        <p class="footer_points">Report Source: Loan Module</p>
+                    </div>
+<!--                </t>-->
+            </t>
+        </t>
+    </template>
+
+        <record id="collect_per_business_report_action" model="ir.actions.report">
+        <field name="name">Collect Per Business Action</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="model">collect.per.business</field>
+        <field name="report_name">smart_loan_system.collect_per_business_template</field>
+        <field name="report_file">smart_loan_system.collect_per_business_template</field>
+    </record>
+</odoo>

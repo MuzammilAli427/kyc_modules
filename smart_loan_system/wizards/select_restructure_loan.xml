@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree view for Restructure loan -->
+    <!--    <record id="restructure_loan_wizard_tree" model="ir.ui.view">-->
+    <!--        <field name="name">restructure.loan.wizard.tree</field>-->
+    <!--        <field name="model">restructure.loan.wizard</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree string="Restructure Loans">-->
+    <!--                <field name="loan_id"/>-->
+    <!--                <field name="date"/>-->
+    <!--                <field name="restructure_type"/>-->
+    <!--                <field name="outstanding_principal_amount"/>-->
+    <!--                <field name="amount"/>-->
+    <!--                <field name="restructure_fee"/>-->
+    <!--                <field name="currency_id"/>-->
+    <!--                <field name="state"/>-->
+    <!--            </tree>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="select_restructure_loan_form" model="ir.ui.view">
+        <field name="name">Select Restructure Loan Form</field>
+        <field name="model">select.restructure.loan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="select_loans" type="object" class="btn btn-primary"
+                            string="Select"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="parent_loan_id" readonly="1"/>
+                        <field name="partner_id" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page name="select_loans" string="Select Loans">
+                            <field name="line_ids" context="{'default_partner_id': partner_id}">
+                                <tree editable="bottom">
+                                    <field name="is_select" invisible="1"/>
+                                    <field name="partner_id" invisible="1"/>
+                                    <field name="loan_id"  domain="[('partner_id','=',partner_id)]" required="1" string='Loan' col="2"/>
+                                    <field name="old_loan_name"/>
+                                    <field name="type"/>
+                                    <field name="product_id"/>
+                                    <field name="currency_id"/>
+                                    <field name="outstanding_principal_amount"/>
+                                    <field name="remaining_principal_amount"/>
+                                    <field name="remaining_interest_amount"/>
+                                    <field name="remaining_life_insurance_amount"/>
+                                    <field name="remaining_fire_insurance_amount"/>
+                                    <field name="remaining_penalties_amount"/>
+                                    <field name="remaining_ground_lease"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="select_restructure_loan_action" model="ir.actions.act_window">
+        <field name="name">Select Loans To Restructure</field>
+        <field name="res_model">select.restructure.loan</field>
+        <field name="view_mode">form</field>
+    </record>
+
+</odoo>

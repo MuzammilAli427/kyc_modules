@@ -1,0 +1,125 @@
+<odoo>
+    <record id="customer_loans_form_view" model="ir.ui.view">
+        <field name="name">LoanCustomersForm</field>
+        <field name="model">customer.loans</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                     <button name="compute_monthly_loan_payment" string="Compute Monthly Payment"
+                            type="object" class="oe_highlight"/>
+                    <button name="submit_loan" string="Submit"
+                            type="object" class="oe_highlight"/>
+                    <button name="cancel_loan" string="Cancel"
+                            type="object"/>
+                    <button name="refuse_loan" string="Refuse"
+                            type="object" class="oe_highlight"/>
+                    <button name="written_off_loan" string="Written-Off"
+                            type="object" class="oe_highlight"/>
+                    <button name="reschedule_loan" string="Reschedule"
+                            type="object" class="oe_highlight" attrs="{'invisible': [('loan_states', '=', 'closed')]}"/>
+                    <field name="loan_states" widget="statusbar"  options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                name="attachment_tree_view_loan"
+                                type="object" icon="fa-files-o">
+                            <field string="Documents" name="doc_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="close_loan_tree_view_loan"
+                                type="object" icon="fa-files-o">
+                            <field string="Related Loan" name="close_loan_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="collateral_tree_view_loan"
+                                type="object" icon="fa-home" attrs="{'invisible': [('collateral_button', '=', False)]}">
+                            <field string="Collaterals" name="doc_count_collaterals" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="compute_partners" invisible="1"/>
+                            <field name="customer_id" domain="[('id', 'in', compute_partners)]"/>
+                            <field name="create_date" readonly="1" string="Date"/>
+                            <field name="loan_product_id"/>
+                            <field name="loan_amount"/>
+                            <field name="interest"/>
+                            <field name="no_of_installments"/>
+                            <field name="grace_period"/>
+                            <field name="payment_start_date"/>
+                            <field name="currency_id"/>
+                            <field name="monthly_payment"/>
+                            <field name="collateral_button"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Installments">
+                            <field name="loan_installment_line_ids">
+                                <tree>
+                                    <field name="payment_number" optional="show"/>
+                                    <field name="payment_date" optional="show"/>
+                                    <field name="current_rate" optional="show"/>
+                                    <field name="payment" optional="show"/>
+                                    <field name="interest_por" optional="show"/>
+                                    <field name="principle_portion" optional="show"/>
+                                    <field name="principle_balance" optional="show"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="payment_number" optional="show"/>
+                                            <field name="payment_date" optional="show"/>
+                                            <field name="current_rate" optional="show"/>
+                                            <field name="payment" optional="show"/>
+                                        </group>
+                                        <group>
+                                            <field name="interest_por" optional="show"/>
+                                            <field name="principle_portion" optional="show"/>
+                                            <field name="principle_balance" optional="show"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="customer_loans_tree_view" model="ir.ui.view">
+        <field name="name">LoanCustomersTree</field>
+        <field name="model">customer.loans</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="loan_amount"/>
+                <field name="create_date" string="Date"/>
+                <field name="loan_states"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='customer_loans_action' model='ir.actions.act_window'>
+        <field name="name">Customer Loans</field>
+        <field name="res_model">customer.loans</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Loan" id="loan_menu" parent="loan_management_menu"/>
+    <menuitem name="Customer Loans" id="customer_loans_menu" parent="loan_menu" action="customer_loans_action"
+              sequence="10"/>
+
+    <delete model="ir.ui.menu" id="loan_menu"></delete>
+    <delete model="ir.ui.menu" id="customer_loans_menu"></delete>
+</odoo>

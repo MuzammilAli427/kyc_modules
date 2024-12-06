@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">Add to_be_reversed and reversal_id fields</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="invoice_date" position="after">
+                <field name="cancel_outstanding_receipt_id" invisible="1"/>
+                <field name="cancel_receipt_id" invisible="0" readonly="1"/>
+                <field name="custom_payment_id" invisible="0" readonly="1"/>
+                <field name="custom_payment_status" invisible="1" readonly="1"/>
+                <field name="custom_payment_state" invisible="1" readonly="1"/>
+                <field name="writeoff_reverse_entry_id" invisible="0" readonly="1"/>
+                <field name="cancel_receipt_name" invisible="1"/>
+            </field>
+            <field name="partner_shipping_id" position="after">
+                <field name="is_penalty_created"/>
+            </field>
+            <xpath expr="//header//button[@name='action_register_payment']" position="after">
+                <button name="write_off_invoice" type="object"
+                        class="oe_highlight"
+                        string="Write-Off"/>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

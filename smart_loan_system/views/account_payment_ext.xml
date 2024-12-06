@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    Form View-->
+<!--    <record id="smart_loan_system.view_account_payment_form_ext" model="ir.ui.view">-->
+<!--        <field name="name">smart_loan_system.view_account_payment_form_ext</field>-->
+<!--        <field name="model">account.payment</field>-->
+<!--        <field name="inherit_id" ref="account.view_account_payment_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='partner_bank_id']" position="after">-->
+<!--                <field name="loan_id"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    Tree View-->
+    <record id="smart_loan_system.view_account_payment_tree_ext" model="ir.ui.view">
+        <field name="name">smart_loan_system.view_account_payment_tree_ext</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="loan_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

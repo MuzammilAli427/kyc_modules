@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- sh.approval.info form view -->
+    <record id="sh_approval_info_view_form" model="ir.ui.view">
+        <field name="name">sh.approval.info.view.form</field>
+        <field name="model">sh.approval.info</field>
+        <field name="arch" type="xml">
+            <form string="Approvals">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="level" />
+                            <field name="status" widget="boolean_toggle"/>
+                            <field name="approval_date" />
+                            <field name="approved_by" />
+                        </group>
+                        <group>
+                            <field name="group_ids" widget="many2many_tags" />
+                            <field name="user_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

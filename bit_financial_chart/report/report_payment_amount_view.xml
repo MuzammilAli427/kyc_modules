@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_payment_amount" model="ir.actions.report">
+            <field name="name">Payment Amount Overview</field>
+            <field name="model">payment.amount.wizard</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">bit_financial_chart.report_payment_amount</field>
+            <field name="report_file">bit_financial_chart.report_payment_amount</field>
+        </record>
+
+         <template id="report_payment_amount">
+        <t t-call="web.html_container">
+            <t t-as="o" t-foreach="docs">
+                <t t-call="web.basic_layout">
+                    <div class="page text-dark">
+                        <style>.o_report_layout_boxed .row &gt;div &gt;table tr:last-child td, .o_report_layout_boxed .row &gt;div &gt;table tr.o_total td, .o_report_layout_boxed div#total table tr:last-child td, .o_report_layout_boxed div#total table tr.o_total td {
+  background-color: rgba(255, 255, 255, 0);
+  color: #000;
+    }
+                            thead { display: table-header-group } tfoot { display: table-row-group } tr { page-break-inside: avoid } @media print {
+                            .export-table
+                            { overflow: visible !important; } .class-name-which-holds-the-table { overflow: visible !important; } }
+                        </style>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div class="col-12">
+                            <div class="row text-center">
+                                <div class="col-12">
+                                    <h5 class="text-capitalize">
+                                        <strong class="p-3" style="background-color:lightgrey;">Payment and Amounts Progress</strong>
+                                    </h5>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <!-- <hr/>-->
+                            <div class="row" style="color:black;">
+                                <div class="col-6">
+                                    <t t-if="date_from">
+                                        <div class="row" style="color:black;">
+                                            <div class="col-4">
+                                                <b>Date From:</b>
+                                            </div>
+                                            <div class="col-8" style="background-color:#F6F6F6;">
+                                                <span t-esc="date_from" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-if="date_to">
+                                        <div class="row" style="color:black;">
+                                            <div class="col-4">
+                                                <b>Date To:</b>
+                                            </div>
+                                            <div class="col-8" style="background-color:#F6F6F6;">
+                                                <span t-esc="date_to" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                       
+                       <div class="row">
+                            <div class="col-12">
+                                <img style="width: 90%;" t-att-src="chart_img"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    </data>
+</odoo>

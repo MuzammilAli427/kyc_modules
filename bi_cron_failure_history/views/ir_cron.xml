@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+	
+		<record model="ir.ui.view" id="view_server_action_form_template_inherit">
+            <field name="name">ir.actions.server.form</field>
+            <field name="model">ir.actions.server</field>
+            <field name="inherit_id" ref="base.view_server_action_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//form/header" position="after">
+            		<field name="activity_type_id" invisible="1"/>
+            		<field name="res_model" invisible="1"/>
+            	</xpath>
+            </field>
+        </record>
+	
+	
+	
+	
+		<!-- ir.cron -->
+		
+        <record model="ir.ui.view" id="base.ir_cron_view_form" >
+            <field name="name">ir.cron.view.form</field>
+            <field name="model">ir.cron</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="base.view_server_action_form"/>
+            <field name="arch" type="xml">
+            	
+                <xpath expr="//button[@name='create_action']" position="replace">
+                    <button name="method_direct_trigger" type="object" string="Run Manually" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'code')]}"/>
+                </xpath>
+                
+                <xpath expr="//button[@name='method_direct_trigger']" position="after">
+	                <button name="action_schedule_fail_mail_send" string="Send by Email" type="object" class="btn-primary"/>
+	            </xpath>
+                
+                
+                <xpath expr="//button[@name='unlink_action']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='run']" position="replace">
+                </xpath>
+                <xpath expr="//group[@name='action_content']" position="inside">
+                    <field name="user_id"/>
+                    <label for="interval_number" string="Execute Every"/>
+                    <div>
+                        <field name="interval_number" class="oe_inline"/>
+                        <field name="interval_type" class="oe_inline"/>
+                    </div>
+                    <field name="active" widget="boolean_toggle"/>
+                    <field name="nextcall"/>
+                    <field name="numbercall"/>
+                    <field name="priority"/>
+                    <field name="doall"/>
+                </xpath>
+                <field name="state" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                
+                <xpath expr="//form/sheet" position="after">
+					<div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="activity_ids" widget="mail_activity"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+				</xpath>
+            </field>
+        </record>
+	
+		
+	</data>
+</odoo>

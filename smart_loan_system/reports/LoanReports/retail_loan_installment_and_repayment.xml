@@ -1,0 +1,78 @@
+<odoo>
+    <record id="retail_loan_installment_repayment_wizard" model="ir.ui.view">
+        <field name="name">retail.loan.installment.repayment</field>
+        <field name="model">retail.loan.installment.repayment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Credit Loan Installment And Repayment">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <footer>
+                    <button class="oe_highlight" name="get_report" string="Get Report" type="object"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id='retail_loan_installment_repayment_action' model='ir.actions.act_window'>
+        <field name="name">Credit Loan Installment And Repayment</field>
+        <field name="res_model">retail.loan.installment.repayment</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <menuitem name="Credit Loan Installment And Repayment" id="retail_loan_installment_repayment_submenu_id"
+              parent="loan_reports_menu"
+              action="smart_loan_system.retail_loan_installment_repayment_action"/>
+
+    <template id="retail_loan_installment_repayment_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            #retail_performance_table {
+                            width: 100%;
+                            }
+
+                            #retail_performance_table td, #retail_performance_table th {
+                            padding: 8px;
+                            font-weight: bold;
+                            }
+                            #retail_performance_table th {
+                            padding-top: 2px;
+                            padding-bottom: 2px;
+                            text-align: left;
+                            }
+                            .footer_points{
+                            margin-top:10px; font-size:18px;
+                            }
+                        </style>
+                        <p style="color:#385ef5; font-size:30px; font-weight: 600;">Retail Loan Installment and Repayment</p>
+                        <div style="display:flex; justify-content:center; align-items:center">
+                            <img t-att-src="'data:image/png;base64,'+o.bar_image_data.decode()" style="width:90%" />
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+
+
+    </template>
+
+    <record id="retail_loan_installment_repayment_report_action" model="ir.actions.report">
+        <field name="name">Credit Loan Installment And Repayment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="model">retail.loan.installment.repayment</field>
+        <field name="report_name">smart_loan_system.retail_loan_installment_repayment_template</field>
+        <field name="report_file">smart_loan_system.retail_loan_installment_repayment_template</field>
+    </record>
+</odoo>

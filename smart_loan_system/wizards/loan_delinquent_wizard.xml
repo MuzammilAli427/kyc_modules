@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="loan_delinquent_wizard_view_form" model="ir.ui.view">
+            <field name="name">loan.delinquent.wizard.view.form</field>
+            <field name="model">loan.delinquent.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="from_date" invisible="0" required="1"/>
+                                <field name="loan_ids" widget="many2many_tags"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="interest_prod_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="to_date" invisible="0" required="1"/>
+                                <field name="send_button_visibility" invisible="1"/>
+                                <field name="template" invisible="1"/>
+                                <field name="interest_amount" invisible="1"/>
+                                <field name="principal_amount" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+
+                    <footer>
+                        <button name="print_pdf" type="object" class="btn btn-primary" string="Print"/>
+                        <button name="send_print_pdf" type="object" class="btn btn-primary" string="Send &amp; Print"  attrs="{'invisible': [('send_button_visibility', '!=', False)]}"/>
+                        <button special="cancel" string="Cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="loan_delinquent_wizard_action" model="ir.actions.act_window">
+            <field name="name">Loan Delinquent Wizard</field>
+            <field name="res_model">loan.delinquent.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

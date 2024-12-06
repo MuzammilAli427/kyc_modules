@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="sh_payment_approval_config_view_form" model="ir.ui.view">
+        <field name="name">sh.payment.approval.config.view.form</field>
+        <field name="model">sh.payment.approval.config</field>
+        <field name="arch" type="xml">
+            <form string="Payment Approval Configuration">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Name" required='1' />
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="min_amount" />
+                            <field name="company_ids" widget="many2many_tags" options="{'no_open':True,'no_create':1,'no_create_edit':1}" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="approval_details" string="Approval Details">
+                            <group></group>
+                            <div>
+                                <field name="payment_approval_line" context="{'form_view_ref': 'sh_payment_dynamic_approval.sh_payment_approval_config_line_views'}">
+                                    <tree>
+                                        <field name="level" required='1'/>
+                                        <field name="approve_by" required='1'/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sh_payment_approval_config_action" model="ir.actions.act_window">
+        <field name="name">Payment Approval Configuration</field>
+        <field name="res_model">sh.payment.approval.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Payment Approval Configuration" action="sh_payment_dynamic_approval.sh_payment_approval_config_action" id="sh_payment_approval_config_menu" sequence="1" parent="account.root_payment_menu"/>
+</odoo>

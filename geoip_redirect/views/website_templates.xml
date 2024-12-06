@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <template id="layout" inherit_id="portal.frontend_layout" name="Main layout">
+        <xpath expr="//div[@id='wrapwrap']/main" position="inside">
+            <t t-set='enable_geoip' t-value="request.env['ir.default'].sudo().get('geoip.redirect.settings', 'enable_geoip')"/>
+            <t t-set="blockedcountries" t-value="website.get_blocked_ip_countries() if website else None"/>
+            <t t-if="enable_geoip and blockedcountries">
+                <div class="wk_blocked_page" style="display:none;">
+                    <h1 class="fa fa-times-circle"> WEB PAGE BLOCKED!</h1>
+                    <h4>Access to the page you were trying to visit has been blocked in accordance with company policy.
+                        <br/>
+                            Please contact you system administrator if you believe this is an error</h4>
+                </div>
+                <input type="hidden" class="blockedcountry" name="blockedcountry" value="blockedcountry" />
+            </t>
+            <t t-else=''>
+                <!-- <div></div> -->
+            </t>
+        </xpath>
+    </template>
+
+
+    <template id="wk_flag_list" inherit_id="portal.language_selector" name="Language">
+        <xpath expr='//div[@t-if="language_selector_visible"]' position='replace'>
+            <t t-set='enable_geoip' t-value="request.env['ir.default'].sudo().get('geoip.redirect.settings', 'enable_geoip')"/>
+            <t t-if="enable_geoip">
+                <t t-set='hide_odoo_languages' t-value="request.env['ir.default'].sudo().get('geoip.redirect.settings', 'hide_odoo_languages')"/>
+                <t t-if="hide_odoo_languages">
+                    <ul>
+                    </ul>
+                    <t t-set='show_geo_country' t-value="request.env['ir.default'].sudo().get('geoip.redirect.settings', 'show_geo_country')"/>
+                    <t t-if="show_geo_country">
+                        <t t-call="geoip_redirect.geo_country_view"/>
+                    </t>
+                </t>
+                <t t-else=''>
+                    <div t-attf-class="js_language_selector #{_div_classes}" t-if="language_selector_visible">
+                        <button class="btn btn-sm btn-outline-secondary border-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span t-if="not no_text" class="align-middle" t-esc="active_lang[2].split('/').pop()"/>
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+                            <t t-foreach="languages" t-as="lg">
+                                <a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang_code=lg[0])" class="dropdown-item js_change_lang" t-att-data-url_code="lg[1]">
+                                    <span t-if="not no_text" t-esc="lg[2].split('/').pop()"/>
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                    <t t-set='show_geo_country' t-value="request.env['ir.default'].sudo().get('geoip.redirect.settings', 'show_geo_country')"/>
+                    <t t-if="show_geo_country">
+                        <t t-call="geoip_redirect.geo_country_view"/>
+                    </t>
+                </t>
+            </t>
+            <t t-else=''>
+                <div t-attf-class="js_language_selector #{_div_classes}" t-if="language_selector_visible">
+                    <button class="btn btn-sm btn-outline-secondary border-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span t-if="not no_text" class="align-middle" t-esc="active_lang[2].split('/').pop()"/>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <t t-foreach="languages" t-as="lg">
+                            <a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang_code=lg[0])" class="dropdown-item js_change_lang" t-att-data-url_code="lg[1]">
+                                <span t-if="not no_text" t-esc="lg[2].split('/').pop()"/>
+                            </a>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="geo_country_view">
+        <t t-set="countries" t-value="website.sudo().get_countries() if website else None"/>
+        <t t-set='geocountry' t-value="request.session.get('geocountrydef11')"/>
+        <t t-if="not geocountry">
+            <t t-set='geocountry' t-value="request.session.get('geocountry')"/>
+        </t>
+        <t t-if="countries">
+            <div class="dropdown-content">
+                <div id="geoCountryList" style="display: none;">
+                    <div class="row">
+                        <t t-foreach="countries" t-as="countryObj">
+                            <div class="col-md-4 col-xs-6">
+                                <a class="js_change_lang wkselectedCountry" t-att-shref="url_for(request.httprequest.path + '?' + keep_query(), lang_code=countryObj.lang_id.code)" t-att-data-lang="countryObj.lang_id.code" t-att-data-country="countryObj.country_id.id">
+                                    <img class="img img-responsive js_change_lang" t-att-shref="url_for(request.httprequest.path + '?' + keep_query(), lang_code=countryObj.lang_id.code)" t-att-data-lang="countryObj.lang_id.code" t-attf-src="{{countryObj.country_id.image_url}}" height='18' width='28' t-att-alt="countryObj.country_id.name" t-att-data-country="countryObj.country_id.id" />
+                                    <span class="countryfont" t-esc="countryObj.country_id.name" t-att-shref="url_for(request.httprequest.path + '?' + keep_query(), lang_code=countryObj.lang_id.code)" t-att-data-lang="countryObj.lang_id.code" t-att-data-country="countryObj.country_id.id" />
+                                </a>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+                <a class="btn wkgeocountry" href="#">
+                    <t t-if="geocountry">
+                        <img id="wkdefaultImage" class="img img-responsive" t-attf-src="{{request.env['res.country'].sudo().browse([int(geocountry[0])]).image_url}}" height='18' width='28'/>
+                        <span t-esc="geocountry[1]"/>
+                        <span class="caret"/>
+                    </t>
+                </a>
+            </div>
+        </t>
+    </template>
+
+</odoo>

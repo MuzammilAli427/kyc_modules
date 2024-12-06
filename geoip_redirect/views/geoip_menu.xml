@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+        <menuitem id="menu_geoip_redirect_settings" parent="website.menu_website_global_configuration" name="GeoIP"/>
+            <menuitem id="menu_geoip_customer_mapping" parent="geoip_redirect.menu_geoip_redirect_settings" name="Country Mapping" action="geoip_redirect.action_customer_mapping"/>
+            <menuitem id="menu_geoip_restricted_ip" parent="geoip_redirect.menu_geoip_redirect_settings" name="Restricted IP" action="geoip_redirect.action_restricted_ip"/>
+    </data>
+</odoo>

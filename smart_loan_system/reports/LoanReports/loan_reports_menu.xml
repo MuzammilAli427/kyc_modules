@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+ <menuitem id="loan_reports_menu" parent="loan_management_menu" name="Reports" sequence="5" />
+</odoo>

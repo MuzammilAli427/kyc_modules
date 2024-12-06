@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Journal Entry Verification</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+	          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	</head>
+	<!-- odoo description page css -->
+	<style>
+	    h1,
+	    h2,
+	    h3,
+	    h4,
+	    h5,
+	    h6,
+	    .h1,
+	    .h2,
+	    .h3,
+	    .h4,
+	    .h5,
+	    .h6 {
+	        font-family: "Montserrat", sans-serif;
+	        font-weight: 400;
+	        line-height: 1.1;
+	        color: #21272b;
+	    }
+	
+	    ul {
+	        color: #222020;
+	    }
+	
+	    * {
+	        font-family: "Montserrat", sans-serif;
+	    } 
+	
+	    .sb-faq-container .panel .panel-heading a:before {
+	        content: '\f056';
+	        font-family: 'FontAwesome';
+	        position: absolute;
+	        top: 20px;
+	        left: 15px;
+	        bottom: auto;
+	        right: auto;
+	        color: #3b3b98;
+	    }
+	    .sb-faq-container .panel .panel-heading a.collapsed:before {
+	        content: '\f055';
+	        font-family: 'FontAwesome';
+	        position: absolute;
+	        top: 20px;
+	        left: 15px;
+	        bottom: auto;
+	        right: auto;
+	        color: #3b3b98;
+	    }
+	</style>
+	<body>
+		<div class="container">
+			<nav class="navbar navbar-light bg-light">
+	            <a class="navbar-brand" href="javascript:void(0)">
+	              <img src="images/evo_logo.png" alt="Evozard" style="width: 200px;">
+	            </a>
+	        </nav>
+	
+			<div class="mt-md-0 mt-4 mb-3 mb-lg-0" style="text-align:right;">
+	            <span class="btn btn-sm mb-2 mb-lg-0" style="font-size: 14px; font-weight: 500; background-color: #6BBC7B; color: rgb(255, 255, 255); position: relative; overflow: hidden;"><span class="o_ripple d-block position-absolute rounded-circle" style="height: 100.688px; width: 100.688px; top: -49.219px; left: -8.719px;"></span><i class="fa fa-check"></i> Community</span>
+	            <span class="btn btn-sm mb-2 mb-lg-0" style="font-size: 14px; font-weight: 500; background-color: #6BBC7B; color: rgb(255, 255, 255); position: relative; overflow: hidden;"><i class="fa fa-check"></i> Enterprise</span>
+	            <span class="btn btn-sm mb-2 mb-lg-0" style="font-size: 14px; font-weight: 500; background-color: #6BBC7B; color: rgb(255, 255, 255); position: relative; overflow: hidden;"><i class="fa fa-check"></i> Odoo.sh</span>
+	        </div>
+	
+			<div class="init-intro-container" style="padding: 50px;margin-bottom: 50px;background: #f5f5ff;">
+				<div class="col-12 col-sm-12 col-md-12 text-center">
+	                <h2>Journal Entry Verification</h2>
+	                <p>
+					This module allows you to apply two step verification on journal entries.
+					On Journal level, you will get one configuration, named Verification Requied.
+					For such journals, first the entry needs to submit for approval.
+					Some authorized user needs to approve it and after approve, entry will be posted.
+					The user who have access for approve entries, only can approve the journal entry.
+					You can also apply the same verification on Payment level also.
+					</p>
+	            </div>
+			</div>
+			
+			<div class="row pb-sm-5 px-1 pb-4">
+				<h1 class="w-100 text-center my-3" style="font-weight: 400;">
+					<span class="main-color" style="color: #6BBC7B;">This app is suited for</span>
+				</h1>
+				<div class="text-center w-100 mb-4">
+					<hr class="hr-one" style="border: 0;
+                    height: 1px;
+                    background: #333;
+                    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+                    background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+                    background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+                    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);" />
+				</div>
+				
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Journal Verification</h3>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Account Entry Verification</h3>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Entries Approval</h3>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>JV Approval</h3>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Verify Accounting Entries</h3>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Journal Voucher Double Verification</h3>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>JV Double Verification</h3>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Accounting Maker Checker</h3>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>JV Maker Checker</h3>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-arrow-right kf-icon" style="color:#6BBC7B;font-size: 30px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Journal Voucher Approval</h3>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			
+			<div class="row pb-sm-5 px-1 pb-4">
+				<h2 class="w-100 text-center my-3" style="font-weight: 400;border-bottom: 1px solid #04B4C3;padding-bottom: 2%;">
+					<span class="main-color" style="color: #6BBC7B;">Key Features</span>
+				</h2>
+				<div class="text-center w-100 mb-4">
+					<hr class="hr-one" style="border: 0;
+                    height: 1px;
+                    background: #333;
+                    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+                    background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+                    background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+                    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);" />
+				</div>
+				
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-check-square-o kf-icon" style="color:#6BBC7B;font-size: 70px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Two step verification for Journal Entries</h3>
+                        </div>
+                    </div>
+                </div>
+
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-check-square-o kf-icon" style="color:#6BBC7B;font-size: 70px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Only authorized user can approve the entries</h3>
+                        </div>
+                    </div>
+				</div>
+				
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-check-square-o kf-icon" style="color:#6BBC7B;font-size: 70px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+                            <h3>Two step verification for Payments</h3>
+                        </div>
+                    </div>
+                </div>
+
+				<div class="col-12 col-sm-12 col-md-6" style="margin-bottom:20px">
+                    <div class="sb-kf-main-container shadow bg-white" style="box-shadow: -40px 40px 160px 0 rgba(0, 0, 0, 0.08), -8px 8px 15px 0 rgba(120, 120, 120, 0.04), 3px 3px 30px 0 rgba(0, 0, 0, 0.04); padding: 20px;display: inline-block;width: 100%;">
+                        <div class="kf-icon-container" style="display: inline-block;width: 20%;float: left;">
+							<i class="fa fa-check-square-o kf-icon" style="color:#6BBC7B;font-size: 70px;"> </i>
+						</div>
+                        <div class="kf-text-container" style="display: inline-block;width: 80%;float: left;">
+							<h3>Only authorized user can approve the payments</h3>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			
+			<div class="sb-tab-container" style="padding-top: 50px;padding-bottom: 50px;">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#sb-tb-features" id="sb-tb-features-tab" data-toggle="tab" role="tab" aria-controls="sb-tb-features" aria-selected="true" style="color: #6BBC7B">Features</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sb-tb-screenshots" id="sb-tb-screenshots-tab" data-toggle="tab" role="tab" aria-controls="sb-tb-screenshots" aria-selected="true" style="color: #6BBC7B">Screenshots</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sb-tb-faqs" id="sb-tb-faqs-tab" data-toggle="tab" role="tab" aria-controls="sb-tb-faqs" aria-selected="true" style="color: #6BBC7B">FAQS</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" style="padding: 20px;text-align: center;">
+                    <div class="tab-pane fade show active" id="sb-tb-features" role="tabpanel" aria-labelledby="sb-tb-screenshots-tab">
+                        <h3 class="sb-f-title" style="margin-bottom: 30px;padding: 15px;background-color: #6BBC7B;color: #fff;margin-top: 20px;">
+							Verification Required Configuration
+						</h3>
+                        <p>For enable two step verification on entries, you need to set Verification Required on Journal level. Go to <strong> Invoicing --> Configuration --> Accounting --> Journals</strong>.</p><br/>
+                        <img src="images/screenshot/j1.png" class="sb-screenshot-noshadow" style="width: 100%;margin-bottom: 4%;" />
+ 
+                        <h3 class="sb-f-title" style="margin-bottom: 30px;padding: 15px;background-color: #6BBC7B;color: #fff;margin-top: 20px;">
+							Submit entries for Approval
+						</h3>
+                        <p>Now, create journal entries from <strong>Invoicing --> Accounting --> Miscellaneous --> Journal Entries</strong>. If you will select the journal which has Verification Required, you will get Submit for Approval button on entries.</p><br/>
+                        <img src="images/screenshot/aj1.png" class="sb-screenshot-noshadow" style="width: 100%;margin-bottom: 4%;" />
+                        
+                        <h3 class="sb-f-title" style="margin-bottom: 30px;padding: 15px;background-color: #6BBC7B;color: #fff;margin-top: 20px;">
+							Waiting for Approval
+						</h3>
+                        <p>
+							Once after submit for approval, entry will be shown as Waiting for Approval.
+                        </p><br/>
+                        <img src="images/screenshot/w1.png" class="sb-screenshot-noshadow" style="width: 100%;margin-bottom: 4%;" />
+                        
+                        <h3 class="sb-f-title" style="margin-bottom: 30px;padding: 15px;background-color: #6BBC7B;color: #fff;margin-top: 20px;">
+							Set user access for approve entry
+						</h3>
+                        <p>
+                           User, who have the access <strong>Approve Journal Entries </strong>is authorized for approve entries. To set the access, Go to <strong>Settings --> Users & Companies -->  Users</strong>
+                        </p><br/>
+                        <img src="images/screenshot/ua1.png" class="sb-screenshot-noshadow" style="width: 100%;margin-bottom: 4%;" />
+
+                        <h3 class="sb-f-title" style="margin-bottom: 30px;padding: 15px;background-color: #6BBC7B;color: #fff;margin-top: 20px;">
+							Approve journal entries
+						</h3>
+                        <p>
+                            Authorized user will get Approve button on journal entries. Once after approved, entry will set as Posted.
+                        </p><br/> 
+                        <img src="images/screenshot/p1.png" class="sb-screenshot-noshadow" style="width: 100%;margin-bottom: 4%;" />
+						<!-- <img src="images/screenshot/ae1.png" class="sb-screenshot-noshadow" style="padding-top:25px;width: 100%;margin-bottom: 4%;" /> -->
+
+						<h3 class="sb-f-title" style="margin-bottom: 30px;padding: 15px;background-color: #6BBC7B;color: #fff;margin-top: 20px;">
+							Information of Approved By and Approved Date
+						</h3>
+                        <p>
+                            You can see who have approved the entry and when.
+                        </p><br/> 
+                        <img src="images/screenshot/ae1.png" class="sb-screenshot-noshadow" style="width: 100%;margin-bottom: 4%;" />
+
+						<h3 class="sb-f-title" style="margin-bottom: 30px;padding: 15px;background-color: #6BBC7B;color: #fff;margin-top: 20px;">
+							Submit for Approval in Payments
+						</h3>
+                        <p>In payment, if selected journal has Verification Required, you will get Submit for Approve button.</p><br/>
+                        <img src="images/screenshot/pay1.png" class="sb-screenshot-noshadow" style="width: 100%;margin-bottom: 4%;" />
+                        
+                        <h3 class="sb-f-title" style="margin-bottom: 30px;padding: 15px;background-color: #6BBC7B;color: #fff;margin-top: 20px;">
+							Payment waiting for approval and approve payment
+						</h3>
+                        <p>
+							After Submit for Approval, payment will set as waiting for approve. Once after approve, payment will set as Posted.
+                        </p><br/>
+                        <!-- <img src="images/screenshot/119.png" class="sb-screenshot-noshadow" style="width: 100%;margin-bottom: 4%;" /> -->
+                        <img src="images/screenshot/pw2.png" class="sb-screenshot-noshadow" style="padding-top:25px;width: 100%;margin-bottom: 4%;" />
+                        
+						<h3 class="sb-f-title" style="margin-bottom: 30px;padding: 15px;background-color: #6BBC7B;color: #fff;margin-top: 20px;">
+							Approved By and Approved Date display
+						</h3>
+                        <p>
+                            After clicking Approval button here sets Approved By login user and Approved Date today.
+                        </p><br/> 
+                        <img src="images/screenshot/pa2.png" class="sb-screenshot-noshadow" style="width: 100%;margin-bottom: 4%;" />
+
+                    </div>
+
+                    <div class="tab-pane fade show" id="sb-tb-screenshots" role="tabpanel" aria-labelledby="sb-tb-screenshots-tab">
+                        <div class="sb-screenshot-container" style="margin-bottom: 7%;">
+                            <h3 class="sb-screenshot-title" style="margin: 20px 0;">Verification Required Configuration</h3>
+                            <img class="sb-screenshot" src="images/screenshot/j1.png" alt="Verification Required Configuration" style="width: 100%;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+                        </div>
+                        <div class="sb-screenshot-container" style="margin-bottom: 7%;">
+                            <h3 class="sb-screenshot-title" style="margin: 20px 0;">Submit entries for Approval</h3>
+                            <img class="sb-screenshot" src="images/screenshot/aj1.png" alt="Submit entries for Approval" style="width: 100%;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+                        </div>
+                        <div class="sb-screenshot-container" style="margin-bottom: 7%;">
+                            <h3 class="sb-screenshot-title" style="margin: 20px 0;">Waiting for Approval</h3>
+                            <img class="sb-screenshot" src="images/screenshot/w1.png" alt="Waiting for Approval" style="width: 100%;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+                        </div>
+                        <div class="sb-screenshot-container" style="margin-bottom: 7%;">
+                            <h3 class="sb-screenshot-title" style="margin: 20px 0;">Set user access for approve entry</h3>
+                            <img class="sb-screenshot" src="images/screenshot/ua1.png" alt="Set user access for approve entry" style="width: 100%;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+                        </div>
+                        <div class="sb-screenshot-container" style="margin-bottom: 7%;">
+                            <h3 class="sb-screenshot-title" style="margin: 20px 0;">Approve journal entries</h3>
+                            <img class="sb-screenshot" src="images/screenshot/p1.png" alt="Approve journal entries" style="width: 100%;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+                        </div>
+						<div class="sb-screenshot-container" style="margin-bottom: 7%;">
+                            <h3 class="sb-screenshot-title" style="margin: 20px 0;">Information of Approved By and Approved Date</h3>
+                            <img class="sb-screenshot" src="images/screenshot/ae1.png" alt="Information of Approved By and Approved Date" style="width: 100%;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+                        </div>
+                        <div class="sb-screenshot-container" style="margin-bottom: 7%;">
+                            <h3 class="sb-screenshot-title" style="margin: 20px 0;">Submit for Approval in Payments</h3>
+                            <img class="sb-screenshot" src="images/screenshot/pay1.png" alt="Submit for Approval in Payments" style="width: 100%;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+                        </div>
+						<div class="sb-screenshot-container" style="margin-bottom: 7%;">
+                            <h3 class="sb-screenshot-title" style="margin: 20px 0;">Payment waiting for approval and approve payment</h3>
+                            <img class="sb-screenshot" src="images/screenshot/pw2.png" alt="Payment waiting for approval and approve payment" style="width: 100%;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+							<!-- <img class="sb-screenshot" src="images/screenshot/pa2.png" alt="Payment waiting for approval and approve payment" style="width: 100%; -->
+                            <!-- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" /> -->
+                        </div>
+                        <div class="sb-screenshot-container" style="margin-bottom: 7%;">
+                            <h3 class="sb-screenshot-title" style="margin: 20px 0;">Approved By and Approved Date display</h3>
+                            <img class="sb-screenshot" src="images/screenshot/pa2.png" alt="Approved By and Approved Date display" style="width: 100%;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" />
+                        </div>
+                    </div>
+
+					<p><center>Note : Approval for entries and payment will work only for enries and payment which generated manually (For Journal entries, which generated from Invoicing --> Accounting --> Miscellaneous --> Journal Entries).</center></p>
+
+                    <div class="tab-pane fade show" id="sb-tb-faqs" role="tabpanel" aria-labelledby="sb-tb-faqs-tab">
+                        <div class="s_faq sb-faq-container bg-white">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <!-- faq-1 -->
+                                <div class="panel-group" style="margin-bottom: 20px;
+                                border: 1px solid #3b3b98;  ">
+                                    <div class="panel panel-default">
+                                       <div class="panel-heading mt0" style="position: relative;
+                                       padding: 5px;
+                                       text-align: left;">
+                                          <h4 class="panel-title" style="margin-bottom: 0;">
+                                             <a class="collapsed" data-toggle="collapse" href="#faq0" aria-expanded="false">
+                                             <span class="panelcontent" style="color: #21272b;">
+                                                Is this app compatible with Odoo Enterprise as well as Community?
+                                             </span>
+                                            </a>
+                                          </h4>
+                                       </div>
+                                       <div id="faq0" class="panel-collapse mt16 collapse" style="padding: 0px 53px;
+                                       text-align: left;">
+                                          <div>
+                                             <p class="mb32">
+                                                Yes, the app works perfectly well with Odoo Enterprise (On-premise and Odoo.SH) as well as Community. Odoo Online (Cloud) does not allow installation of third-party apps and hence this app cannot be installed on Odoo Online.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                </div>
+
+                                <!-- faq-2 -->
+                                <div class="panel-group" style="margin-bottom: 20px;
+                                border: 1px solid #3b3b98;  ">
+                                    <div class="panel panel-default">
+                                       <div class="panel-heading mt0" style="position: relative;
+                                       padding: 5px;
+                                       text-align: left;">
+                                          <h4 class="panel-title" style="margin-bottom: 0;">
+                                             <a class="collapsed" data-toggle="collapse" href="#faq1" aria-expanded="false">
+                                             <span class="panelcontent" style="color: #21272b;">
+                                                Need some customization in this app, whom to contact?
+                                             </span>
+                                            </a>
+                                          </h4>
+                                       </div>
+                                       <div id="faq1" class="panel-collapse mt16 collapse" style="padding: 0px 53px;
+                                       text-align: left;">
+                                          <div>
+                                             <p class="mb32">
+                                                Please contact us on  
+                                                <a href="skype:rathod_sunny005?chat">
+                                                    <span>Skype</span>.
+                                                </a>
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                </div>
+
+                                <!-- faq-3 -->
+                                <div class="panel-group" style="margin-bottom: 20px;
+                                border: 1px solid #3b3b98;  ">
+                                    <div class="panel panel-default">
+                                       <div class="panel-heading mt0" style="position: relative;
+                                       padding: 5px;
+                                       text-align: left;">
+                                          <h4 class="panel-title" style="margin-bottom: 0;">
+                                             <a class="collapsed" data-toggle="collapse" href="#faq2" aria-expanded="false">
+                                             <span class="panelcontent" style="color: #21272b;">
+                                                Do we need to install any additional libraries on the server for using this connector?
+                                             </span>
+                                            </a>
+                                          </h4>
+                                       </div>
+                                       <div id="faq2" class="panel-collapse mt16 collapse" style="padding: 0px 53px;
+                                       text-align: left;">
+                                          <div>
+                                             <p class="mb32">
+                                                No, You do not need to install any extra libraries.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+			<section class="oe_container">
+			    <div class="oe_row" style="text-align: center;margin-bottom:30px;">
+			        <h2 class="oe_slogan" style="opacity: 1;">Other apps you may like</h2>
+			        <br><br>
+			        <div width="100%">
+						<div style="width:25%;display: inline;">
+							<a href="https://apps.odoo.com/apps/modules/14.0/evo_sales_approval/" target="new"><img src="images/sales_approva.jpg" style="width:20%;margin-left:3%;border: solid"></a>
+						</div>
+						<div style="width:25%;display: inline;">
+							<a href="https://apps.odoo.com/apps/modules/14.0/evo_bom_approval/" target="new"><img src="images/bom_approval.png" style="width:20%;border:solid;margin-left:3%;"></a>
+						</div>
+						<div style="width:25%;display: inline;">
+							<a href="https://apps.odoo.com/apps/modules/14.0/evo_purchase_approval/" target="new"><img src="images/purchase.png" style="width:20%;margin-left:3%;border: solid"></a>
+						</div>
+						<div style="width:25%;display: inline;">
+							<a href="https://apps.odoo.com/apps/modules/14.0/evo_payslip_approval/" target="new"><img src="images/payslip.gif" style="width:20%;margin-left:3%;border: solid"></a>
+						</div>
+			        </div>
+					<div width="100%" style="padding-top:15px;display:flex;">
+						<div style="width:25%;padding-left:50px;">
+							<strong>Sales Approval</strong>
+						</div>
+						<div style="width:25%;padding-left:30px;">
+							<strong>BOM Approval</strong>
+						</div>
+						<div style="width:25%;padding-left:25px;">
+							<strong>Purchase Approval</strong>
+						</div>
+						<div style="width:25%;padding-left:0px;">
+							<strong>Payslip Approval</strong>
+						</div>
+			        </div>
+			    </div>
+			</section>
+
+            <div class="row pb-sm-5 px-1 pb-4">
+                <h2 class="w-100 text-center my-3" style="font-weight:400">Contact Us</h2>
+                <div class="text-center w-100 mb-4">
+                    <hr class="hr-one" style="border: 0;
+                    height: 1px;
+                    background: #333;
+                    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+                    background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+                    background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+                    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);" />
+                </div>
+                <div class="col-12 col-sm-6 col-md-4" style="margin-bottom:20px">
+                    <a href="tel:+918460020688">
+                        <div class="card text-center" style="min-height:90px;background-color: #6BBC7B;">
+                            <div class="pt-4">
+                                <i class="fa fa-phone sb-cu-icons" style="font-size: 45px;
+                                color: #fff;"></i>
+                            </div>
+                            <div class="px-3 pt-3 pb-2">
+                                <h5 class="card-title text-white" style="font-size:19px; font-weight:400">+91 8000168707 +91 9426376468</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4" style="margin-bottom:20px">
+                    <a href="mailto:evozard@gmail.com">
+                        <div class="card text-center" style="min-height:90px;background-color: #6BBC7B;">
+                            <div class="pt-4">
+                                <i class="fa fa-envelope sb-cu-icons" style="font-size: 45px;
+                                color: #fff;"></i>
+                            </div>
+                            <div class="px-3 pt-3 pb-2">
+                                <h5 class="card-title text-white" style="font-size:19px; font-weight:400">evozard@gmail.com</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4" style="margin-bottom:20px">
+                    <a href="skype:tushar.takodra?chat">
+                        <div class="card text-center" style="min-height:90px;background-color: #6BBC7B;">
+                            <div class="pt-4">
+                                <i class="fa fa-skype sb-cu-icons" style="font-size: 45px;
+                                color: #fff;"></i>
+                            </div>
+                            <div class="px-3 pt-3 pb-2">
+                                <h5 class="card-title text-white" style="font-size:19px; font-weight:400">evozard.consulting</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+	
+		</div>
+	</body>
+</html>

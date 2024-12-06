@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="cron_notify_view_tree" model="ir.ui.view">
+        <field name="name">cron.notify.view.tree</field>
+        <field name="model">cron.notify</field>
+        <field name="arch" type="xml">
+            <tree string="Cron Failure History" create="false" edit="false">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cron_failure_email_view_form" model="ir.ui.view">
+        <field name="name">cron.notify.view.form</field>
+        <field name="model">cron.notify</field>
+        <field name="arch" type="xml">
+            <form string="Cron Failure History" duplicate="false" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bi_cron_notify" model="ir.actions.act_window">
+        <field name="name">Cron Failure History</field>
+        <field name="res_model">cron.notify</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="cron_failure_email_menu"
+        name="Cron Failure History"
+        parent="base.menu_automation"
+        sequence="2"
+        action="action_bi_cron_notify"/>
+
+</odoo>
+

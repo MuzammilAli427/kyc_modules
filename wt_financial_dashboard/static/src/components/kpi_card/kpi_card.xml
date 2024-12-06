@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="warlock_financial_dashboard_financial_dashboard.kpi_card" owl="1">
+    <div class="col-lg-3 m-0 p-0">
+        <div class="shadow-sm border m-2 p-1 bg-white text-center cursor-pointer hover-zoom-card" t-on-click="()=>props.onClick()">
+            <div class="h1 fw-bold text-dark">
+                <span t-esc="props.value"/></div>
+            <div class="fw-bold" style="font-size: 16px;white-space:nowrap;">
+                <t t-esc="props.name"/>
+            </div>
+            <div class="h-3 text-nowrap my-1" style="color:black">
+                <h5><t t-esc="props.wtToatal" style="font-size: 18px;"/>
+                </h5>
+            </div>
+            <div class="mt-1 percent_text">
+                <span t-attf-class="text-#{props.percentage>0 ? 'success':'danger'}">
+                    <span t-attf-class="me-1 fa fa-arrow-#{props.percentage > 0 ? 'up' : 'down'}"/>
+                    <span t-esc="props.percentage"/>%
+                    <span>Change</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</t>
+</templates>

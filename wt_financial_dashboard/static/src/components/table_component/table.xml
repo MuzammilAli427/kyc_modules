@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wtdahsboadTable" owl="1">
+        <div class="wt_table_div">
+            <div class="wt_table_body">
+             <table class="wt_table">
+              <thead>
+                <t t-if="props.WtmenuItem ==='item7' or props.WtmenuItem === 'item8'">
+                  <tr t-att-class="{'d-none': props.childState}">
+                    <th class="h3"><t t-esc="props.tLabel"/></th>
+                    <th class="h3">Total</th>
+                  </tr>
+                    <tr t-att-class="{'d-none': !props.childState}">
+                    <t t-foreach="props.tHeadLabel" t-as="head" t-key="head">
+                      <th class="h3"><t t-esc="head"/></th>
+                    </t>
+                  </tr>
+              </t>
+              <t t-else="">
+                <tr>
+                <th class="h3"><t t-esc="props.tlabel"/></th>
+                <th class="h3">Total</th>
+              </tr>
+              </t>
+            </thead>
+            <!-- Parent Tbody -->
+            <tbody t-att-class="{'d-none': props.childState}">
+              <t t-if="props.WtmenuItem === 'item7' or props.WtmenuItem === 'item8'">
+              <t t-set="id" t-value="0"/>
+              <t t-foreach="props.monthlyData" t-as="table" t-key="id"> 
+                <tr t-on-click="()=>this.viewChildData(table.id,props,state)">
+                    <td><t t-esc="table.month"/></td>
+                    <td><t t-esc="table.count"/></td>
+                </tr>
+                <t t-set="id" t-value="id+1"/>
+              </t>
+            </t>
+            <t t-else="">
+              <t t-set="id" t-value="0"/>
+              <t t-foreach="props.monthlyData" t-as="table" t-key="id"> 
+                <tr>
+                    <td><t t-esc="table.month"/></td>
+                    <td><t t-esc="table.count"/></td>
+                </tr>
+                <t t-set="id" t-value="id+1"/>
+              </t>
+            </t>
+            </tbody>
+            <!-- Child Tbody -->
+            <tbody t-att-class="{'d-none': !props.childState}">
+              <t t-if="props.WtmenuItem === 'item7'">
+              <t t-set="index" t-value="0"/>
+              <t t-foreach="state.table_config" t-as="table" t-key="index">
+              <tr >
+                <td><t t-esc="table.name"/></td>
+                <td><t t-esc="table.date"/></td>
+                <td><t t-esc="table.employee_name"/></td>
+                <td><t t-esc="table.total"/></td>
+              </tr>
+              <t t-set="index" t-value="index+1"/>
+            </t>
+          </t>
+          <t t-if="props.WtmenuItem === 'item8'">
+            <t t-set="index" t-value="0"/>
+            <t t-foreach="state.table_config" t-as="table" t-key="index">
+            <tr>
+              <td><t t-esc="table.name"/></td>
+              <td><t t-esc="table.date"/></td>
+              <td><t t-esc="table.employee_name"/></td>
+              <td><t t-esc="table.total"/></td>
+              <td><t t-esc="table.taxed"/></td>
+            </tr>
+            <t t-set="index" t-value="index+1"/>
+          </t>
+          </t>
+            </tbody>
+            </table>
+        </div>
+           </div>
+    </t>
+</templates>

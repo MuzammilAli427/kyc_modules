@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_report_saleorder" model="ir.actions.report">
+            <field name="name">Cron Track</field>
+            <field name="model">cron.track</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cron_track.report_cron_tracking</field>
+            <field name="report_file">cron_track.report_cron_tracking</field>
+            <field name="print_report_name">Cron Tracking</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,161 @@
+<odoo>
+    <record id="credit_portfolio_wizard" model="ir.ui.view">
+        <field name="name">credit.portfolio</field>
+        <field name="model">credit.portfolio</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Credit Portfolio">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="country_id" options="{'no_create': True}"/>
+                    </group>
+                    <group></group>
+                </group>
+                <footer>
+                    <button class="oe_highlight" name="get_report" string="Get Report" type="object"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id='credit_portfolio_action' model='ir.actions.act_window'>
+        <field name="name">Credit Portfolio</field>
+        <field name="res_model">credit.portfolio</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <menuitem name="Credit Portfolio" id="credit_portfolio_submenu_id"
+              parent="loan_reports_menu"
+              action="smart_loan_system.credit_portfolio_action"/>
+
+    <template id="credit_portfolio_template">
+        <t t-call="web.html_container">
+<!--            <t t-foreach="docs" t-as="o">-->
+                <t t-call="web.external_layout">
+                    <div class="page">
+                         <style>
+                            #collected_per_business_table {
+                                width: 100%;
+                            }
+
+                            #collected_per_business_table, th, td{
+                                border: 1px solid black;
+                                border-collapse: collapse;
+                                border-left: 0px;
+                                border-right: 0px;
+                            }
+
+                            #collected_per_business_table td, #collected_per_business_table th {
+                                padding: 8px;
+                                font-weight: bold;
+                            }
+                            #collected_per_business_table th {
+                                padding-top: 1px;
+                                padding-bottom: 1px;
+                                text-align: left;
+                            }
+                            .footer_points{
+                                margin-top:10px; font-size:18px;
+                            }
+                        </style>
+                        <p style="color:#385ef5; font-size:30px; font-weight: 600;">Credit Portfolio - <t t-out="data['country']"/></p>
+                        <table border="1" id="collected_per_business_table">
+                            <tr>
+                                <td>Amounts in NAf.(x 1.000)</td>
+
+                                 <t t-foreach="data['months']" t-as="month">
+                                    <td><t t-out="month"/></td>
+                                </t>
+                            </tr>
+                            <tr></tr>
+                            <tr></tr>
+
+                            <tr>
+                                <td>Total Credit Portfolio (Gross)</td>
+                                <t t-foreach="data['total_credit_portfolio']" t-as="rec">
+                                    <td><t t-out="rec"/></td>
+                                </t>
+                            </tr>
+
+                            <tr>
+                                <td>Number of Loans</td>
+                                <t t-foreach="data['number_of_loans']" t-as="rec">
+                                    <td><t t-out="rec"/></td>
+                                </t>
+                            </tr>
+
+                            <tr>
+                                <td>Number of Clients (#) </td>
+                                <t t-foreach="data['number_of_clients']" t-as="rec">
+                                    <td><t t-out="rec"/></td>
+                                </t>
+                            </tr>
+
+                            <tr>
+                                <td>Corporate (#) </td>
+                                <t t-foreach="data['corporate_count']" t-as="rec">
+                                    <td><t t-out="rec"/></td>
+                                </t>
+                            </tr>
+
+                            <tr>
+                                <td>Retail (#) </td>
+                                <t t-foreach="data['retail_count']" t-as="rec">
+                                    <td><t t-out="rec"/></td>
+                                </t>
+                            </tr>
+
+
+
+
+                        </table>
+
+                        <p class="footer_points">The Total credit portfolio (gross) amounts refers to the loan balances excluding any open installment </p>
+                        <p class="footer_points">The Number of loans, clients and the split between Corporate and Retail are self-explanatory</p>
+                        <p class="footer_points">The line Write-off is not used in the report</p>
+                        <p class="footer_points">Report Source: Loan <Module></Module></p>
+
+                    </div>
+<!--                </t>-->
+            </t>
+        </t>
+    </template>
+
+       <record id="smart_loan_system.paperformat_for_creditportfolio" model="report.paperformat">
+            <field name="name">A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">32</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+    <record id="credit_portfolio_report_action" model="ir.actions.report">
+        <field name="name">Credit Portfolio</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="model">credit.portfolio</field>
+        <field name="paperformat_id" ref="smart_loan_system.paperformat_for_creditportfolio"/>
+        <field name="report_name">smart_loan_system.credit_portfolio_template</field>
+        <field name="report_file">smart_loan_system.credit_portfolio_template</field>
+    </record>
+
+
+</odoo>

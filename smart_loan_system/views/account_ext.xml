@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_account_ext_tree_view" model="ir.ui.view">
+        <field name="name">account.account.ext.tree.view</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="arch" type="xml">
+            <field name="reconcile" position="after">
+                <field name="transfer_type"  groups="base.group_no_one"/>
+                <field name="transfer_account_id"  groups="base.group_no_one"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

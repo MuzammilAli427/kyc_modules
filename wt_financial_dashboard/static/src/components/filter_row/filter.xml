@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="wt_filter_component" owl="1">
+            <t t-if="props.wtDropdownFilter.IsDateFilter"> 
+                <div class="wt_dashbord_filter">
+                    <button class="o-no-caret btn dropdown-toggle wt_color" data-bs-auto-close="outside" aria-expanded="true"
+                    data-bs-toggle="dropdown">
+                        <span class="fa fa-calendar fs-2" title="Dates" role="img" aria-label="Dates"/>
+                        <span t-esc="props.dropdownLabel" class="mx-2 fs-2 wt_block"/>
+                    </button>
+                        <ul class="dropdown-menu">
+                        <li><a role="menuitem" class="dropdown-item" title="Today" t-on-click="()=>props.onClick('DateFilter','today')">Today</a></li>
+                        <li><a role="menuitem" class="dropdown-item" title="This Month" t-on-click="()=>props.onClick('DateFilter','this_month')">This Month</a></li>
+                        <li><a role="menuitem" class="dropdown-item" title="This Quarter" t-on-click="()=>props.onClick('DateFilter','this_quarter')">This Quarter</a></li>
+                        <li><a role="menuitem" class="dropdown-item" title="This Financial Year" t-on-click="()=>props.onClick('DateFilter','this_year')">This Financial Year</a></li>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <li><a role="menuitem" class="dropdown-item" title="Last Month" t-on-click="()=>props.onClick('DateFilter','last_month')">Last Month</a></li>
+                        <li><a role="menuitem" class="dropdown-item" title="Last Quarter" t-on-click="()=>props.onClick('DateFilter','last_quarter')">Last Quarter</a></li>
+                        <li><a role="menuitem" class="dropdown-item" title="Last Financial Year" t-on-click="()=>props.onClick('DateFilter','last_year')">Last Financial Year</a></li>
+                            <div role="separator" class="dropdown-divider"></div>
+                       <li> <a role="menuitem" class="dropdown-item js_foldable_trigger o_open_menu" data-bs-toggle="dropdown">Custom</a>
+                        <ul class="dropdown-menu" role="menu">
+                               <li><label class="custom-date mx-1" for="date_from">Start Date :</label></li> 
+                               <li> <input type="date" class="form-control" name="date_start"/></li> 
+                               <li><label class="custom-date my-2 mx-1" for="date_from">End Date :</label></li> 
+                               <li><input type="date" name="date_end" class="form-control"/></li> 
+                               <li><button class="o-no-caret btn wt_active_type border mt-4" t-on-click="()=>props.onClick('DateFilter','custom')">
+                                    <span class="mx-2 fs-2">APPLY</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                    </ul>
+                </div>
+            </t>
+            <t t-if="props.wtDropdownFilter.IsAccountFilter"> 
+                <div class="wt_dashbord_filter">
+                    <button class="o-no-caret btn dropdown-toggle wt_color" 
+                    data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                        <span class="fa fa-user fs-2" title="Dates" role="img" aria-label="Dates"/>
+                        <span t-esc="props.dropDownAccountLabel" class="mx-2 fs-2 wt_block"/>
+                    </button>
+                    <div class="dropdown-menu o_filter_menu" role="menu">
+                        <a role="menuitem" class="dropdown-item" title="Receivable" t-on-click="()=>props.onClick('AccountFilter','trade_receivable')">
+                            <t t-foreach="props.wtDropdownFilter.wtAccountFilter" t-as="AccountFilterItem" t-key="AccountFilterItem">
+                                <t t-if="AccountFilterItem == 'trade_receivable'">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </t>
+                            </t>
+                            Receivable
+                        </a>
+                        <a role="menuitem" class="dropdown-item" title="Non Trade Receivable" t-on-click="()=>props.onClick('AccountFilter','non_trade_receivable')">
+                            <t t-foreach="props.wtDropdownFilter.wtAccountFilter" t-as="AccountFilterItem" t-key="AccountFilterItem">
+                                <t t-if="AccountFilterItem == 'non_trade_receivable'">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </t>
+                            </t>
+                            Non Trade Receivable
+                        </a>
+                        <a role="menuitem" class="dropdown-item" title="Payable" t-on-click="()=>props.onClick('AccountFilter','trade_payable')">
+                            <t t-foreach="props.wtDropdownFilter.wtAccountFilter" t-as="AccountFilterItem" t-key="AccountFilterItem">
+                                <t t-if="AccountFilterItem == 'trade_payable'">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </t>
+                            </t>
+                            Payable
+                        </a>
+                        <a role="menuitem" class="dropdown-item" title="This Financial Year" t-on-click="()=>props.onClick('AccountFilter','non_trade_payable')">
+                            <t t-foreach="props.wtDropdownFilter.wtAccountFilter" t-as="AccountFilterItem" t-key="AccountFilterItem">
+                                <t t-if="AccountFilterItem == 'non_trade_payable'">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </t>
+                            </t>
+                            Non Trade Payable
+                        </a>
+                    </div>
+                </div>
+            </t>
+            <t t-if="props.wtDropdownFilter.IsPartnerFilter"> 
+                <div class="wt_dashbord_filter">
+                    <button class="o-no-caret btn dropdown-toggle wt_color" 
+                    data-bs-toggle="dropdown">
+                        <span class="fa fa-folder-open" title="Dates" role="img" aria-label="Dates"/>
+                        <span class="mx-2 fs-2 wt_block">Partners</span>
+                    </button>
+                    <div class="dropdown-menu o_filter_menu" role="menu">
+                        <script>
+                            $(document).ready(function() {
+                                $('.js-select-basic-multiple').select2();
+                            });
+                        </script>
+                        Partners
+                        <div class="col">
+                            <select class="js-select-basic-multiple select-basic-multiple" name="selectionPartner" multiple="multiple">
+                                <t t-foreach="state.partner_ids" t-as="partner_id" t-key="partner_id.id">
+                                    <option t-att-value="partner_id.id"><t t-esc="partner_id.display_name"/></option>
+                                </t>
+                            </select>
+                        </div>
+                        Tags
+                        <div class="col">
+                            <select class="js-select-basic-multiple select-basic-multiple" name="selectionTag" multiple="multiple">
+                                <t t-foreach="state.partner_tag_ids" t-as="partner_tag_id" t-key="partner_tag_id.id">
+                                    <option t-att-value="partner_tag_id.id"><t t-esc="partner_tag_id.display_name"/></option>
+                                </t>
+                            </select>
+                        </div>
+                        <button class="o-no-caret btn border mt-4" t-on-click="()=>props.onClick('PartnerFilter','')">
+                            <span class="mx-2 fs-2">APPLY</span>
+                        </button>
+                    </div>
+                </div>
+            </t>
+            <t t-if="props.wtDropdownFilter.jouranalItems">  
+                <button class="dropdown-toggle wt_color o-no-caret btn" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                    <span class="fa fa-book fs-2" title="Journals" role="img" aria-label="Journals"/>
+                    <span class="mx-2 fs-2 wt_block">Journals:</span>
+                </button>    
+                <ul class="dropdown-menu">
+                    <t t-set="index" value="0"/>
+                    <t t-foreach="state.journal_datas" t-as="journal" t-key="index">    
+                        <li><a role="menuitem" class="dropdown-item h-3" style="font-size: 16px;"><t t-esc="journal.label"/></a></li> 
+                        <div role="separator" class="dropdown-divider"></div> 
+                        <t t-foreach="journal.data" t-as="journal_data" t-key="journal_data.id">
+                            <li><a role="menuitem" class="dropdown-item" t-on-click="()=>props.onClick('jouranalItems',journal_data.id,journal.option,journal_data.name)"> 
+                                <t t-foreach="props.wtDropdownFilter.journalLabels" t-as="label" t-key="label">
+                                    <t t-if="label == journal_data.name">
+                                        <i class="fa fa-check mx-2" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.journalOption != journal.option}"></i>
+                                    </t>
+                                </t>        
+                                <t t-esc="journal_data.name"/></a></li>
+                        </t>    
+                        <div role="separator" class="dropdown-divider"></div>             
+                        <t t-set="index" t-value="index + 1"/>
+                    </t>
+                </ul>    
+            </t>
+            <t t-if="props.wtDropdownFilter.comparisonState">
+                <button data-bs-toggle="dropdown" class="dropdown-toggle wt_color o-no-caret btn" data-bs-auto-close="outside">
+                    <span class="fa fa-bar-chart fs-2" title="Comparison" role="img" aria-label="Comparison"/>
+                    <span class="mx-2 fs-2 wt_block">Comparison:<t t-esc="props.wtDropdownFilter.wtComparisonLabel"/></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a  role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('Comparison','no_comparison')"> <i class="fa fa-check mx-1" t-att-class="{'d-none': props.wtDropdownFilter.wtComparison != 'no_comparison'}" aria-hidden="true"></i>No Comparison</a></li>
+                    <div role="separator" class="dropdown-divider"></div>   
+                    <li><a  role="menuitem" class="dropdown-item" title="Previous Period" t-on-click="()=>wtToggleMenu(state,'PrevPeriod')"> <i class="fa fa-check d-none mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.wtComparison != 'previous_period'}"></i>Previous Period</a>
+                     <li t-att-class="{'d-none': state.toggle != 'PrevPeriod'}">
+                        <div class="o_foldable_menu o_account_report_search form-group" style="width:150px;">
+                            <label for="periods_number">Number of periods :</label><br/>
+                            <input type="number" name="periods_number" value="1" class="form-control-sm wt_input"/>
+                            <button type="button" class="btn wt_active_type mt-2" t-on-click="()=>(props.onClick('Comparison','previous_period'),wtToggleMenu(state,'PrevPeriod'))">Apply</button>
+                        </div>
+                     </li>   
+                    </li>
+                    <div role="separator" class="dropdown-divider"></div>   
+                    <li><a  role="menuitem" class="dropdown-item" title="Same Period Last Year" t-on-click="()=>wtToggleMenu1(state,'SameLastPeriod')"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.wtComparison != 'same_last_year'}"></i>Same Period Last Year</a>
+                        <li t-att-class="{'d-none': state.toggle1 != 'SameLastPeriod'}">
+                            <div class="o_foldable_menu o_account_report_search form-group" style="width:150px;">
+                                <label for="same_periods_number">Number of periods :</label><br/>
+                                <input type="number" name="same_periods_number" value="1" class="form-control-sm wt_input"/>
+                                <button type="button" class="btn wt_active_type mt-2" t-on-click="()=>(props.onClick('Comparison','same_last_year'),wtToggleMenu1(state,'SameLastPeriod'))">Apply</button>
+                            </div>
+                         </li>   
+                    </li>
+                    <div role="separator" class="dropdown-divider"></div>   
+                    <li><a  role="menuitem" class="dropdown-item" title="Custom" t-on-click="()=>wtToggleMenu2(state,'Custom')"> <i class="fa fa-check mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.wtComparison != 'custom'}"></i>Custom</a>
+                        <li t-att-class="{'d-none': state.toggle2 != 'Custom'}">
+                            <div class="o_foldable_menu o_account_report_search form-group" style="width:150px;">
+                                <label for="custom_date_from">Date From:</label><br/>
+                                <input type="date" name="custom_date_from" value="1" class="form-control-sm wt_input"/>
+                                <label for="custom_date_to">Date To:</label><br/>
+                                <input type="date" name="custom_date_to" value="1" class="form-control-sm wt_input"/>
+                                <button type="button" class="btn wt_active_type mt-2" t-on-click="()=>(props.onClick('Comparison','custom'),wtToggleMenu2(state,'Custom'))">Apply</button>
+                            </div>
+                         </li>   
+                    </li>  
+                </ul>
+            </t>
+            <t t-if="props.wtDropdownFilter.groupBy">
+                <button data-bs-toggle="dropdown" class="dropdown-toggle wt_color o-no-caret btn" data-bs-auto-close="outside">
+                    <span class="me-1 oi oi-group fs-2" title="Comparison" role="img" aria-label="Comparison"/>
+                    <span class="mx-2 fs-2 wt_block">Group</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupBy','employee_id')" t-att-class="{'hactive': props.wtDropdownFilter.groupState == 'employee_id'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupState != 'employee_id'}"></i>Employee</a></li>
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupBy','product_id')" t-att-class="{'hactive': props.wtDropdownFilter.groupState == 'product_id'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupState != 'product_id'}"></i>Category</a></li>
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupBy','state')" t-att-class="{'hactive': props.wtDropdownFilter.groupState == 'state'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupState != 'state'}"></i>Status</a></li>
+                    <li><a  role="menuitem" class="dropdown-item" title="Expense Date" t-on-click="()=>wtToggleMenu2(state,'Group_Date')" t-att-class="{'dactive': props.wtDropdownFilter.groupDate == 'Date'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupDate != 'Date'}"></i>Expense Date <i class="fas fa-angle-down" t-att-class="{'d-none': state.toggle2 == 'Group_Date'}"></i><i class="fas fa-angle-up" t-att-class="{'d-none': state.toggle2 != 'Group_Date'}"></i></a></li>
+                    <div role="separator" class="dropdown-divider" t-att-class="{'d-none': state.toggle2 != 'Group_Date'}"></div> 
+                    <li t-att-class="{'d-none': state.toggle2 != 'Group_Date'}">
+                        <div class="o_foldable_menu o_account_report_search" style="width:150px;">  
+                            <li><a role="menuitem" class="dropdown-item" title="Year"  t-on-click="()=>(props.onClick('GroupBy','Date','year'),wtDateTick(state,'year'))"><i class="fa fa-check  mx-1" t-att-class="{'d-none': state.tempDateGroup != 'year'}" aria-hidden="true" ></i>Year</a></li>
+                            <li><a role="menuitem" class="dropdown-item" title="Quarter"  t-on-click="()=>(props.onClick('GroupBy','Date','quarter'),wtDateTick(state,'quarter'))"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': state.tempDateGroup != 'quarter'}"></i>Quarter</a></li>
+                            <li><a role="menuitem" class="dropdown-item" title="Month"  t-on-click="()=>(props.onClick('GroupBy','Date','month'),wtDateTick(state,'month'))"><i class="fa fa-check  mx-1 " aria-hidden="true" t-att-class="{'d-none': state.tempDateGroup != 'month'}"></i>Month</a></li>
+                            <li><a role="menuitem" class="dropdown-item" title="Week"  t-on-click="()=>(props.onClick('GroupBy','Date','week'),wtDateTick(state,'week'))"><i class="fa fa-check  mx-1 " aria-hidden="true" t-att-class="{'d-none': state.tempDateGroup != 'week'}"></i>Week</a></li>
+                            <li><a role="menuitem" class="dropdown-item" title="Day"  t-on-click="()=>(props.onClick('GroupBy','Date','day'),wtDateTick(state,'day'))"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': state.tempDateGroup != 'day'}"></i>Day</a></li>
+                        </div>
+                    </li>
+                </ul>
+            </t>
+            <t t-if="props.wtDropdownFilter.groupByRevenue">
+                <button data-bs-toggle="dropdown" class="dropdown-toggle wt_color o-no-caret btn" data-bs-auto-close="outside">
+                    <span class="me-1 oi oi-group fs-2" title="Comparison" role="img" aria-label="Comparison"/>
+                    <span class="mx-2 fs-2 wt_block">Group</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupByRevenue','user_id')" t-att-class="{'hactive': props.wtDropdownFilter.groupStateRevenue == 'user_id'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupStateRevenue != 'user_id'}"></i>Salesperson</a></li>
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupByRevenue','team_id')" t-att-class="{'hactive': props.wtDropdownFilter.groupStateRevenue == 'team_id'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupStateRevenue != 'team_id'}"></i>Sales Team</a></li>
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupByRevenue','partner_id')" t-att-class="{'hactive': props.wtDropdownFilter.groupStateRevenue == 'partner_id'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupStateRevenue != 'partner_id'}"></i>Customer</a></li>
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupByRevenue','country_id')" t-att-class="{'hactive': props.wtDropdownFilter.groupStateRevenue == 'country_id'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupStateRevenue != 'country_id'}"></i>Customer Country</a></li>
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupByRevenue','industry_id')" t-att-class="{'hactive': props.wtDropdownFilter.groupStateRevenue == 'industry_id'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupStateRevenue != 'industry_id'}"></i>Customer Industry</a></li>
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupByRevenue','product_id')" t-att-class="{'hactive': props.wtDropdownFilter.groupStateRevenue == 'product_id'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupStateRevenue != 'product_id'}"></i>Product</a></li>
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupByRevenue','categ_id')" t-att-class="{'hactive': props.wtDropdownFilter.groupStateRevenue == 'categ_id'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupStateRevenue != 'categ_id'}"></i>Product Category</a></li>
+                    <li><a role="menuitem" class="dropdown-item" title="No Comparison" t-on-click="()=>props.onClick('GroupByRevenue','state')" t-att-class="{'hactive': props.wtDropdownFilter.groupStateRevenue == 'state'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupStateRevenue != 'state'}"></i>Status</a></li>
+                    <li><a  role="menuitem" class="dropdown-item" title="Expense Date" t-on-click="()=>wtToggleMenu3(state,'Group_Date_Revnue')" t-att-class="{'dactive': props.wtDropdownFilter.groupDate1 == 'Group_Date'}"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': props.wtDropdownFilter.groupDate1 != 'Group_Date'}"></i>Revenue Date <i class="fas fa-angle-down" t-att-class="{'d-none': state.toggle3 == 'Group_Date_Revnue'}"></i><i class="fas fa-angle-up" t-att-class="{'d-none': state.toggle3 != 'Group_Date_Revnue'}"></i></a></li>
+                    <div role="separator" class="dropdown-divider" t-att-class="{'d-none': state.toggle3 != 'Group_Date_Revnue'}"></div> 
+                    <li t-att-class="{'d-none': state.toggle3 != 'Group_Date_Revnue'}">
+                        <div class="o_foldable_menu o_account_report_search" style="width:150px;">  
+                            <li><a role="menuitem" class="dropdown-item" title="Year"  t-on-click="()=>(props.onClick('GroupByRevenue','Group_Date','year'),wtDateTick1(state,'year'))"><i class="fa fa-check  mx-1" t-att-class="{'d-none': state.tempDateGroup1 != 'year'}" aria-hidden="true" ></i>Year</a></li>
+                            <li><a role="menuitem" class="dropdown-item" title="Quarter"  t-on-click="()=>(props.onClick('GroupByRevenue','Group_Date','quarter'),wtDateTick1(state,'quarter'))"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': state.tempDateGroup1 != 'quarter'}"></i>Quarter</a></li>
+                            <li><a role="menuitem" class="dropdown-item" title="Month"  t-on-click="()=>(props.onClick('GroupByRevenue','Group_Date','month'),wtDateTick1(state,'month'))"><i class="fa fa-check  mx-1 " aria-hidden="true" t-att-class="{'d-none': state.tempDateGroup1 != 'month'}"></i>Month</a></li>
+                            <li><a role="menuitem" class="dropdown-item" title="Week"  t-on-click="()=>(props.onClick('GroupByRevenue','Group_Date','week'),wtDateTick1(state,'week'))"><i class="fa fa-check  mx-1 " aria-hidden="true" t-att-class="{'d-none': state.tempDateGroup1 != 'week'}"></i>Week</a></li>
+                            <li><a role="menuitem" class="dropdown-item" title="Day"  t-on-click="()=>(props.onClick('GroupByRevenue','Group_Date','day'),wtDateTick1(state,'day'))"><i class="fa fa-check  mx-1" aria-hidden="true" t-att-class="{'d-none': state.tempDateGroup1 != 'day'}"></i>Day</a></li>
+                        </div>
+                    </li>
+                </ul>
+            </t>
+    </t>
+</templates>

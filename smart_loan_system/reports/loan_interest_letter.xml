@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="interest_letter_header">
+        <div class="header">
+            <div class="o_clean_header">
+                <div class="row">
+                    <div class="col-8"/>
+                    <div class="col-4" style="text-align: right; ">
+                        <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" alt="Logo"
+                             style="width:150px;height:150px"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="interest_letter_footer">
+        <div class="footer">
+            <div class="row" style="font-size:15px;font-family:'Roboto',sans-serif;">
+                <div class="col-12 text-center">
+                    <span>This letter was automatically generated after approval of management, reason why it is not
+                        signed.:
+                    </span>
+                </div>
+            </div>
+            <div class="row" style="font-size:15px;font-family:'Roboto',sans-serif;margin-top:15px;">
+                <div class="col-12 text-center">
+                    <t t-esc="res_company.street"/>
+                    T:
+                    <t t-esc="res_company.phone"/>
+                    Kvk:
+                    <t t-esc="res_company.company_registry"/>
+                    <t t-esc="res_company.email"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="loan_interest_letter_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+
+                <t t-foreach="o.loan_ids" t-as="loan">
+                    <t t-set="days_past"
+                       t-value="request.env['ir.config_parameter'].sudo().get_param('ae_loan_manag.max_delinquent_period')"/>
+                    <t t-if="int(loan.days_past_due) &lt;= int(days_past)">
+                        <t t-call="smart_loan_system.interest_letter_header"/>
+                        <t t-call="smart_loan_system.interest_letter_footer"/>
+                        <div class="page text-dark"
+                             style="font-family:'Roboto',sans-serif;font-size:15px;margin-top:5px; page-break-after: always;">
+                            <t t-call="web.basic_layout">
+                                <div class="row text-center">
+                                    <div class="col-12 text-center" style="margin-top:50px;">
+                                        <t t-if="loan.report_type == 'interest_report'">
+                                            <h3 class="text-capitalize">
+                                                <strong>Loan Statement</strong>
+                                            </h3>
+                                        </t>
+                                        <t t-else="">
+                                            <h3 class="text-capitalize">
+                                                <strong>Mortgage Loan Statement</strong>
+                                            </h3>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="row " style="margin-left:20px;margin-top:30px;">
+                                    <div class="col-6">
+                                        <t t-set="retail_obj"
+                                           t-value="request.env['kyc.retail'].search([('partner_id.id', '=', loan.partner_id.id)])"/>
+                                        <t t-set="corporate_obj"
+                                           t-value="request.env['kyc.corporate'].search([('partner_id.id', '=', loan.partner_id.id)])"/>
+                                        <div class="row">
+                                            <span t-esc="loan.partner_id.name"/>
+                                        </div>
+                                        <div class="row">
+                                            <t t-if="retail_obj">
+                                                <span t-esc="retail_obj.home_address"/>
+                                            </t>
+                                            <t t-if="corporate_obj">
+                                                <span t-esc="corporate_obj.business_address"/>
+                                            </t>
+                                        </div>
+                                        <div class="row">
+                                            <t t-if="retail_obj">
+                                                <span t-esc="retail_obj.home_neighborhood"/>
+                                            </t>
+                                            <t t-if="corporate_obj">
+                                                <span t-esc="corporate_obj.business_neighborhood"/>
+                                            </t>
+                                        </div>
+                                        <div class="row">
+                                            <t t-if="retail_obj">
+                                                <span t-esc="retail_obj.home_country_id.name"/>
+                                            </t>
+                                            <t t-if="corporate_obj">
+                                                <span t-esc="corporate_obj.business_country_id.name"/>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top:30px;">
+                                    <div class="col-6">
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-12" style="text-align: right;">
+                                                <span>Loan Number:</span>
+                                                <span t-esc="loan.name"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12" style="text-align: right;">
+                                                <span>Statement period from:</span>
+                                                <span t-esc="o.from_date"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12" style="text-align: right;">
+                                                <span>through:</span>
+                                                <span t-esc="o.to_date"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row " style="margin-left:20px;margin-top:50px">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <span>Interest paid during
+                                                    <t t-esc="o.from_date.year"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <span>Principal balance as per
+                                                    <t t-esc="o.to_date.strftime('%B %d, %Y')"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-12" style="text-align: right;">
+                                                <t t-esc="loan.currency_id.name"/>
+                                                <t t-set="interest_amount"
+                                                   t-value="sum(request.env['account.move.line'].search([('move_id.loan_id', '=', loan.id), ('move_id.state', '=', 'posted'), ('move_id.move_type', '=', 'out_invoice'), ('move_id.date', '&gt;=', o.from_date), ('move_id.date', '&lt;=', o.to_date), ('product_id', '=', o.interest_prod_id.id)]).mapped('paid_amount'))"/>
+                                                <t t-esc="'{0:,.2f}'.format(interest_amount)"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12" style="text-align: right;">
+                                                <t t-esc="loan.currency_id.name"/>
+                                                <t t-esc="'{0:,.2f}'.format(loan.outstanding_bal)"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+
+            </t>
+        </t>
+    </template>
+
+    <record id="loan_interest_letter_paperformat" model="report.paperformat">
+        <field name="name">Customized Paper Format</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">30</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">22</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="report_loan_interest_action" model="ir.actions.report">
+        <field name="name">Loan Interest Letter</field>
+        <field name="model">loan.delinquent.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="paperformat_id" ref="smart_loan_system.loan_interest_letter_paperformat"/>
+        <field name="report_name">smart_loan_system.loan_interest_letter_template</field>
+        <field name="report_file">smart_loan_system.loan_interest_letter_template</field>
+    </record>
+</odoo>

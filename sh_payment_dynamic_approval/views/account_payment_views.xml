@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_payment_form_inherited" model="ir.ui.view">
+        <field name="name">account.payment.form.inherited</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form" />
+        <field name="arch" type="xml">
+            <field name="state" position="attributes">
+                 <attribute name="statusbar_visible">draft,waiting,posted</attribute>
+            </field>
+            <button name="action_draft" position="attributes">
+                 <attribute name="attrs">{'invisible': [('state', 'not in', ('posted','reject', 'cancel'))]}</attribute>
+            </button>
+            <xpath expr="//button[@name='action_post']" position="before">
+                <field name="is_approval_user" invisible="1"/>
+                <button name="action_approve" attrs="{'invisible':['|',('state', '!=', 'waiting'),('is_approval_user','=',False)]}" class="oe_highlight" string="Approve Payment" type="object"  />
+                <button name="%(sh_payment_dynamic_approval.sh_rejection_reason_action)d" attrs="{'invisible':['|',('state', '!=', 'waiting'),('is_approval_user','=',False)]}" class="oe_highlight" string="Reject Payment" type="action"  />
+            </xpath> 
+            <xpath expr="//field[@name='payment_method_line_id']" position="after">
+                <field name="approval_config_id" />
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page name="approvalIinfo" string="Approval Information">
+                        <group>
+                            <group name="next_approval" string="Next Approval">
+                                <field name="level" readonly="1"/>
+                                <field name="user_ids" readonly="1" widget='many2many_tags'/>
+                                <field name="group_ids" readonly="1" widget='many2many_tags'/>
+                            </group>
+                            <group name="reject_info" string="Rejection Information">
+                                <field name="rejection_date" readonly="1" />
+                                <field name="reject_by" readonly="1" />
+                                <field name="reject_reason" readonly="1" />
+                            </group>
+                        </group>
+                        <div>
+                            <field name="approval_info_line" readonly="1" >
+                                <tree>
+                                    <field name="level" readonly="1" />
+                                    <field name="user_ids" readonly="1" />
+                                    <field name="group_ids" readonly="1" />
+                                    <field name="status" widget="boolean_toggle" readonly="1" />
+                                    <field name="approval_date" readonly="1" />
+                                    <field name="approved_by" readonly="1" />
+                                    <field name="sh_payment_id" invisible="1" readonly="1" />
+                                </tree>
+                            </field>
+                        </div>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+    <record id="sh_inbound_waiting_approval_action" model="ir.actions.act_window">
+        <field name="name">Waiting Approval</field>
+        <field name="res_model">account.payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('state','=','waiting'),('payment_type','=','inbound')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"></p>
+        </field>
+    </record>
+
+    <record id="sh_inbound_my_approval_action" model="ir.actions.act_window">
+        <field name="name">My Approval</field>
+        <field name="res_model">account.payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('is_approval_user','=',True),('payment_type','=','inbound')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"></p>
+        </field>
+    </record>
+
+    <record id="sh_outbound_waiting_approval_action" model="ir.actions.act_window">
+        <field name="name">Waiting Approval</field>
+        <field name="res_model">account.payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('state','=','waiting'),('payment_type','=','outbound')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"></p>
+        </field>
+    </record>
+
+    <record id="sh_outbound_my_approval_action" model="ir.actions.act_window">
+        <field name="name">My Approval</field>
+        <field name="res_model">account.payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('is_approval_user','=',True),('payment_type','=','outbound')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"></p>
+        </field>
+    </record>
+
+    <menuitem name="My Payment Approval" action="sh_outbound_my_approval_action" id="sh_outbound_my_approval_action_menu" parent="account.menu_finance_payables" sequence="1" />
+    <menuitem name="Waiting Payment Approval" action="sh_outbound_waiting_approval_action" id="sh_outbound_waiting_approval_action_menu" parent="account.menu_finance_payables" sequence="1" />
+    <menuitem name="My Payment Approval" action="sh_inbound_my_approval_action" id="sh_inbound_my_approval_action_menu" parent="account.menu_finance_receivables" sequence="1" />
+    <menuitem name="Waiting Payment Approval" action="sh_inbound_waiting_approval_action" id="sh_inbound_waiting_approval_action_menu" parent="account.menu_finance_receivables" sequence="1" />
+
+</odoo>

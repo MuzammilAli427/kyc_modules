@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Partial Payment based on Invoice Lines</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="oe_styling_v8">
+		<br/>
+		<div style="background:#efefef; font-family:LatoOpen Sans !important; color:black;">
+			<section class="oe_container oe_dark">
+				<div style="border-top:#252E64 solid 10px;"></div>
+				<div class="oe_row oe_spaced">
+				<center>
+                        <span class="btn btn-sm mb-2 mb-lg-0" style="font-size:14px; font-weight:500; background-color:#252E64; color:#fff"><i class="fa fa-check"></i> Community</span>
+                        <span class="btn btn-sm mb-2 mb-lg-0" style="font-size:14px; font-weight:500; background-color:#252E64; color:#fff"><i class="fa fa-check"></i> Enterprise</span>
+                        <span class="btn btn-sm mb-2 mb-lg-0" style="font-size:14px; font-weight:500; background-color:#252E64; color:#fff"><i class="fa fa-check"></i> Odoo.sh</span>
+                    </center>
+                    <br/>
+				    <h1 style="padding-top: 0%;text-transform: uppercase;font-weight: 900;color: #3d3d3d !important;margin-bottom:18px;">
+	                    <center>Partial Payment based on Selected Invoice and Bill Lines</center><br/>
+	                </h1>
+	                
+				    <center><div style="width: 50%; border-top:#252E64 solid 10px;"></div></center>
+				    <div class="oe_slogan" style="margin:5px 0 !important;">
+                        <a href="https://www.omaxinformatics.com" target="new">
+                            <img src="omax.png" style="width: 190px; margin-bottom: 0px;" class="center-block">
+                            <img src="odoo_learning_partner_rgb.png" style="width: 190px; margin-bottom: 0px;" class="center-block">
+                        </a>
+                    </div>
+				    
+				</div>
+				<div style="border-top:#252E64 solid 10px;"></div>
+			</section>
+			<section class="oe_container">
+			    <div class="oe_row oe_spaced">
+			        <h2 class="oe_slogan" style="font-size:30px;"><b><u>Overview</u></b></h2>
+			        <p style="font-size: 30px;text-align:center;">
+			           This App allow user to register partial payment based on the selected invoice and bill lines.
+			        </p>
+			    </div>
+		    </section>
+		    
+		    <section class="oe_container ">
+			    <div class="oe_row oe_spaced">
+				    <h2 class="oe_slogan" style="font-size:30px;"><b><u>Features</u></b></h2>
+				    <div style="font-size: 25px;">
+					    <ul class="list-unstyled mr32 ml32">
+					        <li><i class="fa fa-check" style="color: #252E64;">This feature is applicable on customer invoices and vendor bills</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: #252E64;">Option to pay partial with selected invoice/bill lines or regular payment with default functionality</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: #252E64;">Once partial payment made by default functionality then this feature will not be available for payment</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: #252E64;">Option to choose invoice/bill lines while registering the payment</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: #252E64;">Paid lines will not show again while registering the payment</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: #252E64;">When some lines are paid and then again go for payment and that time if no any lines are choosen then remaining lines will be considered automatically for payment</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: #252E64;">When doing unreconciliation of payment then related lines will be set as unpaid and will be able to select those lines again</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: #252E64;">When reset to draft then all the lines are available for payment again</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: #252E64;">Report to see which lines are paid and which are not paid</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: #252E64;">Invoices or Bills which are not paid with this feature will not have content to show in report</i></li>
+					        <br/>
+					        <li><i class="fa fa-check" style="color: red;">Once we have made payment any lines with this flow then outstanding payment will not be visible to select for payment</i></li>
+					        <br/>
+					        
+                            <i class="fa fa-check" style="color: #252E64;">Please check below instructions and <i class="fa-brands fa-youtube"><a href="https://youtu.be/TuUH91kf82k">Video<a> for more Details</i></i></li>
+                        </ul>
+				    </div>
+			    </div>
+		    </section>
+		    
+	        <section class="oe_container">
+			    <div class="oe_row oe_spaced">
+			        <h2 class="oe_slogan" style="font-size:30px;"><b><u>How It Works</u></b></h2>
+			        <!--Customer Invoice -->
+                    <div class="oe_bg_img">
+                        <p style="font-size:25px;text-align:center;color:#875A7B;font-weight:bold;">Option to choose Lines in register paymet pop-up</p><br/>
+                        <center>
+                            <img src="Register-Payment-Button.png" style="width:100%;border:5px solid blue;">
+                            <br/><br/>
+                            <img src="Added-Invoice-Lines.png" style="width:100%;border:5px solid blue;">
+                        </center>
+                        <br/><br/>
+                        <p style="font-size:25px;text-align:center;color:#875A7B;font-weight:bold;">Select the lines for payment</p><br/>
+                        <center>
+                            <img src="Lines-selection.png" style="width:100%;border:5px solid blue;">
+                            <br/><br/>
+                            <img src="paild-invoices-in-invoice.png" style="width:100%;border:5px solid blue;">
+                        </center>
+                        <br/><br/>
+                        <p style="font-size:25px;text-align:center;color:#875A7B;font-weight:bold;">Report for paid and upaid lines</p><br/>
+                        <center>
+                            <img src="Report-menu.png" style="width:100%;border:5px solid blue;">
+                            <br/><br/>
+                            <img src="Printed-Report-partial.png" style="width:100%;border:5px solid blue;">
+                        </center>
+                        <br/><br/>
+                        <p style="font-size:25px;text-align:center;color:#875A7B;font-weight:bold;">Pay Remaining lines</p><br/>
+                        <center>
+                            <img src="Pay-remaining-liens.png" style="width:100%;border:5px solid blue;">
+                            <br/><br/>
+                            <img src="Invoice-fully-paid.png" style="width:100%;border:5px solid blue;">
+                            <br/><br/>
+                            <p style="font-size:25px;text-align:center;color:#875A7B;font-weight:bold;">Full paid report</p><br/>
+                            <img src="Printed-Report-full-paid.png" style="width:100%;border:5px solid blue;">
+                            <br/><br/>
+                        </center>
+                        <br/><br/>
+                        <p style="font-size:25px;text-align:center;color:#875A7B;font-weight:bold;">Reset to Draft</p><br/>
+                        <center>
+                            <img src="Reset-to-draft.png" style="width:100%;border:5px solid blue;">
+                            <br/><br/>
+                            <img src="Reset-to-draft-unpaid-liens.png" style="width:100%;border:5px solid blue;">
+                            <br/><br/>
+                            <p style="font-size:25px;text-align:center;color:#875A7B;font-weight:bold;">Report in Draft state</p><br/>
+                            <img src="Unapid-report-print-error.png" style="width:100%;border:5px solid blue;">
+                            <br/><br/>
+                        </center>
+                        <br/><br/>
+                        <p style="font-size:25px;text-align:center;color:#875A7B;font-weight:bold;">Same flow working for Vendor Bill.</p>
+                        <br/><br/>
+                    </div>
+                </div>
+		    </section>
+		    <section class="oe_container ">
+			    <div class="oe_row oe_spaced">
+				    <h2 class="oe_slogan" style="font-size:30px;"><b><u>Free Support</u></b></h2>
+				    <div style="font-size: 16px;">
+					    <ul class="list-unstyled mr32 ml32">
+                            <center>You will get <b>30 Days</b> free support incase any bugs or issue (Except data recovery).</center><br/>
+                        </ul>
+				    </div>
+			    </div>
+		    </section>
+		    <section class="oe_container ">
+			    <div class="oe_row oe_spaced">
+				    <h2 class="oe_slogan" style="font-size:30px;"><b><u>Get In Touch</u></b></h2>
+				    <div style="border-top:#252E64 solid 10px;"></div>
+				    <div class="oe_slogan" style="margin-top:10px !important;">
+                        <a href="https://www.omaxinformatics.com" target="new">
+                            <img src="omax.png" style="width: 190px; margin-bottom: 20px;" class="center-block">
+                            <img src="odoo_learning_partner_rgb.png" style="width: 190px; margin-bottom: 20px;" class="center-block">
+                        </a>
+                    </div>
+                    <div class="oe_slogan" style="margin-top:10px !important;">
+                        <a class="btn btn-primary btn-lg mt8" style="color: #FFFFFF !important; background-color: #252E64;"
+                           target="new" href="https://youtu.be/TuUH91kf82k">
+                            <i class="fa fa-check-square"></i> Video Tutorial
+                        </a>
+                        <a class="btn btn-primary btn-lg mt8" style="color: #FFFFFF !important; background-color: #252E64;"
+                           target="new"
+                           href="https://apps.odoo.com/apps/modules/browse?search=OMAX+Informatics">
+                            <i class="fa fa-binoculars"></i> More Apps
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tbody>
+		                        <tr>
+			                        <td colspan="2" style="font-size:16px; font-weight:bold;" width="100%" align="center">
+			                            <span class="fa fa-certificate fa-1x"> Our Odoo Services</span>
+			                        </td>
+		                        </tr>
+					        </tbody>
+                        </table>
+                        <table class="table" cellpadding="0" cellspacing="0" border="0" width="100%">
+					        <tbody>
+						        <tr>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Implementation</span></center></td>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Development</span></center></td>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Customization</span></center></td>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Migration</span></center></td>
+						        </tr>
+						        <tr>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Integration</span></center></td>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Training</span></center></td>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Support</span></center></td>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Hire Developer</span></center></td>
+						        </tr>
+					        </tbody>
+				        </table>
+                        <br/>
+                        <table class="table" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tbody>
+		                        <tr>
+			                        <td colspan="2" style="font-size:16px; font-weight:bold;" width="100%" align="center">
+			                            <span class="fa fa-certificate fa-1x"> For support, query and question contact us.</span>
+			                        </td>
+		                        </tr>
+					        </tbody>
+                        </table>
+                        <table class="table" cellpadding="0" cellspacing="0" border="0" width="100%">
+					        <tbody>
+						        <tr>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-envelope fa-1x"> contact@omaxinformatics.com</span></center></td>
+							        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> www.omaxinformatics.com</span></center></td>
+						        </tr>
+					        </tbody>
+				        </table>
+                    </div>
+                    <br/>
+                    <div style="border-top:#252E64 solid 10px;"></div>
+			    </div>
+		    </section>
+		    <section class="oe_container ">
+			    <div class="oe_row oe_spaced">
+				    <h2 class="oe_slogan" style="font-size:30px; color:#252E64"><b>Thank you for visiting</b></h2>
+			    </div>
+		    </section>
+		</div>
+	</div>
+</body>
+</html>

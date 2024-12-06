@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+access_restricted_ip_public,restricted.ip public,model_restricted_ip,,1,0,0,0
+access_restricted_ip_publisher,restricted.ip wbesite publisher,model_restricted_ip,website.group_website_restricted_editor,1,1,1,1
+access_restricted_ip_sale,restricted.ip sale,model_restricted_ip,sales_team.group_sale_manager,1,1,1,1
+
+
+access_country_mapping_public,country.mapping public,model_country_mapping,,1,0,0,0
+access_country_mapping_publisher,country.mapping wbesite publisher,model_country_mapping,website.group_website_restricted_editor,1,1,1,1
+access_country_mapping_sale,country.mapping sale,model_country_mapping,sales_team.group_sale_manager,1,1,1,1
+
+acess_settings_geoip,geoip_setting_access,model_geoip_redirect_settings,,1,1,1,1

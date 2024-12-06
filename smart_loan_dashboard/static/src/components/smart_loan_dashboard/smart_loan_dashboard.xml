@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="smart_loan_dashboard.smart_loan_dashboard" owl="1">
+         <div class="wt_dashboard_component overflow-auto vh-100">
+            <div class="d-flex">
+                <div class="content">
+                     <div class="row m-3">
+                            <div class="row">
+                                <div class="col m-0 p-0">
+                                    <div class="shadow-sm border m-2 p-4 bg-white" style="text-align: center;">
+                                        <b>
+                                            <h1>Loan Portfolio Dashboard</h1>
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                         <div class="row wt_col_special">
+                             <KpiCard onClick.bind="viewInvoice" name="'Total Portfolio Amount'" value="state.totalPortfolio.value" percentage="state.totalPortfolio.percentage" wtToatal="state.totalPortfolio.total"/>
+                             <KpiCard onClick.bind="viewInvoice" name="'Bon Portfolio Amount'" value="state.totalPortfolio.value" percentage="state.totalPortfolio.percentage" wtToatal="state.totalPortfolio.total"/>
+                             <KpiCard name="'Cur Portfolio Amount'" value="state.bonPortfolio.value" percentage="state.bonPortfolio.percentage" wtToatal="state.bonPortfolio.total"/>
+                             <KpiCard name="'Retail Portfolio Amount'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Corp Portfolio Amount'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Satisfactory'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Substandard'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Special Mention'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Doubtful'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Principal Due Amount'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Loss'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Collaterized loans'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Non Collaterized loans'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Restructured Collaterized Loans'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Non Collaterized Loans'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Restructured Non collateral'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Zero Interest Loans'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Interest Due Amount'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Late Charges'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Fire Insurance Due Amount'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Life Insurance Due Amount'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Loan Lease Due Amount'" value="2423" percentage="12" wtToatal="150000"/>
+                             <KpiCard name="'Write off'" value="2423" percentage="12" wtToatal="150000"/>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

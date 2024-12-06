@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+    <t t-name="loan_dashboard.pie_chart_template" owl="1">
+       <div  t-ref="pie_chart_ref" id="main" style="width: 100%;height:100%;"></div>
+    </t>
+</template>

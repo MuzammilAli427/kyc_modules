@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <data>
+
+            <report
+            id="action_report_loan_details"
+            model="account.loan"
+            string="Loan Details"
+            report_type="qweb-pdf"
+            name="smart_loan_system.report_loan_detail"
+            file="smart_loan_system.report_loan_detail"
+            />
+
+            <record id="loan_paper_format" model="report.paperformat">
+                <field name="name">Loan</field>
+                <field name="default" eval="True" />
+                <field name="format">A4</field>
+                <field name="page_height">0</field>
+                <field name="page_width">0</field>
+                <field name="orientation">Landscape</field>
+                <field name="margin_top">55</field>
+                <field name="margin_bottom">20</field>
+                <field name="margin_left">5</field>
+                <field name="margin_right">5</field>
+                <field name="header_line" eval="True" />
+                <field name="header_spacing">50</field>
+                <field name="dpi">90</field>
+                <field name="report_ids" eval="[(4, ref('action_report_loan_details'))]" />
+            </record>
+
+        </data>
+</odoo>

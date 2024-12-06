@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="cron_status_template" model="mail.template">
+            <field name="name">Cron Status: Send by email</field>
+            <field name="model_id" ref="model_cron_track"/>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{object.user_id.id}}</field>
+            <field name="subject">Cron Status Of : {{object.cron_name}}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <t t-if="object.user_id.name">
+                            <t t-out="object.user_id.name"/>
+                        </t>
+                        <br/>
+                        <br/>
+                        Cron Name :
+                        <t t-out="object.cron_name"/>
+                        <br/>
+                        <br/>
+                        Start Time :
+                        <t t-out="object.start_time"/>
+                        <br/>
+                        <br/>
+                        End Time :
+                        <t t-out="object.end_time"/>
+                        <br/>
+                        <br/>
+                        Total Taken Time :
+                        <t t-out="object.total_time"/>
+                        <br/>
+                        <br/>
+                        Total Retries :
+                        <t t-out="object.total_retries"/>
+                        <br/>
+                        <br/>
+                        Last Date of Cron Executed:
+                        <t t-out="object.last_date_cron_executed_text"/>
+                        <br/>
+                        <br/>
+                        Total Cron Executed :
+                        <t t-out="object.total_count"/>
+                        <br/>
+                        <br/>
+                        <t t-if="object.cron_track_log">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Error Messages</th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="object.cron_track_log" t-as="line">
+                                    <tbody>
+                                        <td class="text-left">
+                                            <t t-out="line.error_msg"/>
+                                        </td>
+                                    </tbody>
+                                </t>
+                            </table>
+                        </t>
+                    </p>
+                </div>
+            </field>
+            <field name="lang">{{object.user_id.lang}}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

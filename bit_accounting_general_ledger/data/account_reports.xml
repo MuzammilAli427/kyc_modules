@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="account_reports.general_ledger_report" model="account.report">
+    <field eval="True" name="filter_period_comparison"/>
+  </record>
+</odoo>

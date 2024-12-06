@@ -1,0 +1,420 @@
+<odoo>
+    <record id="corporate_form" model="ir.ui.view">
+        <field name="name">Corporate</field>
+        <field name="model">kyc.corporate</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="approve_corporate" type="object"
+                            string="Approve" groups="smart_loan_system.kyc_approver_group"
+                            attrs="{'invisible': [('state', '!=', 'waiting_approval')]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                name="attachment_tree_view_corporate"
+                                type="object" icon="fa-files-o">
+                            <field string="Documents" name="doc_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="open_collateral_record"
+                                type="object" icon="fa-sitemap">
+                            <field string="Collaterals" name="loan_collateral_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="show_partner_loan"
+                                type="object" icon="fa-money">
+                            <field string="Loans" name="loan_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="show_partner_loan_payments"
+                                type="object" icon="fa-comment">
+                            <field string="Loan Payments" name="total_payment_amount" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="show_partner_invoices"
+                                type="object" icon="fa-pencil-square-o">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="total_invoiced" widget='monetary'
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </span>
+                                <span class="o_stat_text">Invoiced</span>
+                            </div>
+                        </button>
+                        <button type="object"
+                                class="oe_stat_button"
+                                id="retail_partner_ledger_button"
+                                icon="fa-pencil-square-o"
+                                name="open_partner_ledger"
+                                string="Partner Ledger"
+                                context="{'default_partner_id': 'partner_id'}">
+                        </button>
+                        <button class="oe_stat_button"
+                                name="show_partner_due_invoices"
+                                type="object" icon="fa-list">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_due" widget='monetary'
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </span>
+                                <span class="o_stat_text">Due</span>
+                            </div>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="customer" readonly="1"/>
+                    </h1>
+                    <br/>
+                    <notebook>
+                        <page string="Customer Information">
+                            <group>
+                                <group string="CORPORATE INFORMATION">
+                                    <field name="is_approver" invisible="1"/>
+                                    <field name="status" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="customer_no" required="1" readonly="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="group_ids" options="{'no_create': True}" widget="many2many_tags" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="name" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="trade_name" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="kvk_no" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="kvk_issue_date" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="business_start_date" widget="date" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="kvk_status" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+
+                                    <label for="tel_office1"/>
+                                    <div>
+                                        <field name="office_code1" class="oe_inline" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                        <field name="tel_office1" class="oe_inline" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    </div>
+                                    <label for="tel_office2"/>
+                                    <div>
+                                        <field name="office_code2" class="oe_inline" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                        <field name="tel_office2" class="oe_inline" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    </div>
+                                    <label for="tel_cellular" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <div>
+                                        <field name="cellular_code" class="oe_inline" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                        <field name="tel_cellular" class="oe_inline" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    </div>
+                                    <field name="email" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="BUSINESS ADDRESS">
+                                    <field name="business_address" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="business_neighborhood" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="business_city" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="business_country_id" required="1" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                </group>
+
+                                <group string="MAILING ADDRESS">
+                                    <field name="mail_address" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="mail_neighborhood" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="mail_city" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                    <field name="mail_country_id" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="SIGNERS INFORMATION">
+                                    <field name="retail_signer_ids">
+                                        <tree>
+                                            <field name="kyc_retail_signers_id" string="Customer Number"/>
+                                            <field name="signers_name" string="First Name"/>
+                                            <field name="signers_last_name" string="Last Name"/>
+                                            <field name="signers_gender" string="Gender"/>
+                                            <field name="signers_id_no" string="ID Number"/>
+                                            <field name="signers_driving_licence_no" string="Driving License #"/>
+                                            <field name="signers_passport_no" string="Passport Number #"/>
+                                            <field name="telephone_home"/>
+                                            <field name="telephone_cellular"/>
+                                            <field name="signers_email"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <group>
+                                                    <field name="kyc_retail_signers_id" string="Customer Number"
+                                                           options="{'no_create': True}"/>
+                                                    <field name="signers_name" string="First Name"/>
+                                                    <field name="signers_last_name" string="Last Name"/>
+                                                    <field name="signers_gender" string="Gender"/>
+                                                    <field name="signers_id_no" string="ID Number"/>
+                                                </group>
+                                                <group>
+                                                    <field name="signers_driving_licence_no"
+                                                           string="Driving License #"/>
+                                                    <field name="signers_passport_no" string="Passport Number #"/>
+                                                    <field name="signers_email" string="Email"/>
+                                                    <label for="signers_tel_home"/>
+                                                    <div>
+                                                        <field name="signers_home_code" class="oe_inline"/>
+                                                        <field name="signers_tel_home" class="oe_inline"/>
+                                                    </div>
+                                                    <label for="signers_tel_cellular"/>
+                                                    <div>
+                                                        <field name="signers_cellular_code" class="oe_inline"/>
+                                                        <field name="signers_tel_cellular" class="oe_inline"/>
+                                                    </div>
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="DIRECTORS INFORMATION">
+                                    <field name="retail_director_ids">
+                                        <tree>
+                                            <field name="customer_no_directors_id"/>
+                                            <field name="directors_name"/>
+                                            <field name="directors_last_name"/>
+                                            <field name="directors_gender"/>
+                                            <field name="directors_id_no"/>
+                                            <field name="directors_driving_licence_no"/>
+                                            <field name="directors_passport_no"/>
+                                            <field name="telephone_home"/>
+                                            <field name="telephone_cellular"/>
+                                            <field name="directors_email"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <group>
+                                                    <field name="customer_no_directors_id" string="Customer Number"
+                                                           options="{'no_create': True}"/>
+                                                    <field name="directors_name" string="First Name"/>
+                                                    <field name="directors_last_name" string="Last Name"/>
+                                                    <field name="directors_gender" string="Gender"/>
+                                                    <field name="directors_id_no" string="ID Number"/>
+                                                </group>
+                                                <group>
+                                                    <field name="directors_driving_licence_no"
+                                                           string="Driving License #"/>
+                                                    <field name="directors_passport_no" string="Passport Number #"/>
+                                                    <field name="directors_email" string="Email"/>
+                                                    <label for="directors_tel_home"/>
+                                                    <div>
+                                                        <field name="directors_home_code" class="oe_inline"/>
+                                                        <field name="directors_tel_home" class="oe_inline"/>
+                                                    </div>
+                                                    <label for="directors_tel_cellular"/>
+                                                    <div>
+                                                        <field name="directors_cellular_code" class="oe_inline"/>
+                                                        <field name="directors_tel_cellular" class="oe_inline"/>
+                                                    </div>
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="UBOs INFORMATION">
+                                    <field name="retail_ubo_ids">
+                                        <tree>
+                                            <field name="kyc_customer_ubo_id"/>
+                                            <field name="ubo_name"/>
+                                            <field name="ubo_last_name"/>
+                                            <field name="ubo_gender"/>
+                                            <field name="ubo_id_no"/>
+                                            <field name="ubo_driving_licence_no"/>
+                                            <field name="ubo_passport_no"/>
+                                            <field name="telephone_home"/>
+                                            <field name="telephone_cellular"/>
+                                            <field name="ubo_email"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <group>
+                                                    <field name="kyc_customer_ubo_id" string="Customer Number"
+                                                           options="{'no_create': True}"/>
+                                                    <field name="ubo_name" string="First Name"/>
+                                                    <field name="ubo_last_name" string="Last Name"/>
+                                                    <field name="ubo_gender" string="Gender"/>
+                                                    <field name="ubo_id_no" string="ID Number"/>
+                                                </group>
+                                                <group>
+                                                    <field name="ubo_driving_licence_no"
+                                                           string="Driving License #"/>
+                                                    <field name="ubo_passport_no" string="Passport Number #"/>
+                                                    <field name="ubo_email" string="Email"/>
+                                                    <label for="ubo_tel_home"/>
+                                                    <div>
+                                                        <field name="ubo_home_code" class="oe_inline"/>
+                                                        <field name="ubo_tel_home" class="oe_inline"/>
+                                                    </div>
+                                                    <label for="ubo_tel_cellular"/>
+                                                    <div>
+                                                        <field name="ubo_cellular_code" class="oe_inline"/>
+                                                        <field name="ubo_tel_cellular" class="oe_inline"/>
+                                                    </div>
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page string="CONTACT PERSON">
+                                    <field name="retail_contact_per_ids">
+                                        <tree>
+                                            <field name="kyc_contact_person_id"/>
+                                            <field name="contact_per_name"/>
+                                            <field name="contact_per_lastname"/>
+                                            <field name="contact_per_gender"/>
+                                            <field name="contact_per_id_no"/>
+                                            <field name="contact_per_driving_lic_no"/>
+                                            <field name="contact_per_passport_no"/>
+                                            <field name="telephone_home"/>
+                                            <field name="telephone_cellular"/>
+                                            <field name="contact_per_email"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <group>
+                                                    <field name="kyc_contact_person_id" string="Customer Number"
+                                                           options="{'no_create': True}"/>
+                                                    <field name="contact_per_name" string="First Name"/>
+                                                    <field name="contact_per_lastname" string="Last Name"/>
+                                                    <field name="contact_per_gender" string="Gender"/>
+                                                    <field name="contact_per_id_no" string="ID Number"/>
+                                                </group>
+                                                <group>
+                                                    <field name="contact_per_driving_lic_no"
+                                                           string="Driving License #"/>
+                                                    <field name="contact_per_passport_no" string="Passport Number #"/>
+                                                    <field name="contact_per_email" string="Email"/>
+                                                    <label for="contact_per_tel_home"/>
+                                                    <div>
+                                                        <field name="contact_per_home_code" class="oe_inline"/>
+                                                        <field name="contact_per_tel_home" class="oe_inline"/>
+                                                    </div>
+                                                    <label for="contact_per_tel_cell"/>
+                                                    <div>
+                                                        <field name="contact_per_cell_code" class="oe_inline"/>
+                                                        <field name="contact_per_tel_cell" class="oe_inline"/>
+                                                    </div>
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </page>
+                        <page string="Internal Notes">
+                            <field name="comment" attrs="{'readonly': [('is_approver', '=', True)]}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="corporate_view_tree" model="ir.ui.view">
+        <field name="name">Corporate</field>
+        <field name="model">kyc.corporate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="group_ids"/>
+                <field name="customer_no"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="corporate_view_kanban" model="ir.ui.view">
+        <field name="name">Corporate Kanban</field>
+        <field name="model">kyc.corporate</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban">
+                <field name="name"/>
+                <field name="customer"/>
+                <field name="email"/>
+                <field name="business_city"/>
+                <field name="business_country_id"/>
+                <field name="image"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <div class="o_kanban_image_fill_left d-none d-md-block"
+                                 t-attf-style="background-image:url('#{background_image}')">
+                                <field name="image" widget="image"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <h3>
+                                        <field name="customer"/>
+                                    </h3>
+                                </strong>
+                                <span>
+                                    <field name="name"/>
+                                    <br/>
+                                    <field name="business_city"/>,
+                                    <field name="business_country_id"/>
+                                    <br/>
+                                    <field name="email"/>
+                                </span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_kyc_corporate_search">
+        <field name="name">smart_loan_system.view_kyc_corporate_search</field>
+        <field name="model">kyc.corporate</field>
+        <field name="arch" type="xml">
+            <search string="KYC Corporate Search">
+                <field name="customer"/>
+                <field name="partner_id"/>
+                <field name="currency_id"/>
+                <field name="status"/>
+                <field name="customer_no"/>
+                <field name="group_ids"/>
+                <field name="name"/>
+                <field name="trade_name"/>
+                <field name="kvk_status"/>
+                <field name="kvk_no"/>
+                <field name="kvk_issue_date"/>
+                <field name="business_start_date"/>
+                <field name="tel_office1"/>
+                <field name="tel_office2"/>
+                <field name="office_code1"/>
+                <field name="office_code2"/>
+                <field name="cellular_code"/>
+                <field name="tel_cellular"/>
+                <field name="email"/>
+                <field name="business_address"/>
+                <field name="business_neighborhood"/>
+                <field name="business_city"/>
+                <field name="business_country_id"/>
+                <field name="mail_address"/>
+                <field name="mail_neighborhood"/>
+                <field name="mail_city"/>
+                <field name="mail_country_id"/>
+                <field name="retail_signer_ids"/>
+                <field name="retail_director_ids"/>
+                <field name="retail_ubo_ids"/>
+                <field name="retail_contact_per_ids"/>
+                <field name="comment"/>
+            </search>
+        </field>
+    </record>
+
+    <record id='corporate_action' model='ir.actions.act_window'>
+        <field name="name">KYC Corporate</field>
+        <field name="res_model">kyc.corporate</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('corporate_view_kanban')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('corporate_form')}),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('corporate_view_tree')}),
+                         ]"/>
+    </record>
+
+    <menuitem name="Corporate" id="corporate_menu" parent="kyc_menu" action="corporate_action"/>
+</odoo>

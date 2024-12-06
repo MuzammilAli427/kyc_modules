@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <data>
+        <record id="wk_geoip_config" model="ir.ui.view">
+            <field name="name">Addons Setting</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="website_webkul_addons.config_webkul_website_addons_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//table/tbody" position="after">
+                     <tr>
+                        <td>2</td>
+                        <td><label for="module_geoip_redirect"/></td>
+                        <td><field name="module_geoip_redirect"/></td>
+                        <td>
+                            <button type="action" name="geoip_redirect.action_geoip_redirect_conf" string="Configuration" class="oe_link"></button>
+                         </td>
+                    </tr>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

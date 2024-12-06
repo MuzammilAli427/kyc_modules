@@ -1,0 +1,6 @@
+    .line_row{
+        min-height: 800px;
+    }
+    .line_row > div {
+        height: 500px;
+    }
